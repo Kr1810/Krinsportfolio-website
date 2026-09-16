@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm: install",
+      "type": "npm",
+      "script": "install",
+      "problemMatcher": []
+    },
+    {
+      "label": "sass: watch",
+      "type": "npm",
+      "script": "compile:scss",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "sass",
+        "fileLocation": "relative",
+        "pattern": {
+          "regexp": "^.*$",
+          "file": 1,
+          "line": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": "Compiled|Sass is watching"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "css: build (prefix + compress)",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": []
+    }
+  ]
+}
