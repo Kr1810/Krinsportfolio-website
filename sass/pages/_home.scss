@@ -1,248 +1,199 @@
 .home-hero {
-  background: #f7f1e6;
+  background: $heroClrBg;
   overflow: hidden;
-  padding: 11rem 0 7rem 0;
+  padding: 17rem 0 9rem 0;
+
+  @include respond(tab-land) {
+    padding: 15rem 0 8rem 0;
+  }
 
   @include respond(tab-port) {
-    padding: 9rem 0 6rem 0;
+    padding: 13rem 0 7rem 0;
   }
 
-  &__collage {
+  @include respond(phone) {
+    padding: 12rem 0 6rem 0;
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  &__intro {
+    text-align: center;
+  }
+
+  &__heading {
+    color: $heroClrText;
+    font-weight: 900;
+    font-size: clamp(3.2rem, 5vw, 5.2rem);
+    line-height: 1.25;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0 1.4rem;
+  }
+
+  &__lede {
+    margin: 2.4rem auto 0;
+    font-size: 1.8rem;
+    line-height: 1.75;
+    color: $heroClrMuted;
+    max-width: 46rem;
+  }
+
+  &__highlight {
     position: relative;
-    width: 92%;
-    max-width: 130rem;
-    margin: 0 auto;
-    padding-top: 63%; // aspect-ratio box: keeps every child's %-based position/size in sync while the viewport scales
-    min-height: 45rem;
+    display: inline-flex;
+    align-items: center;
+    font-family: $heroFontScript;
+    font-weight: 600;
+    color: $heroClrScript;
+    font-size: 1.15em;
+    background: rgba($themeClrPrimary, 0.08);
+    border: 2px solid $themeClrPrimary;
+    border-radius: $commonBorderRadius;
+    padding: 0.15em 0.6em 0.25em;
+  }
 
-    @include respond(phone) {
-      padding-top: 0;
-      min-height: unset;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 8rem 0 6rem 0;
+  &__visual {
+    position: relative;
+    width: min(100%, 60rem);
+    aspect-ratio: 4 / 3.2;
+  }
+
+  &__frame {
+    position: absolute;
+    inset: 0;
+    background: #fffbf3;
+    border: 2px solid $themeClrPrimary;
+    border-radius: $windowBorderRadius;
+    box-shadow: 0 1.6rem 3.2rem rgba(0, 0, 0, 0.08);
+    transform: rotate(-3deg);
+  }
+
+  &__frame-inner {
+    position: absolute;
+    inset: 0;
+    border-radius: $windowBorderRadius;
+    overflow: hidden;
+  }
+
+  &__frame-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // shared corner/edge "selection handle" dots, reused for both the
+  // heading highlight box and the empty visual frame
+  &__handle {
+    position: absolute;
+    display: block;
+    background: #fff;
+    border: 2px solid $themeClrPrimary;
+    border-radius: 50%;
+    width: 0.9rem;
+    height: 0.9rem;
+    transform: translate(-50%, -50%);
+  }
+
+  &__highlight &__handle {
+    width: 0.7rem;
+    height: 0.7rem;
+
+    &--tl {
+      top: 0;
+      left: 0;
+    }
+    &--tr {
+      top: 0;
+      left: 100%;
+    }
+    &--bl {
+      top: 100%;
+      left: 0;
+    }
+    &--br {
+      top: 100%;
+      left: 100%;
     }
   }
 
-  &__label {
-    position: absolute;
-    top: 4%;
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: #2b2118;
+  &__frame &__handle {
+    z-index: 2;
 
-    &--left {
-      left: 2%;
+    &--tl {
+      top: 0;
+      left: 0;
     }
-    &--center {
+    &--tm {
+      top: 0;
       left: 50%;
-      transform: translateX(-50%);
+      border-radius: $commonBorderRadius;
+      width: 2.6rem;
+      height: 0.8rem;
     }
-    &--right {
-      right: 2%;
+    &--tr {
+      top: 0;
+      left: 100%;
     }
-
-    @include respond(tab-port) {
-      font-size: 1.3rem;
+    &--ml {
+      top: 50%;
+      left: 0;
+      border-radius: $commonBorderRadius;
+      width: 0.8rem;
+      height: 2.6rem;
     }
-    @include respond(phone) {
-      display: none;
+    &--mr {
+      top: 50%;
+      left: 100%;
+      border-radius: $commonBorderRadius;
+      width: 0.8rem;
+      height: 2.6rem;
+    }
+    &--bl {
+      top: 100%;
+      left: 0;
+    }
+    &--bm {
+      top: 100%;
+      left: 50%;
+      border-radius: $commonBorderRadius;
+      width: 2.6rem;
+      height: 0.8rem;
+    }
+    &--br {
+      top: 100%;
+      left: 100%;
     }
   }
 
   &__folder {
     position: absolute;
-
-    &-img {
-      width: 100%;
-      display: block;
-      filter: drop-shadow(0 1.2rem 2rem rgba(0, 0, 0, 0.18));
-    }
-
-    &--left {
-      left: 3%;
-      top: 16%;
-      width: 9%;
-
-      @include respond(phone) {
-        display: none;
-      }
-    }
-
-    &--main {
-      left: 50%;
-      top: 40%;
-      width: 25%;
-      transform: translateX(-50%);
-      z-index: 1;
-
-      @include respond(phone) {
-        position: static;
-        transform: none;
-        width: 14rem;
-        margin-top: -3rem;
-      }
-    }
-
-    &--bottom {
-      left: 50%;
-      top: 80%;
-      width: 9%;
-      transform: translateX(-50%);
-
-      @include respond(tab-port) {
-        display: none;
-      }
-    }
+    top: -4.4rem;
+    left: -3.6rem;
+    width: 13rem;
+    z-index: 1;
+    transform: rotate(-8deg);
   }
 
-  &__badge {
-    position: absolute;
-    width: 6.5%;
-    aspect-ratio: 1;
-    background: #fff;
-    border-radius: 22%;
-    box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &-img {
-      width: 60%;
-      display: block;
-      object-fit: contain;
-    }
-
-    &--xd {
-      left: 16%;
-      top: 8%;
-    }
-    &--figma {
-      left: 87.5%;
-      top: 38%;
-    }
-    &--ai {
-      left: 16%;
-      top: 58%;
-
-      @include respond(tab-port) {
-        display: none;
-      }
-    }
-
-    @include respond(phone) {
-      display: none;
-    }
+  &__folder-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
   }
 
-  &__thumb {
-    position: absolute;
-    width: 12%;
-    text-align: center;
-
-    &-img {
-      width: 100%;
-      display: block;
-      border-radius: $commonBorderRadius;
-      box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.15);
-      object-fit: cover;
-      aspect-ratio: 1;
-    }
-
-    &-name {
-      display: block;
-      margin-top: 0.6rem;
-      font-size: 1.2rem;
-      color: #6b6156;
-    }
-
-    &--1 {
-      left: 69%;
-      top: 8%;
-    }
-    &--2 {
-      left: 4%;
-      top: 56%;
-    }
-    &--3 {
-      left: 82%;
-      top: 63%;
-    }
-    &--4 {
-      left: 68%;
-      top: 81%;
-
-      @include respond(tab-port) {
-        display: none;
-      }
-    }
-
-    @include respond(phone) {
-      display: none;
-    }
-  }
-
-  &__cursor {
-    position: absolute;
-    left: 60%;
-    top: 47%;
-    width: 3%;
-    z-index: 2;
-
-    @include respond(phone) {
-      display: none;
-    }
-  }
-
-  &__title {
-    position: absolute;
-    left: 50%;
-    top: 22%;
-    transform: translateX(-50%);
-    width: 70%;
-    text-align: center;
-    z-index: 2;
-
-    @include respond(phone) {
-      position: static;
-      transform: none;
-      width: 100%;
-    }
-
-    &-script {
-      display: block;
-      font-family: 'Dancing Script', cursive;
-      font-weight: 600;
-      color: #7b96b8;
-      font-size: clamp(2.4rem, 5vw, 4.5rem);
-    }
-
-    &-main {
-      display: block;
-      font-weight: 900;
-      color: #2b2118;
-      font-size: clamp(3.4rem, 8vw, 7.5rem);
-      line-height: 1.05;
-    }
-  }
-
-  &__year {
-    position: absolute;
-    left: 50%;
-    top: 70%;
-    transform: translateX(-50%);
-    font-size: 1.8rem;
-    font-style: italic;
-    color: #6b6156;
-
-    @include respond(phone) {
-      position: static;
-      transform: none;
-      margin-top: 2rem;
-      display: block;
+  @include respond(phone) {
+    &__heading {
+      font-size: 2.8rem;
     }
   }
 }
@@ -295,7 +246,7 @@
     font-family: $heroFontScript;
     font-weight: 600;
     color: $heroClrScript;
-    font-size: 1.08em;
+    font-size: 1.1em;
   }
 
   &__copy {
@@ -433,7 +384,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: rgba($heroClrText, 0.45);
+      color: $heroClrMuted;
       margin-bottom: 0.5rem;
     }
     dd {
@@ -531,7 +482,7 @@
     font-family: $heroFontScript;
     font-weight: 600;
     color: $heroClrScript;
-    font-size: 1.08em;
+    font-size: 1.1em;
     margin-top: 0.3rem;
   }
 
@@ -631,7 +582,17 @@
       width: 0.9rem;
       height: 0.9rem;
       border-radius: 50%;
-      background: rgba($heroClrText, 0.15);
+      background: #dfe1e6;
+
+      &:nth-child(1) {
+        background: #ff5f57;
+      }
+      &:nth-child(2) {
+        background: #febc2e;
+      }
+      &:nth-child(3) {
+        background: #28c840;
+      }
     }
   }
 
@@ -656,7 +617,7 @@
 
   &__card-title {
     font-size: 2.1rem;
-    font-weight: 800;
+    font-weight: 900;
     color: $heroClrText;
     margin-bottom: 1.8rem;
   }
@@ -877,8 +838,8 @@
 
     &:hover,
     &:focus-visible {
-      transform: translateY(-6px) rotate(0deg) !important;
-      box-shadow: 0 2rem 3.6rem rgba(0, 0, 0, 0.16);
+      transform: translateY(-4px) rotate(0deg) !important;
+      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
     }
 
     &:focus-visible {
@@ -910,7 +871,17 @@
       width: 0.9rem;
       height: 0.9rem;
       border-radius: 50%;
-      background: rgba($heroClrText, 0.15);
+      background: #dfe1e6;
+
+      &:nth-child(1) {
+        background: #ff5f57;
+      }
+      &:nth-child(2) {
+        background: #febc2e;
+      }
+      &:nth-child(3) {
+        background: #28c840;
+      }
     }
   }
 
@@ -945,7 +916,7 @@
 
   &__title {
     font-size: clamp(2.2rem, 2.6vw, 2.8rem);
-    font-weight: 800;
+    font-weight: 900;
     color: $heroClrText;
     margin-bottom: 0.6rem;
   }
@@ -978,7 +949,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: rgba($heroClrText, 0.45);
+      color: $heroClrMuted;
       margin-bottom: 0.4rem;
     }
     dd {
@@ -1064,7 +1035,7 @@
   &__heading {
     color: $heroClrText;
     font-weight: 900;
-    font-size: clamp(2.6rem, 4vw, 4rem);
+    font-size: clamp(2.8rem, 4.4vw, 4.6rem);
     line-height: 1.25;
   }
 
@@ -1079,7 +1050,7 @@
 
   &__lede {
     margin-top: 2rem;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     line-height: 1.7;
     color: $heroClrMuted;
     max-width: 42rem;
@@ -1160,7 +1131,17 @@
       width: 0.9rem;
       height: 0.9rem;
       border-radius: 50%;
-      background: rgba($heroClrText, 0.15);
+      background: #dfe1e6;
+
+      &:nth-child(1) {
+        background: #ff5f57;
+      }
+      &:nth-child(2) {
+        background: #febc2e;
+      }
+      &:nth-child(3) {
+        background: #28c840;
+      }
     }
   }
 
@@ -1185,7 +1166,7 @@
 
   &__role {
     font-size: 2.1rem;
-    font-weight: 800;
+    font-weight: 900;
     color: $heroClrText;
     margin-bottom: 0.4rem;
   }
@@ -1308,7 +1289,7 @@
   &__heading {
     color: $heroClrText;
     font-weight: 900;
-    font-size: clamp(2.6rem, 4vw, 4rem);
+    font-size: clamp(2.8rem, 4.4vw, 4.6rem);
     line-height: 1.25;
   }
 
@@ -1323,7 +1304,7 @@
 
   &__lede {
     margin-top: 2rem;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     line-height: 1.7;
     color: $heroClrMuted;
     max-width: 42rem;
@@ -1390,7 +1371,17 @@
       width: 0.9rem;
       height: 0.9rem;
       border-radius: 50%;
-      background: rgba($heroClrText, 0.15);
+      background: #dfe1e6;
+
+      &:nth-child(1) {
+        background: #ff5f57;
+      }
+      &:nth-child(2) {
+        background: #febc2e;
+      }
+      &:nth-child(3) {
+        background: #28c840;
+      }
     }
   }
 
@@ -1471,7 +1462,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: rgba($heroClrText, 0.45);
+    color: $heroClrMuted;
   }
 
   &__email {

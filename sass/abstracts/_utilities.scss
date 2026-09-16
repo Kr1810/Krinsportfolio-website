@@ -1,3 +1,33 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -6rem;
+  left: 1rem;
+  z-index: 2000;
+  background: $themeClrPrimary;
+  color: #fff;
+  padding: 1.2rem 2rem;
+  border-radius: $commonBorderRadius;
+  font-weight: 700;
+  font-size: 1.5rem;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 1rem;
+  }
+}
+
 .heading-primary {
   font-size: 6rem;
   text-transform: uppercase;
@@ -74,12 +104,6 @@
       color: #eee;
     }
   }
-}
-
-.heading-sm {
-  font-size: 2.2rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .main-container {

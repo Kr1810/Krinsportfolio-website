@@ -25,6 +25,10 @@ html {
   @include respond(big-desktop) {
     font-size: 65%; //1rem =
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -47,10 +51,10 @@ li {
   list-style: none;
 }
 
-input:focus,
-button:focus,
-a:focus,
-textarea:focus {
+input:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
   outline: none;
 }
 

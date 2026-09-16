@@ -4,31 +4,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Krina's Portfolio</title>
-    <meta name="description" content="Krina's ortfolio " />
+    <title>Krina Suthar — UI/UX &amp; Graphic Designer</title>
+    <meta
+      name="description"
+      content="Portfolio of Krina Suthar, a UI/UX and Graphic Designer crafting thoughtful digital interfaces and visual design work."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Krina Suthar — UI/UX &amp; Graphic Designer" />
+    <meta
+      property="og:description"
+      content="Portfolio of Krina Suthar, a UI/UX and Graphic Designer crafting thoughtful digital interfaces and visual design work."
+    />
+    <meta property="og:image" content="./images/kri0.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Krina Suthar — UI/UX &amp; Graphic Designer" />
+    <meta
+      name="twitter:description"
+      content="Portfolio of Krina Suthar, a UI/UX and Graphic Designer crafting thoughtful digital interfaces and visual design work."
+    />
+    <meta name="twitter:image" content="./images/kri0.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Krina Suthar",
+        "jobTitle": "UI/UX + Graphic Designer",
+        "sameAs": [
+          "https://www.linkedin.com/in/krina-suthar-510537226/",
+          "https://github.com/Kr1810",
+          "https://www.figma.com/@krinasuthar"
+        ]
+      }
+    </script>
 
     <link rel="stylesheet" href="css/style.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body id="top">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="header">
       <div class="header__content">
-        <div class="header__logo-container">
+        <a href="./index.html" class="header__logo-container">
           <div class="header__logo-img-cont">
-            <img
-              src="./images/kri0.png"
-              alt="Krina Suthar Logo Image"
-              class="header__logo-img"
-            />
+            <img src="./images/kri0.png" alt="" class="header__logo-img" />
           </div>
           <span class="header__logo-sub">Krina Suthar</span>
-        </div>
+        </a>
         <div class="header__main">
           <ul class="header__links">
             <li class="header__link-wrapper">
@@ -53,21 +83,29 @@
               <a href="./index.html#contact" class="header__link"> Contact </a>
             </li>
           </ul>
-          <div class="header__main-ham-menu-cont">
+          <button
+            type="button"
+            class="header__main-ham-menu-cont"
+            aria-expanded="false"
+            aria-controls="headerSmMenu"
+            aria-label="Open menu"
+          >
             <img
               src="./assets/svg/ham-menu.svg"
-              alt="hamburger menu"
+              alt=""
+              aria-hidden="true"
               class="header__main-ham-menu"
             />
             <img
               src="./assets/svg/ham-menu-close.svg"
-              alt="hamburger menu close"
+              alt=""
+              aria-hidden="true"
               class="header__main-ham-menu-close d-none"
             />
-          </div>
+          </button>
         </div>
       </div>
-      <div class="header__sm-menu">
+      <div class="header__sm-menu" id="headerSmMenu">
         <div class="header__sm-menu-content">
           <ul class="header__sm-menu-links">
             <li class="header__sm-menu-link">
@@ -101,56 +139,51 @@
         </div>
       </div>
     </header>
+    <main id="main-content">
     <section class="home-hero">
-      <div class="home-hero__collage">
-        <span class="home-hero__label home-hero__label--left">web design</span>
-        <span class="home-hero__label home-hero__label--center">portfolio</span>
-        <span class="home-hero__label home-hero__label--right">social media</span>
+      <div class="main-container">
+        <div class="home-hero__grid">
+          <div class="home-hero__intro">
+            <h1 class="home-hero__heading">
+              Hello, I'm
+              <span class="home-hero__highlight">
+                <span class="home-hero__handle home-hero__handle--tl" aria-hidden="true"></span>
+                <span class="home-hero__handle home-hero__handle--tr" aria-hidden="true"></span>
+                <span class="home-hero__handle home-hero__handle--bl" aria-hidden="true"></span>
+                <span class="home-hero__handle home-hero__handle--br" aria-hidden="true"></span>
+                Krina Suthar
+              </span>
+            </h1>
+            <p class="home-hero__lede">
+              I'm Krina — a UI/UX and Graphic Designer focused on creating thoughtful
+              digital experiences through interaction design, visual systems and clear
+              communication.
+            </p>
+          </div>
 
-        <div class="home-hero__folder home-hero__folder--left" aria-hidden="true">
-          <img src="./assets/svg/folder-icon.svg" alt="" class="home-hero__folder-img" />
+          <div class="home-hero__visual" aria-hidden="true">
+            <span class="home-hero__folder">
+              <img src="./images/icons/mac-folder.jpg" alt="" class="home-hero__folder-img" />
+            </span>
+            <span class="home-hero__frame">
+              <span class="home-hero__frame-inner">
+                <img
+                  src="./images/icons/uiux-design-real-img.jpg"
+                  alt=""
+                  class="home-hero__frame-img"
+                />
+              </span>
+              <span class="home-hero__handle home-hero__handle--tl"></span>
+              <span class="home-hero__handle home-hero__handle--tm"></span>
+              <span class="home-hero__handle home-hero__handle--tr"></span>
+              <span class="home-hero__handle home-hero__handle--ml"></span>
+              <span class="home-hero__handle home-hero__handle--mr"></span>
+              <span class="home-hero__handle home-hero__handle--bl"></span>
+              <span class="home-hero__handle home-hero__handle--bm"></span>
+              <span class="home-hero__handle home-hero__handle--br"></span>
+            </span>
+          </div>
         </div>
-        <div class="home-hero__folder home-hero__folder--main" aria-hidden="true">
-          <img src="./assets/svg/folder-icon.svg" alt="" class="home-hero__folder-img" />
-        </div>
-        <div class="home-hero__folder home-hero__folder--bottom" aria-hidden="true">
-          <img src="./assets/svg/folder-icon.svg" alt="" class="home-hero__folder-img" />
-        </div>
-
-        <div class="home-hero__badge home-hero__badge--xd" aria-hidden="true">
-          <img src="./images/AdobeXD_Logo.svg" alt="" class="home-hero__badge-img" />
-        </div>
-        <div class="home-hero__badge home-hero__badge--figma" aria-hidden="true">
-          <img src="./images/figma_logo.png" alt="" class="home-hero__badge-img" />
-        </div>
-        <div class="home-hero__badge home-hero__badge--ai" aria-hidden="true">
-          <img src="./images/skills/Ai.png" alt="" class="home-hero__badge-img" />
-        </div>
-
-        <figure class="home-hero__thumb home-hero__thumb--1">
-          <img src="./images/Login.png" alt="Login screen UI design" class="home-hero__thumb-img" />
-          <figcaption class="home-hero__thumb-name">login_ui.png</figcaption>
-        </figure>
-        <figure class="home-hero__thumb home-hero__thumb--2">
-          <img src="./images/Wireframe.png" alt="Wireframe design" class="home-hero__thumb-img" />
-          <figcaption class="home-hero__thumb-name">wireframe.png</figcaption>
-        </figure>
-        <figure class="home-hero__thumb home-hero__thumb--3">
-          <img src="./images/Restro-menu.png" alt="Restaurant menu UI design" class="home-hero__thumb-img" />
-          <figcaption class="home-hero__thumb-name">restro_menu.png</figcaption>
-        </figure>
-        <figure class="home-hero__thumb home-hero__thumb--4">
-          <img src="./images/E-Mail Template.png" alt="Email template design" class="home-hero__thumb-img" />
-          <figcaption class="home-hero__thumb-name">email_template.png</figcaption>
-        </figure>
-
-        <img src="./assets/svg/cursor-pointer.svg" alt="" class="home-hero__cursor" aria-hidden="true" />
-
-        <div class="home-hero__title">
-          <span class="home-hero__title-script">hey, i'm</span>
-          <h1 class="home-hero__title-main">Krina Suthar</h1>
-        </div>
-        <span class="home-hero__year">(2025)</span>
       </div>
     </section>
 
@@ -287,7 +320,7 @@
         <h2 class="heading heading-sec heading-sec__mb-med">
           <span class="heading-sec__main">Resume</span>
           <span class="heading-sec__sub">
-            <strong>Ready to collaboreate with me ?</strong>  <br>
+            <strong>Ready to collaborate with me?</strong> <br>
             Please do not hesitate to get in touch with me if you have any questions. 
             You can also get my resume by downloading it below.
           </span><br>
@@ -295,7 +328,7 @@
         <div class="Resume__content">
           <div class="Resume__content-title">
             <a href="./assets/Krina Suthar_RESUMEfnl.pdf" 
-            class="btn btn--med btn--theme dynamicBgClr">Download CV</a>
+            class="btn btn--med btn--theme">Download CV</a>
           </div>  
         </div>
       </div>
@@ -389,72 +422,73 @@
         </div>
       </div>
     </section>
+    </main>
     <footer class="main-footer">
       <div class="main-container">
-        <div class="main-footer__upper">
-          <div class="main-footer__row main-footer__row-1">
-            <h2 class="heading heading-sm main-footer__heading-sm">
-              <span>Social</span>
-            </h2>
-            <div class="main-footer__social-cont">
-              <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/krina-suthar-510537226/">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/linkedin-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/github-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./images/figma.png"
-                  alt="icon"
-                />
-              </a>
-              <!-- <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/yt-ico.png"
-                  alt="icon"
-                />-->
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon main-footer__icon--mr-none"
-                  src="./assets/png/insta-ico.png"
-                  alt="icon"
-                />
-              </a>
-            </div>
+        <div class="main-footer__top main-footer__reveal">
+          <div class="main-footer__identity">
+            <span class="main-footer__eyebrow">SYSTEM/</span>
+            <p class="main-footer__name">Krina Suthar</p>
+            <p class="main-footer__role">UI/UX + Graphic Designer</p>
+            <span class="main-footer__status">
+              <span class="main-footer__status-dot" aria-hidden="true"></span>
+              Open to full-time opportunities
+            </span>
           </div>
-          <div class="main-footer__row main-footer__row-2">
-            <h4 class="heading heading-sm text-lt">Krina Suthar</h4>
-            <p class="main-footer__short-desc">
-              A UI/UX-focused Designer crafting intuitive and engaging user interfaces for websites and applications that contribute to the overall success of the product.
-            </p>
+
+          <nav class="main-footer__nav" aria-label="Footer navigation">
+            <span class="main-footer__col-label">Navigation</span>
+            <ul>
+              <li><a href="./index.html#about">About</a></li>
+              <li><a href="./index.html#skills">Skills</a></li>
+              <li><a href="./index.html#projects">Projects</a></li>
+              <li><a href="./index.html#experience">Experience</a></li>
+              <li><a href="./index.html#contact">Contact</a></li>
+            </ul>
+          </nav>
+
+          <div class="main-footer__connect">
+            <span class="main-footer__col-label">Connect</span>
+            <ul>
+              <li>
+                <a href="mailto:121krinas@gmail.com"
+                  >Email <span aria-hidden="true">↗</span></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/krina-suthar-510537226/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn <span aria-hidden="true">↗</span></a
+                >
+              </li>
+            </ul>
           </div>
         </div>
 
-        <!-- If you give me some credit or shoutout here by linking to my website, then it will be a big thing for me and will help me a lot :) -->
-        <div class="main-footer__lower">
-          &copy; Copyright 2024. Made by
-          <a rel="noreferrer" target="_blank" href="#">Krina Suthar</a>
+        <div class="main-footer__bottom main-footer__reveal">
+          <p class="main-footer__meta">
+            <span>status: portfolio loaded successfully</span>
+            <span
+              >&copy; <span id="footerYear">2025</span> Krina Suthar — end of
+              file.</span
+            >
+          </p>
+          <a href="#top" class="main-footer__top-link"
+            >Back to top <span aria-hidden="true">↑</span></a
+          >
         </div>
       </div>
     </footer>
 
     <script src="./index.js"></script>
+    <script src="./assets/js/reveal.js"></script>
     <script src="./assets/js/about.js"></script>
     <script src="./assets/js/toolbox.js"></script>
     <script src="./assets/js/experience.js"></script>
     <script src="./assets/js/contact.js"></script>
     <script src="./assets/js/selected-work.js"></script>
+    <script src="./assets/js/footer.js"></script>
   </body>
 </html>

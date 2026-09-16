@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Know more about Project 1</title>
-    <meta name="description" content="Case study page of Project" />
+    <title>Restro — Restaurant Menu UI Case Study | Krina Suthar</title>
+    <meta
+      name="description"
+      content="A mobile menu experience focused on clear navigation and an easy, visually appealing ordering journey. UI/UX case study by Krina Suthar."
+    />
 
     <link rel="stylesheet" href="css/style.css" />
 
@@ -16,19 +19,16 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body id="top">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="header">
       <div class="header__content">
-        <div class="header__logo-container">
+        <a href="./index.html" class="header__logo-container">
           <div class="header__logo-img-cont">
-            <img
-              src="./images/kri0.png"
-              alt="Krina Suthar Logo Image"
-              class="header__logo-img"
-            />
+            <img src="./images/kri0.png" alt="" class="header__logo-img" />
           </div>
-          <span class="header__logo-sub">Krina suthar</span>
-        </div>
+          <span class="header__logo-sub">Krina Suthar</span>
+        </a>
         <div class="header__main">
           <ul class="header__links">
             <li class="header__link-wrapper">
@@ -46,21 +46,29 @@
               <a href="./index.html#contact" class="header__link"> Contact </a>
             </li>
           </ul>
-          <div class="header__main-ham-menu-cont">
+          <button
+            type="button"
+            class="header__main-ham-menu-cont"
+            aria-expanded="false"
+            aria-controls="headerSmMenu"
+            aria-label="Open menu"
+          >
             <img
               src="./assets/svg/ham-menu.svg"
-              alt="hamburger menu"
+              alt=""
+              aria-hidden="true"
               class="header__main-ham-menu"
             />
             <img
               src="./assets/svg/ham-menu-close.svg"
-              alt="hamburger menu close"
+              alt=""
+              aria-hidden="true"
               class="header__main-ham-menu-close d-none"
             />
-          </div>
+          </button>
         </div>
       </div>
-      <div class="header__sm-menu">
+      <div class="header__sm-menu" id="headerSmMenu">
         <div class="header__sm-menu-content">
           <ul class="header__sm-menu-links">
             <li class="header__sm-menu-link">
@@ -82,16 +90,17 @@
         </div>
       </div>
     </header>
+    <main id="main-content">
     <section class="project-cs-hero">
       <div class="project-cs-hero__content">
-        <h1 class="heading-primary">Restro-A Restaurant Menu UI (Mobile)</menu></h1>
+        <h1 class="heading-primary">Restro-A Restaurant Menu UI (Mobile)</h1>
         <div class="project-cs-hero__info">
           <p class="text-primary">
             A landing page with smart animation effects | Visually Appealing | Easy to Use | Categorized Layout
           </p>
         </div>
         <div class="project-cs-hero__cta">
-          <a href="https://www.figma.com/design/GS3ViNpjQInZOA8hu6GpeE/restaurant-menu?node-id=0-1&t=UPuAKhDb4ECOrsiM-1 " class="btn btn--bg" target="_blank">Live Link</a>
+          <a href="https://www.figma.com/design/GS3ViNpjQInZOA8hu6GpeE/restaurant-menu?node-id=0-1&t=UPuAKhDb4ECOrsiM-1" class="btn btn--bg" target="_blank" rel="noopener noreferrer">Live Link</a>
         </div>
       </div>
     </section>
@@ -101,8 +110,9 @@
           <div class="project-details__showcase-img-cont">
             <img
               src="./images/Restro-menu.png"
-              alt="Project Image"
+              alt="Restro restaurant menu mobile UI screens"
               class="project-details__showcase-img"
+              loading="lazy"
             />
           </div>
           <div class="project-details__content-main">
@@ -146,6 +156,7 @@
                 href="https://www.figma.com/design/GS3ViNpjQInZOA8hu6GpeE/restaurant-menu?node-id=0-1&t=UPuAKhDb4ECOrsiM-1"
                 class="btn btn--med btn--theme project-details__links-btn"
                 target="_blank"
+                rel="noopener noreferrer"
                 >Live Link</a>
               
                <!--<a
@@ -159,65 +170,67 @@
         </div>
       </div>
     </section>
+    </main>
     <footer class="main-footer">
       <div class="main-container">
-        <div class="main-footer__upper">
-          <div class="main-footer__row main-footer__row-1">
-            <h2 class="heading heading-sm main-footer__heading-sm">
-              <span>Social</span>
-            </h2>
-            <div class="main-footer__social-cont">
-              <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/krina-suthar-510537226/">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/linkedin-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/github-ico.png"
-                  alt="icon"
-                />
-              </a>
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./images/figma.png"
-                  alt="icon"
-                />
-              </a>
-              <!--<a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon"
-                  src="./assets/png/yt-ico.png"
-                  alt="icon"
-                />
-              </a>-->
-              <a target="_blank" rel="noreferrer" href="#">
-                <img
-                  class="main-footer__icon main-footer__icon--mr-none"
-                  src="./assets/png/insta-ico.png"
-                  alt="icon"
-                />
-              </a>
-            </div>
+        <div class="main-footer__top main-footer__reveal">
+          <div class="main-footer__identity">
+            <span class="main-footer__eyebrow">SYSTEM/</span>
+            <p class="main-footer__name">Krina Suthar</p>
+            <p class="main-footer__role">UI/UX + Graphic Designer</p>
+            <span class="main-footer__status">
+              <span class="main-footer__status-dot" aria-hidden="true"></span>
+              Open to full-time opportunities
+            </span>
           </div>
-          <div class="main-footer__row main-footer__row-2">
-            <h4 class="heading heading-sm text-lt">Krina Suthar</h4>
-            <p class="main-footer__short-desc">
-              A UI/UX-focused Designer crafting intuitive and engaging user interfaces for websites and applications that contribute to the overall success of the product.
-            </p>
+
+          <nav class="main-footer__nav" aria-label="Footer navigation">
+            <span class="main-footer__col-label">Navigation</span>
+            <ul>
+              <li><a href="./index.html#about">About</a></li>
+              <li><a href="./index.html#skills">Skills</a></li>
+              <li><a href="./index.html#projects">Projects</a></li>
+              <li><a href="./index.html#experience">Experience</a></li>
+              <li><a href="./index.html#contact">Contact</a></li>
+            </ul>
+          </nav>
+
+          <div class="main-footer__connect">
+            <span class="main-footer__col-label">Connect</span>
+            <ul>
+              <li>
+                <a href="mailto:121krinas@gmail.com"
+                  >Email <span aria-hidden="true">↗</span></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/krina-suthar-510537226/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn <span aria-hidden="true">↗</span></a
+                >
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div class="main-footer__lower">
-          &copy; Copyright 2024. Made by
-          <a rel="noreferrer" target="_blank" href="#">Krina Suthar</a>
+        <div class="main-footer__bottom main-footer__reveal">
+          <p class="main-footer__meta">
+            <span>status: portfolio loaded successfully</span>
+            <span
+              >&copy; <span id="footerYear">2025</span> Krina Suthar — end of
+              file.</span
+            >
+          </p>
+          <a href="#top" class="main-footer__top-link"
+            >Back to top <span aria-hidden="true">↑</span></a
+          >
         </div>
       </div>
     </footer>
     <script src="./index.js"></script>
+    <script src="./assets/js/reveal.js"></script>
+    <script src="./assets/js/footer.js"></script>
   </body>
 </html>

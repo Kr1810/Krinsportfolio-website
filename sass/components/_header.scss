@@ -26,8 +26,13 @@
     color: $heroClrText;
     transition: color 0.3s;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       color: $themeClrPrimary;
+    }
+    &:focus-visible {
+      outline: 3px solid $themeClrPrimary;
+      outline-offset: 4px;
     }
   }
   &__logo-img-cont {
@@ -96,6 +101,10 @@
     &:focus-visible::after {
       transform: scaleX(1);
     }
+    &:focus-visible {
+      outline: 3px solid $themeClrPrimary;
+      outline-offset: -4px;
+    }
 
     @include respond(tab-land) {
       padding: 2.2rem 1.5rem;
@@ -110,9 +119,16 @@
 
   &__main-ham-menu-cont {
     display: none;
+    box-sizing: content-box;
     width: 3rem;
+    background: none;
+    padding: 2.2rem 0.8rem;
+    margin-right: -0.8rem;
 
-    padding: 2.2rem 0;
+    &:focus-visible {
+      outline: 3px solid $themeClrPrimary;
+      outline-offset: 2px;
+    }
 
     @include respond(tab-port) {
       display: block;
@@ -160,8 +176,13 @@
       letter-spacing: 2px;
       transition: color .3s;
 
-      &:hover {
+      &:hover,
+      &:focus-visible {
         color: $themeClrPrimary;
+      }
+      &:focus-visible {
+        outline: 3px solid $themeClrPrimary;
+        outline-offset: -4px;
       }
     }
     &:first-child {

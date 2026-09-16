@@ -1,66 +1,184 @@
 .main-footer {
-  background: #000;
-  color: #fff;
-  &__upper {
-    display: flex;
-    justify-content: space-between;
-    padding: 8rem 0;
+  background: $heroClrBg;
+  border-top: 1px solid rgba($heroClrText, 0.08);
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 5rem;
+    padding: 7rem 0 4rem;
+
     @include respond(tab-port) {
-      padding: 6rem 0;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 6rem 0 3.5rem;
     }
     @include respond(phone) {
-      display: block;
+      grid-template-columns: 1fr;
+      gap: 3.6rem;
+      padding: 6rem 0 3.5rem;
     }
   }
 
-  &__row-1 {
-    order: 2;
-    @include respond(tab-port) {
-      margin-bottom: 5rem;
+  &__eyebrow {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $themeClrPrimary;
+    margin-bottom: 1.4rem;
+  }
+
+  &__name {
+    font-size: 2rem;
+    font-weight: 900;
+    color: $heroClrText;
+    margin-bottom: 0.3rem;
+  }
+
+  &__role {
+    font-size: 1.4rem;
+    color: $heroClrMuted;
+    margin-bottom: 1.8rem;
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $heroClrText;
+  }
+
+  &__status-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: $themeClrPrimary;
+    flex-shrink: 0;
+  }
+
+  &__col-label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $heroClrMuted;
+    margin-bottom: 1.8rem;
+  }
+
+  &__nav,
+  &__connect {
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
     }
-  }
-  &__row-2 {
-    width: 40%;
-    order: 1;
-    max-width: 50rem;
-    @include respond(tab-port) {
-      width: 100%;
-    }
-  }
 
-  &__short-desc {
-    margin-top: 2rem;
-    color: #eee;
-    font-size: 1.5rem;
-    line-height: 1.7;
-  }
-
-  &__social-cont {
-    margin-top: 2rem;
-  }
-
-  &__icon {
-    margin-right: 1rem;
-    width: 2.5rem;
-    &--mr-none {
-      margin-right: 0;
-    }
-  }
-
-  &__lower {
-    padding: 4rem 0;
-    border-top: 1px solid #444;
-    color: #eee;
-    font-size: 1.2rem;
-    text-align: left;
-    text-align: center;
     a {
-      text-decoration: underline;
-      font-weight: bold;
-      margin-left: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $heroClrText;
+      transition: color 0.25s ease;
+
+      &:hover,
+      &:focus-visible {
+        color: $themeClrPrimary;
+      }
+      &:focus-visible {
+        outline: 3px solid $themeClrPrimary;
+        outline-offset: 3px;
+      }
+
+      span {
+        display: inline-block;
+        transition: transform 0.25s ease;
+      }
+      &:hover span,
+      &:focus-visible span {
+        transform: translate(2px, -2px);
+      }
     }
-    @include respond(tab-port) {
-      padding: 3.5rem 0;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 2.4rem 0;
+    border-top: 1px solid rgba($heroClrText, 0.08);
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    font-size: 1.3rem;
+    color: $heroClrMuted;
+  }
+
+  &__top-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $heroClrText;
+    transition: color 0.25s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $themeClrPrimary;
+    }
+    &:focus-visible {
+      outline: 3px solid $themeClrPrimary;
+      outline-offset: 3px;
+    }
+
+    span {
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+    &:hover span,
+    &:focus-visible span {
+      transform: translateY(-2px);
+    }
+  }
+
+  &__reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  @include respond(phone) {
+    &__bottom {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 }

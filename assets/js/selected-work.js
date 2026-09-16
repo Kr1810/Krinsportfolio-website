@@ -128,24 +128,5 @@ if (selectedWorkList) {
   selectedWorkList.innerHTML = SELECTED_WORK.map(selectedWorkItemHTML).join('')
 
   const items = selectedWorkList.querySelectorAll('.selected-work__item')
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches
-
-  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('selected-work__item--visible')
-            revealObserver.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -80px 0px' }
-    )
-    items.forEach((item) => revealObserver.observe(item))
-  } else {
-    items.forEach((item) => item.classList.add('selected-work__item--visible'))
-  }
+  initScrollReveal(items, 'selected-work__item--visible')
 }
