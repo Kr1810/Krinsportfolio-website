@@ -49,9 +49,9 @@ const TOOLBOX = [
     title: 'Tools',
     file: 'tools.txt',
     skills: [
-      { name: 'Figma', icon: './images/figma_logo.png' },
+      { name: 'Figma', icon: './images/figma_logo.webp' },
       { name: 'Adobe XD', icon: './images/AdobeXD_Logo.svg' },
-      { name: 'Illustrator', icon: './images/skills/Ai.png' },
+      { name: 'Illustrator', icon: './images/skills/Ai.webp' },
       { name: 'HTML', icon: null },
       { name: 'CSS', icon: null },
     ],
