@@ -221,8 +221,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
+    font-family: $fontMono;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 1.5px;
     color: $themeClrPrimary;
     margin-bottom: 2.4rem;
@@ -335,7 +336,7 @@
     --qi-rotate: 1deg;
     position: relative;
     background: #fffbf3;
-    border: 1px solid rgba($heroClrText, 0.08);
+    border: 1px solid $heroClrBorder;
     border-radius: $paperBorderRadius;
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
     padding: 3.6rem 3.2rem;
@@ -461,8 +462,9 @@
 
   &__eyebrow {
     display: inline-block;
+    font-family: $fontMono;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: $themeClrPrimary;
@@ -508,7 +510,7 @@
     --tb-rotate: 0deg;
     position: relative;
     background: #fffbf3;
-    border: 1px solid rgba($heroClrText, 0.08);
+    border: 1px solid $heroClrBorder;
     border-radius: $windowBorderRadius;
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -569,7 +571,7 @@
     gap: 1.2rem;
     padding: 1.1rem 1.6rem;
     background: #fbf8f2;
-    border-bottom: 1px solid rgba($heroClrText, 0.08);
+    border-bottom: 1px solid $heroClrBorder;
   }
 
   &__card-dots {
@@ -723,8 +725,9 @@
 
   &__eyebrow {
     display: inline-block;
+    font-family: $fontMono;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: $themeClrPrimary;
@@ -788,7 +791,7 @@
     position: relative;
     background: #fff;
     border-radius: $windowBorderRadius;
-    border: 1px solid rgba($heroClrText, 0.08);
+    border: 1px solid $heroClrBorder;
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
@@ -822,7 +825,7 @@
     gap: 1.2rem;
     padding: 1.1rem 1.6rem;
     background: #fbf8f2;
-    border-bottom: 1px solid rgba($heroClrText, 0.08);
+    border-bottom: 1px solid $heroClrBorder;
   }
 
   &__window-dots {
@@ -1006,8 +1009,9 @@
 
   &__eyebrow {
     display: inline-block;
+    font-family: $fontMono;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: $themeClrPrimary;
@@ -1042,7 +1046,7 @@
     margin-top: 3.2rem;
     list-style: none;
     padding: 0;
-    border-top: 1px solid rgba($heroClrText, 0.1);
+    border-top: 1px solid $heroClrBorder;
     max-width: 42rem;
   }
 
@@ -1051,7 +1055,7 @@
     flex-wrap: wrap;
     gap: 0.4rem 1.2rem;
     padding: 1.2rem 0;
-    border-bottom: 1px solid rgba($heroClrText, 0.1);
+    border-bottom: 1px solid $heroClrBorder;
     font-size: 1.4rem;
     color: $heroClrMuted;
 
@@ -1072,7 +1076,7 @@
   &__card {
     position: relative;
     background: #fffbf3;
-    border: 1px solid rgba($heroClrText, 0.08);
+    border: 1px solid $heroClrBorder;
     border-left: 4px solid $themeClrPrimary;
     border-radius: $windowBorderRadius;
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
@@ -1101,7 +1105,7 @@
     gap: 1.2rem;
     padding: 1.1rem 1.6rem;
     background: #fbf8f2;
-    border-bottom: 1px solid rgba($heroClrText, 0.08);
+    border-bottom: 1px solid $heroClrBorder;
   }
 
   &__card-dots {
@@ -1261,8 +1265,9 @@
 
   &__eyebrow {
     display: inline-block;
+    font-family: $fontMono;
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: $themeClrPrimary;
@@ -1314,7 +1319,7 @@
   &__panel {
     position: relative;
     background: #fffbf3;
-    border: 1px solid rgba($heroClrText, 0.08);
+    border: 1px solid $heroClrBorder;
     border-top: 4px solid $themeClrPrimary;
     border-radius: $windowBorderRadius;
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
@@ -1342,7 +1347,7 @@
     gap: 1.2rem;
     padding: 1.1rem 1.6rem;
     background: #fbf8f2;
-    border-bottom: 1px solid rgba($heroClrText, 0.08);
+    border-bottom: 1px solid $heroClrBorder;
   }
 
   &__panel-dots {
@@ -1384,7 +1389,7 @@
     gap: 0.8rem;
     padding-bottom: 2rem;
     margin-bottom: 2.2rem;
-    border-bottom: 1px solid rgba($heroClrText, 0.08);
+    border-bottom: 1px solid $heroClrBorder;
     font-size: 1.5rem;
     color: $heroClrMuted;
 
@@ -1437,7 +1442,7 @@
     gap: 1.2rem;
     margin-top: 2.8rem;
     padding-top: 2.4rem;
-    border-top: 1px solid rgba($heroClrText, 0.08);
+    border-top: 1px solid $heroClrBorder;
   }
 
   &__email-label {

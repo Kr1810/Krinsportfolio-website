@@ -1,6 +1,6 @@
 .main-footer {
   background: $heroClrBg;
-  border-top: 1px solid rgba($heroClrText, 0.08);
+  border-top: 1px solid $heroClrBorder;
 
   &__top {
     display: grid;
@@ -117,7 +117,7 @@
     justify-content: space-between;
     gap: 1.2rem;
     padding: 2.4rem 0;
-    border-top: 1px solid rgba($heroClrText, 0.08);
+    border-top: 1px solid $heroClrBorder;
   }
 
   &__meta {

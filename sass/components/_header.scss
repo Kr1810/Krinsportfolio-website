@@ -155,7 +155,7 @@
     opacity: 0;
     transition: all .3s;
     box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.08);
-    border-top: 1px solid rgba($heroClrText, 0.08);
+    border-top: 1px solid $heroClrBorder;
 
     &--active {
       visibility: hidden;
@@ -175,7 +175,7 @@
       font-size: 1.6rem;
       color: $heroClrText;
       text-align: right;
-      border-bottom: 1px solid rgba($heroClrText, 0.1);
+      border-bottom: 1px solid $heroClrBorder;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -192,7 +192,7 @@
     }
     &:first-child {
       a {
-        border-top: 1px solid rgba($heroClrText, 0.1);
+        border-top: 1px solid $heroClrBorder;
       }
     }
   }

@@ -1,14 +1,23 @@
-$themeClrPrimary: #0062b9;
+// palette
+$graphite: #353535;
+$stormy-teal: #3c6e71;
+$white: #ffffff;
+$alabaster-grey: #d9d9d9;
+$yale-blue: #284b63;
+
+$themeClrPrimary: $yale-blue;
 
 $commonBorderRadius: 5px;
 $windowBorderRadius: 1.4rem;
 $paperBorderRadius: 2.2rem;
 
 // shared with the hero's desktop/file-system visual language
-$heroClrBg: #f7f1e6;
-$heroClrText: #2b2118;
-$heroClrMuted: #6b6156;
-$heroClrScript: #4a6f9b;
+$heroClrBg: $white;
+$heroClrText: $graphite;
+$heroClrMuted: mix($graphite, $white, 70%); // lighter neutral, keeps AA contrast on white
+$heroClrScript: $stormy-teal;
+$heroClrBorder: $alabaster-grey;
 $heroFontScript: 'Cookie', cursive;
 $fontPrimary: 'Stack Sans Notch', sans-serif;
 $fontBody: 'Manrope', sans-serif;
+$fontMono: 'Cascadia Code Light', monospace;
