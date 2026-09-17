@@ -757,27 +757,17 @@
   }
 
   &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 14rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4.5rem;
 
-    @include respond(tab-land) {
-      gap: 9rem;
-    }
     @include respond(tab-port) {
-      gap: 7rem;
-    }
-    @include respond(phone) {
-      gap: 5rem;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
     }
   }
 
   &__item {
-    display: grid;
-    grid-template-columns: 7fr 5fr;
-    gap: 6rem;
-    align-items: center;
-
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.7s ease, transform 0.7s ease;
@@ -785,39 +775,6 @@
     &--visible {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    &--odd {
-      .selected-work__window {
-        transform: rotate(-0.6deg);
-      }
-    }
-
-    &--even {
-      grid-template-columns: 5fr 7fr;
-      margin-top: 6rem;
-
-      .selected-work__window {
-        order: 2;
-        transform: rotate(0.5deg);
-      }
-      .selected-work__meta {
-        order: 1;
-      }
-    }
-
-    @include respond(tab-land) {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      margin-top: 0;
-
-      .selected-work__window {
-        order: -1;
-        transform: none;
-      }
-      .selected-work__meta {
-        order: 0;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -829,6 +786,7 @@
 
   &__window {
     display: block;
+    position: relative;
     background: #fff;
     border-radius: $windowBorderRadius;
     border: 1px solid rgba($heroClrText, 0.08);
@@ -838,7 +796,7 @@
 
     &:hover,
     &:focus-visible {
-      transform: translateY(-4px) rotate(0deg) !important;
+      transform: translateY(-4px);
       box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
     }
 
@@ -849,7 +807,13 @@
 
     &:hover .selected-work__window-img,
     &:focus-visible .selected-work__window-img {
-      transform: scale(1.02);
+      transform: scale(1.04);
+    }
+
+    &:hover .selected-work__overlay,
+    &:focus-visible .selected-work__overlay {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -893,6 +857,7 @@
 
   &__window-preview {
     display: block;
+    position: relative;
     aspect-ratio: 3 / 2;
     overflow: hidden;
   }
@@ -905,55 +870,68 @@
     transition: transform 0.5s ease;
   }
 
+  // Hover/focus reveal — sits over the preview image, same card, all projects.
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 2.4rem 2.6rem;
+    overflow-y: auto;
+    background: rgba(255, 251, 243, 0.97);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
   &__number {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 1px;
+    color: $themeClrPrimary;
+    margin-bottom: 0.8rem;
+  }
+
+  &__title {
+    font-size: clamp(1.8rem, 2vw, 2.2rem);
+    font-weight: 900;
+    color: $heroClrText;
+    margin-bottom: 0.4rem;
+  }
+
+  &__subtitle {
+    font-size: 1.3rem;
+    font-weight: 600;
     color: $themeClrPrimary;
     margin-bottom: 1.2rem;
   }
 
-  &__title {
-    font-size: clamp(2.2rem, 2.6vw, 2.8rem);
-    font-weight: 900;
-    color: $heroClrText;
-    margin-bottom: 0.6rem;
-  }
-
-  &__subtitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: $themeClrPrimary;
-    margin-bottom: 1.6rem;
-  }
-
   &__desc {
-    font-size: 1.6rem;
-    line-height: 1.7;
+    font-size: 1.4rem;
+    line-height: 1.6;
     color: $heroClrMuted;
-    max-width: 42rem;
-    margin-bottom: 2.4rem;
+    margin-bottom: 1.6rem;
   }
 
   &__facts {
     display: flex;
     flex-wrap: wrap;
-    gap: 2.4rem 3.2rem;
-    margin-bottom: 2.8rem;
+    gap: 1.4rem 2rem;
+    margin-bottom: 1.8rem;
   }
 
   &__fact {
     dt {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: $heroClrMuted;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
     dd {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 600;
       color: $heroClrText;
     }
@@ -963,28 +941,24 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: $heroClrText;
     padding-bottom: 0.3rem;
     border-bottom: 2px solid rgba($heroClrText, 0.2);
+    margin-top: auto;
+    align-self: flex-start;
     transition: color 0.25s ease, border-color 0.25s ease;
+  }
 
-    &:hover,
-    &:focus-visible {
-      color: $themeClrPrimary;
-      border-color: $themeClrPrimary;
-    }
-
-    &:focus-visible {
-      outline: 3px solid $themeClrPrimary;
-      outline-offset: 4px;
-    }
-
-    &:hover &-arrow,
-    &:focus-visible &-arrow {
-      transform: translate(3px, -3px);
-    }
+  &__window:hover &__cta,
+  &__window:focus-visible &__cta {
+    color: $themeClrPrimary;
+    border-color: $themeClrPrimary;
+  }
+  &__window:hover &__cta-arrow,
+  &__window:focus-visible &__cta-arrow {
+    transform: translate(3px, -3px);
   }
 
   &__cta-arrow {
@@ -992,12 +966,21 @@
     transition: transform 0.25s ease;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    &__overlay {
+      transition: none;
+    }
+  }
+
   @include respond(phone) {
     &__title {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
     }
     &__facts {
-      gap: 1.8rem 2.6rem;
+      gap: 1.2rem 1.8rem;
+    }
+    &__overlay {
+      padding: 2rem;
     }
   }
 }
@@ -1200,8 +1183,9 @@
   }
 
   &__tag {
+    font-family: $fontBody;
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 500;
     color: $themeClrPrimary;
     background: rgba($themeClrPrimary, 0.08);
     border: 1px solid rgba($themeClrPrimary, 0.18);

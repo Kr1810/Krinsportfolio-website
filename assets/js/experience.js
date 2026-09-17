@@ -1,7 +1,19 @@
 // Single source of truth for the "EXPERIENCE/" section.
-// Sourced from the real work history in assets/Krina Suthar_RESUMEfnl.pdf —
-// only one role exists there, so only one entry is listed here.
+// Sourced from the real work history in assets/Krina Suthar_RESUMEfnl.pdf.
+// Most recent role first.
 const EXPERIENCE = [
+  {
+    id: 'codage-habitation',
+    file: 'work_history_02.txt',
+    period: 'Jan 2025 — Jul 2025',
+    role: 'UI/UX Designer',
+    type: 'Internship',
+    company: 'Codage Habitation',
+    location: 'Ahmedabad · On-site',
+    description:
+      'A UI/UX design internship spanning web redesigns, app interfaces and creative assets — from e-commerce, B2B, real estate and Web3 sites to dashboards, mobile app UI and social media content, all with user-centered layouts and consistent branding.',
+    focus: ['UI/UX Design', 'Responsive Web Design', 'Visual Storytelling', 'Brand Design'],
+  },
   {
     id: 'codsoft',
     file: 'work_history_01.txt',
@@ -9,7 +21,7 @@ const EXPERIENCE = [
     role: 'UI/UX Designer',
     type: 'Internship',
     company: 'CodSoft',
-    location: 'Kolkata',
+    location: 'Kolkata · Remote',
     description:
       'A hands-on internship focused on core UI/UX practice — exploring wireframes, prototypes and interface design as part of real project work.',
     focus: ['UI Design', 'Wireframing', 'Prototyping'],

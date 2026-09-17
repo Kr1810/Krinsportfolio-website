@@ -35,11 +35,15 @@ body {
   box-sizing: border-box;
   position: relative;
   line-height: 1.5;
-  font-family: sans-serif;
   overflow-x: hidden;
   overflow-y: scroll;
-  font-family: 'Source Sans Pro', sans-serif;
-  
+  font-family: $fontPrimary;
+  font-weight: 600;
+}
+
+p {
+  font-family: $fontBody;
+  font-weight: 400;
 }
 
 a {

@@ -2,52 +2,50 @@
   position: fixed;
   width: 100%;
   z-index: 1000;
-  background: #fffdf7;
-  border-bottom: 1px solid rgba($heroClrText, 0.08);
-  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.04);
+  background: none;
+  padding: 1.6rem 2.4rem;
+
+  @include respond(tab-land) {
+    padding: 1.4rem 2rem;
+  }
+  @include respond(tab-port) {
+    padding: 1.2rem 1.6rem;
+  }
 
   &__content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 5rem;
-    @include respond(tab-land) {
-      padding: 1rem 3rem;
-    }
-    @include respond(tab-port) {
-      padding: 0 2rem;
-    }
+    gap: 1.6rem;
+    background: #fffdf7;
+    border-radius: 999px;
+    padding: 0.8rem 0.8rem 0.8rem 0.8rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.1);
   }
 
   &__logo-container {
     display: flex;
     align-items: center;
     cursor: pointer;
-    color: $heroClrText;
-    transition: color 0.3s;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: box-shadow 0.3s;
 
-    &:hover,
-    &:focus-visible {
-      color: $themeClrPrimary;
-    }
     &:focus-visible {
       outline: 3px solid $themeClrPrimary;
-      outline-offset: 4px;
+      outline-offset: 3px;
     }
   }
   &__logo-img-cont {
-    width: 5rem;
-    height: 5rem;
+    width: 4.6rem;
+    height: 4.6rem;
     border-radius: 50px;
     overflow: hidden;
-    margin-right: 1.5rem;
     background: $themeClrPrimary;
-    border: 1px solid rgba($heroClrText, 0.1);
 
     @include respond(tab-port) {
-      width: 4.5rem;
-      height: 4.5rem;
-      margin-right: 1.2rem;
+      width: 4rem;
+      height: 4rem;
     }
   }
   &__logo-img {
@@ -57,11 +55,9 @@
     object-position: center;
     display: block;
   }
-  &__logo-sub {
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 1px;
+  &__main {
+    display: flex;
+    align-items: center;
   }
   &__links {
     display: flex;
@@ -71,59 +67,38 @@
   }
   &__link {
     position: relative;
-    padding: 2.2rem 2.2rem;
+    padding: 1.2rem 1.6rem;
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: $heroClrText;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
-    transition: color 0.3s;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 2.2rem;
-      right: 2.2rem;
-      bottom: 1.6rem;
-      height: 2px;
-      background: $themeClrPrimary;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.25s ease;
-    }
+    border-radius: 999px;
+    transition: color 0.3s, background 0.3s;
 
     &:hover,
     &:focus-visible {
       color: $themeClrPrimary;
-    }
-    &:hover::after,
-    &:focus-visible::after {
-      transform: scaleX(1);
+      background: rgba($themeClrPrimary, 0.08);
     }
     &:focus-visible {
       outline: 3px solid $themeClrPrimary;
-      outline-offset: -4px;
+      outline-offset: -3px;
     }
 
     @include respond(tab-land) {
-      padding: 2.2rem 1.5rem;
-      font-size: 1.4rem;
-
-      &::after {
-        left: 1.5rem;
-        right: 1.5rem;
-      }
+      padding: 1.2rem 1.3rem;
+      font-size: 1.3rem;
     }
   }
 
   &__main-ham-menu-cont {
     display: none;
     box-sizing: content-box;
-    width: 3rem;
+    width: 2.2rem;
     background: none;
-    padding: 2.2rem 0.8rem;
-    margin-right: -0.8rem;
+    padding: 1.2rem;
 
     &:focus-visible {
       outline: 3px solid $themeClrPrimary;
@@ -139,6 +114,36 @@
   }
   &__main-ham-menu-close {
     width: 100%;
+  }
+
+  &__cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 1.3rem 2.6rem;
+    background: $themeClrPrimary;
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 999px;
+    transition: background 0.3s, transform 0.3s;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in srgb, $themeClrPrimary 85%, black);
+      transform: translateY(-1px);
+    }
+    &:focus-visible {
+      outline: 3px solid $heroClrText;
+      outline-offset: 2px;
+    }
+
+    @include respond(tab-port) {
+      padding: 1.1rem 1.8rem;
+      font-size: 1.2rem;
+    }
   }
 
   &__sm-menu {

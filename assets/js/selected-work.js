@@ -67,16 +67,15 @@ const SELECTED_WORK = [
   },
 ]
 
-function selectedWorkItemHTML(project, index) {
-  const parity = index % 2 === 0 ? 'odd' : 'even'
+function selectedWorkItemHTML(project) {
   return `
-    <article class="selected-work__item selected-work__item--${parity}">
+    <article class="selected-work__item">
       <a
         class="selected-work__window"
         href="${project.href}"
         target="_blank"
         rel="noreferrer"
-        aria-label="Open ${project.title} case study"
+        aria-label="${project.title} — ${project.subtitle}. Open case study"
       >
         <span class="selected-work__window-bar">
           <span class="selected-work__window-dots" aria-hidden="true">
@@ -93,31 +92,31 @@ function selectedWorkItemHTML(project, index) {
             alt="${project.alt}"
             loading="lazy"
           />
+          <span class="selected-work__overlay">
+            <span class="selected-work__number" aria-hidden="true">${project.number}</span>
+            <h3 class="selected-work__title">${project.title}</h3>
+            <p class="selected-work__subtitle">${project.subtitle}</p>
+            <p class="selected-work__desc">${project.description}</p>
+            <dl class="selected-work__facts">
+              <div class="selected-work__fact">
+                <dt>Role</dt>
+                <dd>${project.role}</dd>
+              </div>
+              <div class="selected-work__fact">
+                <dt>Tools</dt>
+                <dd>${project.tools}</dd>
+              </div>
+              <div class="selected-work__fact">
+                <dt>Focus</dt>
+                <dd>${project.focus}</dd>
+              </div>
+            </dl>
+            <span class="selected-work__cta">
+              View case study <span class="selected-work__cta-arrow" aria-hidden="true">↗</span>
+            </span>
+          </span>
         </span>
       </a>
-      <div class="selected-work__meta">
-        <span class="selected-work__number" aria-hidden="true">${project.number}</span>
-        <h3 class="selected-work__title">${project.title}</h3>
-        <p class="selected-work__subtitle">${project.subtitle}</p>
-        <p class="selected-work__desc">${project.description}</p>
-        <dl class="selected-work__facts">
-          <div class="selected-work__fact">
-            <dt>Role</dt>
-            <dd>${project.role}</dd>
-          </div>
-          <div class="selected-work__fact">
-            <dt>Tools</dt>
-            <dd>${project.tools}</dd>
-          </div>
-          <div class="selected-work__fact">
-            <dt>Focus</dt>
-            <dd>${project.focus}</dd>
-          </div>
-        </dl>
-        <a class="selected-work__cta" href="${project.href}" target="_blank" rel="noreferrer">
-          View case study <span class="selected-work__cta-arrow" aria-hidden="true">↗</span>
-        </a>
-      </div>
     </article>
   `
 }
