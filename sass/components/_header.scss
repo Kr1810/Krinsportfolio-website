@@ -4,6 +4,7 @@
   z-index: 1000;
   background: none;
   padding: 1.6rem 2.4rem;
+  box-sizing: border-box;
 
   @include respond(tab-land) {
     padding: 1.4rem 2rem;
@@ -21,6 +22,9 @@
     border-radius: 999px;
     padding: 0.8rem 0.8rem 0.8rem 0.8rem;
     box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 144rem;
+    margin: 0 auto;
   }
 
   &__logo-container {
@@ -42,6 +46,19 @@
     border-radius: 50px;
     overflow: hidden;
     background: $themeClrPrimary;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0.2rem;
+      right: 0.2rem;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid #fffdf7;
+      border-radius: 50%;
+      background: $heroClrScript;
+    }
 
     @include respond(tab-port) {
       width: 4rem;
@@ -58,6 +75,10 @@
   &__main {
     display: flex;
     align-items: center;
+
+    @include respond(tab-port) {
+      order: 2;
+    }
   }
   &__links {
     display: flex;
@@ -67,12 +88,12 @@
   }
   &__link {
     position: relative;
-    padding: 1.2rem 1.6rem;
+    padding: 1.2rem 2.2rem;
     display: inline-block;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     color: $heroClrText;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-transform: none;
+    letter-spacing: 0;
     font-weight: 700;
     border-radius: 999px;
     transition: color 0.3s, background 0.3s;
@@ -88,9 +109,13 @@
     }
 
     @include respond(tab-land) {
-      padding: 1.2rem 1.3rem;
-      font-size: 1.3rem;
+      padding: 1.2rem 1.6rem;
+      font-size: 1.6rem;
     }
+  }
+
+  &__link--active {
+    color: $themeClrPrimary;
   }
 
   &__main-ham-menu-cont {
@@ -121,18 +146,19 @@
     display: inline-flex;
     align-items: center;
     padding: 1.3rem 2.6rem;
-    background: $themeClrPrimary;
+    gap: 0.8rem;
+    background: $heroClrText;
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-transform: none;
+    letter-spacing: 0;
     border-radius: 999px;
     transition: background 0.3s, transform 0.3s;
 
     &:hover,
     &:focus-visible {
-      background: color-mix(in srgb, $themeClrPrimary 85%, black);
+      background: #111;
       transform: translateY(-1px);
     }
     &:focus-visible {
@@ -141,9 +167,17 @@
     }
 
     @include respond(tab-port) {
+      order: 1;
+      margin-left: auto;
       padding: 1.1rem 1.8rem;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
+  }
+
+  &__cta-icon {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
   }
 
   &__sm-menu {
@@ -153,7 +187,8 @@
     top: 100%;
     visibility: hidden;
     opacity: 0;
-    transition: all .3s;
+    transform: translateY(-0.8rem);
+    transition: visibility .25s, opacity .25s, transform .25s;
     box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.08);
     border-top: 1px solid $heroClrBorder;
 
@@ -164,7 +199,24 @@
       @include respond(tab-port) {
         visibility: visible;
         opacity: 1;
+        transform: translateY(0);
       }
+    }
+
+    @include respond(tab-port) {
+      top: calc(100% + 0.4rem);
+      left: 1.6rem;
+      width: calc(100% - 3.2rem);
+      max-height: calc(100vh - 8rem);
+      overflow-y: auto;
+      border: 0;
+      border-radius: 1.6rem;
+    }
+
+    @include respond(phone) {
+      left: 0.8rem;
+      width: calc(100% - 1.6rem);
+      max-height: calc(100vh - 7.2rem);
     }
   }
   &__sm-menu-link {
@@ -195,8 +247,77 @@
         border-top: 1px solid $heroClrBorder;
       }
     }
+
+    @include respond(phone) {
+      a {
+        padding: 1.8rem 2rem;
+        font-size: 1.4rem;
+      }
+    }
   }
   &__sm-menu-link-last {
     border-bottom: 0;
+  }
+
+  &__sm-cta {
+    display: none;
+
+    @include respond(phone) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin: 1.6rem 2rem 2rem;
+      padding: 1.4rem 1.8rem;
+      border-radius: 999px;
+      background: $heroClrText;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.25s ease;
+
+      &:hover,
+      &:focus-visible {
+        background: #111;
+        transform: translateY(-1px);
+      }
+
+      &:focus-visible {
+        outline: 3px solid $themeClrPrimary;
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  @include respond(phone) {
+    padding: 0.8rem;
+
+    &__content {
+      gap: 0.4rem;
+      padding: 0.6rem;
+    }
+
+    &__logo-img-cont {
+      width: 3.8rem;
+      height: 3.8rem;
+    }
+
+    &__main-ham-menu-cont {
+      width: 2rem;
+      padding: 0.9rem;
+    }
+
+    &__cta {
+      padding: 1rem 1.4rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.6px;
+    }
+  }
+
+  @media only screen and (max-width: 25em) {
+    &__cta {
+      display: none;
+    }
   }
 }
