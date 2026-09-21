@@ -1,0 +1,284 @@
+// Project case-study modal — same file-chrome-card visual language as the
+// rest of the site (bar/dots/filename), opened by assets/js/project-modal.js.
+html.has-modal-open {
+  overflow: hidden;
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba($graphite, 0.6);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &--open &__backdrop {
+    opacity: 1;
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    width: min(74rem, 100%);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: #fffbf3;
+    border-radius: $windowBorderRadius;
+    border: 1px solid $heroClrBorder;
+    box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--open &__panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  &__bar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.1rem 1.6rem;
+    background: #fbf8f2;
+    border-bottom: 1px solid $heroClrBorder;
+  }
+
+  &__dots {
+    display: inline-flex;
+    gap: 0.6rem;
+
+    i {
+      display: block;
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 50%;
+      background: #dfe1e6;
+
+      &:nth-child(1) {
+        background: #ff5f57;
+      }
+      &:nth-child(2) {
+        background: #febc2e;
+      }
+      &:nth-child(3) {
+        background: #28c840;
+      }
+    }
+  }
+
+  &__filename {
+    font-size: 1.3rem;
+    color: $heroClrMuted;
+    letter-spacing: 0.5px;
+  }
+
+  &__close {
+    margin-left: auto;
+    width: 2.8rem;
+    height: 2.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: $heroClrMuted;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba($themeClrPrimary, 0.1);
+      color: $themeClrPrimary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $themeClrPrimary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__body {
+    padding: 3rem 3rem 3.6rem;
+
+    @include respond(phone) {
+      padding: 2.2rem 2rem 2.8rem;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-family: $fontMono;
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: $themeClrPrimary;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: clamp(2.2rem, 3.4vw, 3rem);
+    font-weight: 900;
+    color: $heroClrText;
+    margin-bottom: 0.4rem;
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    color: $heroClrMuted;
+    margin-bottom: 1.4rem;
+  }
+
+  &__lede {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: $heroClrText;
+    margin-bottom: 2.2rem;
+  }
+
+  &__cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: $commonBorderRadius;
+    border: 1px solid $heroClrBorder;
+    margin-bottom: 2.4rem;
+  }
+
+  &__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem 2.4rem;
+    padding: 1.6rem 0;
+    margin-bottom: 2.4rem;
+    border-top: 1px dashed $heroClrBorder;
+    border-bottom: 1px dashed $heroClrBorder;
+
+    dt {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $heroClrMuted;
+      margin-bottom: 0.3rem;
+    }
+    dd {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: $heroClrText;
+    }
+  }
+
+  &__section {
+    margin-bottom: 2.4rem;
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $themeClrPrimary;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.5rem;
+      line-height: 1.7;
+      color: $heroClrText;
+    }
+  }
+
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    counter-reset: step;
+
+    li {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: $heroClrText;
+    }
+  }
+
+  &__step-index {
+    flex-shrink: 0;
+    font-family: $fontMono;
+    font-size: 1.3rem;
+    color: $heroClrMuted;
+  }
+
+  &__tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__tool-tag {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $heroClrText;
+    background: #fff;
+    border: 1px solid $heroClrBorder;
+    border-radius: 999px;
+    padding: 0.6rem 1.4rem;
+  }
+
+  &__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.6rem 2.4rem;
+    margin-top: 3rem;
+  }
+
+  &__cta {
+    padding: 1.2rem 3.2rem !important;
+    font-size: 1.4rem !important;
+  }
+
+  &__legacy-link {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $heroClrMuted;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: $themeClrPrimary;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__backdrop,
+    &__panel {
+      transition: none;
+    }
+  }
+}

@@ -11,30 +11,34 @@
     />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16.png" />
+    <link rel="apple-touch-icon" href="./images/apple-touch-icon.png" />
   </head>
   <body id="top">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="header">
       <div class="header__content">
         <a href="./index.html" class="header__logo-container" aria-label="Krina Suthar — Home">
-          <div class="header__logo-img-cont">
-            <img src="./images/kri0.webp" alt="" class="header__logo-img" />
-          </div>
+          <span class="header__logo-text">Krina Suthar</span>
         </a>
-        <div class="header__main">
-          <ul class="header__links">
-            <li class="header__link-wrapper">
-              <a href="./index.html" class="header__link"> Home </a>
-            </li>
-            <li class="header__link-wrapper">
-              <a href="./index.html#about" class="header__link">About</a>
-            </li>
-            <li class="header__link-wrapper">
-              <a href="./index.html#projects" class="header__link">
-                Projects
-              </a>
-            </li>
-          </ul>
+        <ul class="header__links">
+          <li class="header__link-wrapper">
+            <a href="./index.html" class="header__link"> Home </a>
+          </li>
+          <li class="header__link-wrapper">
+            <a href="./index.html#about" class="header__link">About</a>
+          </li>
+          <li class="header__link-wrapper">
+            <a href="./index.html#projects" class="header__link">
+              Projects
+            </a>
+          </li>
+        </ul>
+        <div class="header__actions">
+          <a href="./index.html#contact" class="header__cta">
+            Contact <span class="header__cta-arrow" aria-hidden="true">→</span>
+          </a>
           <button
             type="button"
             class="header__main-ham-menu-cont"
@@ -56,7 +60,6 @@
             />
           </button>
         </div>
-        <a href="./index.html#contact" class="header__cta">Contact</a>
       </div>
       <div class="header__sm-menu" id="headerSmMenu">
         <div class="header__sm-menu-content">
@@ -169,13 +172,9 @@ while aligning with the brand’s identity.
                 target="_blank"
                 rel="noopener noreferrer"
                 >Live Link</a>
-              
-               <!--<a
-                href="#"
-                class="btn btn--med btn--theme-inv project-details__links-btn"
-                target="_blank"
-                >Code Link</a >-->
-              
+              <a href="./index.html#project-ecommerce-wireframe" class="project-details__portfolio-link"
+                >View in the full portfolio ↗</a
+              >
             </div>
           </div>
         </div>
@@ -191,7 +190,7 @@ while aligning with the brand’s identity.
             <p class="main-footer__role">UI/UX + Graphic Designer</p>
             <span class="main-footer__status">
               <span class="main-footer__status-dot" aria-hidden="true"></span>
-              Open to full-time opportunities
+              Open to freelance &amp; collaborations
             </span>
           </div>
 

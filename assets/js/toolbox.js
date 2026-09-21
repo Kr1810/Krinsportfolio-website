@@ -8,11 +8,13 @@ const TOOLBOX = [
     file: 'ux_design.txt',
     skills: [
       'User Research',
+      'Competitive Analysis',
       'User Flows',
-      'Information Architecture',
       'Wireframing',
       'Prototyping',
       'Usability Testing',
+      'Accessibility',
+      'UX Writing',
     ],
   },
   {
@@ -24,9 +26,8 @@ const TOOLBOX = [
       'Interface Design',
       'Responsive Design',
       'Design Systems',
-      'Component Design',
       'Interaction Design',
-      'Visual Hierarchy',
+      'Visual Design',
     ],
   },
   {
@@ -44,16 +45,70 @@ const TOOLBOX = [
     ],
   },
   {
-    id: 'tools',
+    id: 'ai-design',
     number: '04',
-    title: 'Tools',
-    file: 'tools.txt',
+    title: 'AI-Enabled Design',
+    file: 'ai_design.txt',
+    skills: [
+      'AI-Assisted UI Ideation',
+      'Prompt-Driven Web Prototyping',
+      'Vibe Coding',
+      'AI Design-to-Code Workflows',
+      'Rapid UI Iteration',
+    ],
+  },
+  {
+    id: 'ai-tools',
+    number: '05',
+    title: 'AI Tools',
+    file: 'ai_tools.txt',
+    skills: [
+      { name: 'Claude', icon: null },
+      { name: 'ChatGPT', icon: './images/skills/GPT.webp' },
+      { name: 'GitHub Copilot', icon: null },
+      { name: 'Codex', icon: null },
+      { name: 'Cursor', icon: null },
+      { name: 'Antigravity', icon: null },
+      { name: 'Midjourney', icon: null },
+      { name: 'Figma AI', icon: './images/skills/figma.webp' },
+      { name: 'Figma Agent', icon: null },
+      { name: 'Framer AI', icon: null },
+      { name: 'Emergent AI', icon: null },
+      { name: 'v0', icon: null },
+    ],
+  },
+  {
+    id: 'design-tools',
+    number: '06',
+    title: 'Design & Web Tools',
+    file: 'design_tools.txt',
     skills: [
       { name: 'Figma', icon: './images/figma_logo.webp' },
+      { name: 'Framer', icon: null },
+      { name: 'Webflow', icon: null },
       { name: 'Adobe XD', icon: './images/AdobeXD_Logo.svg' },
       { name: 'Illustrator', icon: './images/skills/Ai.webp' },
-      { name: 'HTML', icon: null },
-      { name: 'CSS', icon: null },
+      { name: 'After Effects', icon: null },
+      { name: 'Adobe Express', icon: null },
+      { name: 'Canva', icon: null },
+      { name: 'Miro', icon: null },
+      { name: 'Blender', icon: null },
+    ],
+  },
+  {
+    id: 'dev-tools',
+    number: '07',
+    title: 'Dev & Collaboration',
+    file: 'dev_tools.txt',
+    skills: [
+      { name: 'VS Code', icon: null },
+      { name: 'HTML5', icon: './images/skills/HTML.webp' },
+      { name: 'CSS3', icon: './images/skills/css.webp' },
+      { name: 'JavaScript', icon: './images/skills/JS.webp' },
+      { name: 'React', icon: null },
+      { name: 'Git', icon: './images/skills/Github.webp' },
+      { name: 'Jira', icon: null },
+      { name: 'Linear', icon: null },
     ],
   },
 ]
@@ -71,7 +126,7 @@ function skillListItemHTML(skill) {
 function toolboxCardHTML(group, index) {
   return `
     <article
-      class="toolbox__card toolbox__card--${group.id} toolbox__reveal"
+      class="toolbox__card toolbox__reveal"
       style="--card-i: ${index}"
     >
       <span class="toolbox__card-bar">

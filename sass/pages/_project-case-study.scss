@@ -16,10 +16,17 @@
   }
 
   &__content {
-    padding: 25rem 0 17rem 0;
+    // Desktop/tab-land: header is a left rail here, not a top bar, so this
+    // no longer needs to clear a fixed header — just normal breathing room.
+    padding: 10rem 0 17rem 0;
     max-width: 90rem;
     width: 92%;
     margin: auto;
+
+    // Tab-port and below: header reverts to a horizontal top bar again.
+    @include respond(tab-port) {
+      padding: 19rem 0 15rem 0;
+    }
 
     @include respond(phone) {
       padding: 19rem 0 13rem 0;
@@ -98,6 +105,11 @@
   }
   &__links {
     margin: 0 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+
     &-btn {
       margin-right: 2rem;
       @include respond(phone) {
@@ -112,6 +124,18 @@
           margin: 0;
         }
       }
+    }
+  }
+
+  &__portfolio-link {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $themeClrPrimary;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: $stormy-teal;
     }
   }
 }

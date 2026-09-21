@@ -1,0 +1,292 @@
+// "PLAYGROUND/" — the one deliberately-different, heavily-animated section.
+// Dark panel, bolder type, sticker-tilt cards. Still uses the site's own
+// palette (graphite/stormy-teal) so it reads as part of the same system.
+.playground {
+  position: relative;
+  overflow: hidden;
+  background: $graphite;
+  color: $white;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('../images/portfolio-assets/mood-coding.webp') center / cover;
+    opacity: 0.12;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba($graphite, 0.55), $graphite 75%);
+    z-index: 0;
+  }
+
+  &__glow {
+    position: absolute;
+    top: -20rem;
+    left: -20rem;
+    width: 40rem;
+    height: 40rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba($stormy-teal, 0.4), transparent 70%);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+
+    &--active {
+      opacity: 1;
+    }
+  }
+
+  .main-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__intro {
+    max-width: 62rem;
+    margin-bottom: 6rem;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-family: $fontMono;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: mix($stormy-teal, $white, 55%);
+    margin-bottom: 1.6rem;
+  }
+
+  &__heading {
+    color: $white;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 4.6vw, 4.8rem);
+    line-height: 1.15;
+  }
+
+  &__heading-accent {
+    display: block;
+    font-family: $heroFontScript;
+    font-weight: 600;
+    color: mix($stormy-teal, $white, 45%);
+    font-size: 1.1em;
+    margin-top: 0.3rem;
+  }
+
+  &__lede {
+    margin-top: 2rem;
+    font-size: 1.7rem;
+    line-height: 1.7;
+    color: mix($white, $graphite, 70%);
+    max-width: 50rem;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2.4rem;
+    list-style: none;
+
+    @include respond(tab-land) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include respond(tab-port) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.8rem;
+    }
+    @include respond(phone) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+    }
+  }
+
+  &__item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        transition-delay: #{($i - 1) * 60}ms;
+      }
+    }
+
+    &:nth-child(5n+1) .playground__card { --tilt: -4deg; }
+    &:nth-child(5n+2) .playground__card { --tilt: 3deg; }
+    &:nth-child(5n+3) .playground__card { --tilt: -2deg; }
+    &:nth-child(5n+4) .playground__card { --tilt: 4deg; }
+    &:nth-child(5n) .playground__card { --tilt: -3deg; }
+  }
+
+  &__card {
+    --tilt: 0deg;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    perspective: 120rem;
+    transform: rotate(var(--tilt));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    &:hover,
+    &:focus-visible {
+      transform: rotate(0deg) translateY(-6px) scale(1.05);
+    }
+
+    &:focus-visible {
+      outline: 3px solid $white;
+      outline-offset: 4px;
+      border-radius: $paperBorderRadius;
+    }
+  }
+
+  &__card-inner {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &__card--flipped &__card-inner {
+    transform: rotateY(180deg);
+  }
+
+  &__card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.8rem;
+    text-align: center;
+    border-radius: $paperBorderRadius;
+    backface-visibility: hidden;
+    box-shadow: 0 1.4rem 2.8rem rgba(0, 0, 0, 0.35);
+
+    &--front {
+      background: #fffbf3;
+      color: $graphite;
+    }
+
+    &--back {
+      background: $themeClrPrimary;
+      color: $white;
+      transform: rotateY(180deg);
+    }
+  }
+
+  &__card-photo {
+    width: 4.4rem;
+    height: 4.4rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid $heroClrBorder;
+  }
+
+  &__card-glyph {
+    width: 4.4rem;
+    height: 4.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: $themeClrPrimary;
+    color: $white;
+    font-family: $fontPrimary;
+    font-weight: 900;
+    font-size: 1.8rem;
+  }
+
+  &__card-name {
+    font-weight: 800;
+    font-size: 1.5rem;
+  }
+
+  &__card-tag {
+    font-family: $fontMono;
+    font-size: 1.1rem;
+    color: $heroClrMuted;
+  }
+
+  &__card-blurb {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    &__card {
+      transform: none;
+      transition: none;
+
+      &:hover,
+      &:focus-visible {
+        transform: none;
+      }
+    }
+    &__card-inner {
+      transition: transform 0.01ms;
+    }
+    &__glow {
+      display: none;
+    }
+  }
+
+  @include respond(phone) {
+    &__card-face {
+      padding: 1.2rem;
+    }
+    &__card-blurb {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// Confetti burst pieces — appended to <body> (fixed position) by playground.js,
+// not scoped inside .playground so they can escape the section's overflow:hidden.
+.playground__confetti {
+  position: fixed;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 5000;
+  animation: playground-confetti-burst 0.7s ease-out forwards;
+}
+
+@keyframes playground-confetti-burst {
+  to {
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playground__confetti {
+    display: none;
+  }
+}

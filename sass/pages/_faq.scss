@@ -1,0 +1,210 @@
+// "FAQ/" — file-chrome-styled accordion rows. Height animation uses the
+// grid-template-rows 0fr→1fr technique so no JS scrollHeight measuring is
+// needed, and it degrades cleanly to an instant show/hide under
+// prefers-reduced-motion.
+.faq {
+  background: $heroClrBg;
+  overflow: hidden;
+
+  &__intro {
+    max-width: 60rem;
+    margin-bottom: 6rem;
+
+    @include respond(tab-port) {
+      margin-bottom: 4.5rem;
+    }
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    font-family: $fontMono;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $themeClrPrimary;
+    margin-bottom: 1.6rem;
+  }
+
+  &__heading {
+    color: $heroClrText;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 4.4vw, 4.6rem);
+    line-height: 1.2;
+  }
+
+  &__heading-accent {
+    display: block;
+    font-family: $heroFontScript;
+    font-weight: 600;
+    color: $heroClrScript;
+    font-size: 1.1em;
+    margin-top: 0.3rem;
+  }
+
+  &__lede {
+    margin-top: 2rem;
+    font-size: 1.7rem;
+    line-height: 1.7;
+    color: $heroClrMuted;
+    max-width: 50rem;
+  }
+
+  &__list {
+    max-width: 84rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  &__item {
+    background: #fffbf3;
+    border: 1px solid $heroClrBorder;
+    border-radius: $windowBorderRadius;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: calc(var(--card-i, 0) * 70ms);
+
+    // JS adds "faq__reveal--visible" (the shared __reveal-marker pattern
+    // used by about.js/toolbox.js), not "faq__item--visible".
+    &.faq__reveal--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__question-wrap {
+    margin: 0;
+  }
+
+  &__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    text-align: left;
+    font: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2rem 2.2rem;
+    color: $heroClrText;
+
+    &:focus-visible {
+      outline: 2px solid $themeClrPrimary;
+      outline-offset: -2px;
+    }
+  }
+
+  &__question-file {
+    flex-shrink: 0;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    color: $heroClrMuted;
+
+    @include respond(tab-port) {
+      display: none;
+    }
+  }
+
+  &__question-text {
+    flex: 1;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  &__draft-badge {
+    display: inline-block;
+    margin-left: 1rem;
+    font-family: $fontMono;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $themeClrPrimary;
+    border: 1px solid $themeClrPrimary;
+    border-radius: 999px;
+    padding: 0.2rem 0.8rem;
+    vertical-align: middle;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    position: relative;
+    width: 1.8rem;
+    height: 1.8rem;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: $themeClrPrimary;
+      transform: translate(-50%, -50%);
+      transition: transform 0.25s ease;
+    }
+    &::before {
+      width: 1.8rem;
+      height: 2px;
+    }
+    &::after {
+      width: 2px;
+      height: 1.8rem;
+    }
+  }
+
+  &__question[aria-expanded='true'] &__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg) scale(0);
+  }
+
+  &__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+
+  &__panel-inner {
+    overflow: hidden;
+    min-height: 0;
+
+    p {
+      padding: 0 2.2rem 2.2rem;
+      font-size: 1.5rem;
+      line-height: 1.7;
+      color: $heroClrMuted;
+    }
+  }
+
+  &__panel--open {
+    grid-template-rows: 1fr;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    &__panel {
+      transition: none;
+    }
+    &__icon::before,
+    &__icon::after {
+      transition: none;
+    }
+  }
+
+  @include respond(phone) {
+    &__question {
+      padding: 1.6rem 1.8rem;
+      gap: 1.2rem;
+    }
+    &__question-text {
+      font-size: 1.4rem;
+    }
+  }
+}

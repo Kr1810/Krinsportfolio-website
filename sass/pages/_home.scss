@@ -1,98 +1,263 @@
+// Big-type editorial hero — name/role dominate the top, a tag cluster sits
+// beside them, and a photo card with an overlapping CTA anchors the bottom
+// right, with a dot-grid + confetti backdrop. Header is a fixed horizontal
+// bar again (see components/_header.scss), so top padding here clears it.
 .home-hero {
+  position: relative;
   background: $heroClrBg;
   overflow: hidden;
-  padding: 17rem 0 9rem 0;
+  padding: 13rem 0 8rem;
 
   @include respond(tab-land) {
-    padding: 15rem 0 8rem 0;
+    padding: 11rem 0 7rem;
   }
-
   @include respond(tab-port) {
-    padding: 13rem 0 7rem 0;
+    padding: 10rem 0 6rem;
   }
-
   @include respond(phone) {
-    padding: 12rem 0 6rem 0;
+    padding: 9rem 0 5rem;
   }
 
-  &__grid {
+  .main-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: radial-gradient(rgba($heroClrText, 0.14) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse at 60% 0%, #000 45%, transparent 85%);
+    mask-image: radial-gradient(ellipse at 60% 0%, #000 45%, transparent 85%);
+  }
+
+  &__confetti {
+    position: absolute;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 3px;
+
+    &--1 {
+      top: 6%;
+      left: 88%;
+      background: $themeClrPrimary;
+      transform: rotate(12deg);
+    }
+    &--2 {
+      top: 20%;
+      left: 3%;
+      width: 0.9rem;
+      height: 0.9rem;
+      background: $heroClrScript;
+      transform: rotate(-10deg);
+    }
+    &--3 {
+      top: 52%;
+      left: 95%;
+      width: 1rem;
+      height: 1rem;
+      background: transparent;
+      border: 2px solid $heroClrBorder;
+      transform: rotate(8deg);
+    }
+    &--4 {
+      top: 66%;
+      left: 1.5%;
+      width: 1rem;
+      height: 1rem;
+      background: $themeClrPrimary;
+      opacity: 0.7;
+      transform: rotate(20deg);
+    }
+    &--5 {
+      top: 34%;
+      left: 46%;
+      width: 0.8rem;
+      height: 0.8rem;
+      background: transparent;
+      border: 2px solid $heroClrBorder;
+      transform: rotate(-6deg);
+    }
+
+    @include respond(tab-port) {
+      display: none;
+    }
+  }
+
+  &__top {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem 4rem;
   }
 
-  &__intro {
-    text-align: center;
+  &__heading-col {
+    min-width: 0;
+  }
+
+  &__kicker {
+    display: block;
+    font-family: $fontMono;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $heroClrMuted;
+    margin-bottom: 1rem;
   }
 
   &__heading {
+    display: flex;
+    flex-direction: column;
     color: $heroClrText;
     font-weight: 900;
-    font-size: clamp(3.2rem, 5vw, 5.2rem);
-    line-height: 1.25;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+  }
+
+  &__name {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    font-size: clamp(3.6rem, 7vw, 7.6rem);
+  }
+
+  &__role {
+    font-size: clamp(2.6rem, 5vw, 5.6rem);
+    color: $themeClrPrimary;
+    margin-top: 0.2em;
+  }
+
+  &__tags {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0 1.4rem;
+    gap: 1rem;
+    max-width: 34rem;
+    list-style: none;
+
+    li {
+      font-family: $fontMono;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $heroClrText;
+      border: 1px solid $heroClrBorder;
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      white-space: nowrap;
+    }
+
+    @include respond(tab-port) {
+      max-width: none;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4rem;
+    margin-top: 7rem;
+
+    @include respond(tab-port) {
+      margin-top: 5rem;
+    }
   }
 
   &__lede {
-    margin: 2.4rem auto 0;
-    font-size: 1.8rem;
-    line-height: 1.75;
+    font-size: 1.7rem;
+    line-height: 1.7;
     color: $heroClrMuted;
-    max-width: 46rem;
+    max-width: 42rem;
   }
 
-  &__highlight {
+  &__card {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    font-family: $heroFontScript;
-    font-weight: 600;
-    color: $heroClrScript;
-    font-size: 1.15em;
-    background: rgba($themeClrPrimary, 0.08);
-    border: 2px solid $themeClrPrimary;
-    border-radius: $commonBorderRadius;
-    padding: 0.15em 0.6em 0.25em;
+    flex-shrink: 0;
+    width: 22rem;
+    margin-bottom: 1.6rem;
+
+    @include respond(tab-port) {
+      margin: 0 auto;
+    }
   }
 
-  &__visual {
+  &__card-label {
+    display: block;
+    font-family: $fontMono;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $heroClrMuted;
+    margin-bottom: 1rem;
+    text-align: right;
+
+    @include respond(tab-port) {
+      text-align: center;
+    }
+  }
+
+  &__card-frame {
     position: relative;
-    width: min(100%, 60rem);
-    aspect-ratio: 4 / 3.2;
-  }
-
-  &__frame {
-    position: absolute;
-    inset: 0;
-    background: #fffbf3;
-    border: 2px solid $themeClrPrimary;
-    border-radius: $windowBorderRadius;
-    box-shadow: 0 1.6rem 3.2rem rgba(0, 0, 0, 0.08);
-    transform: rotate(-3deg);
-  }
-
-  &__frame-inner {
-    position: absolute;
-    inset: 0;
+    aspect-ratio: 1400 / 1720;
     border-radius: $windowBorderRadius;
     overflow: hidden;
+    border: 1px solid $heroClrBorder;
+    box-shadow: 0 1.6rem 3.2rem rgba(0, 0, 0, 0.1);
   }
 
-  &__frame-img {
+  &__card-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top center;
   }
 
-  // shared corner/edge "selection handle" dots, reused for both the
-  // heading highlight box and the empty visual frame
+  &__card-cta {
+    position: absolute;
+    right: -1.4rem;
+    bottom: -1.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: $heroClrText;
+    color: $heroClrBg;
+    font-size: 1.3rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-radius: 999px;
+    padding: 1rem 1.8rem;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    transition: background 0.25s ease, transform 0.25s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: $themeClrPrimary;
+      transform: translateY(-2px);
+    }
+    &:focus-visible {
+      outline: 2px solid $themeClrPrimary;
+      outline-offset: 3px;
+    }
+
+    @include respond(tab-port) {
+      right: 50%;
+      transform: translateX(50%);
+
+      &:hover,
+      &:focus-visible {
+        transform: translateX(50%) translateY(-2px);
+      }
+    }
+  }
+
+  // Shared corner "selection handle" dots — reused on both the giant name
+  // and the photo frame, matching the design-tool motif used elsewhere.
   &__handle {
     position: absolute;
     display: block;
@@ -102,73 +267,19 @@
     width: 0.9rem;
     height: 0.9rem;
     transform: translate(-50%, -50%);
-  }
-
-  &__highlight &__handle {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 0;
-
-    &--tl {
-      top: 0;
-      left: 0;
-    }
-    &--tr {
-      top: 0;
-      left: 100%;
-    }
-    &--bl {
-      top: 100%;
-      left: 0;
-    }
-    &--br {
-      top: 100%;
-      left: 100%;
-    }
-  }
-
-  &__frame &__handle {
     z-index: 2;
 
     &--tl {
       top: 0;
       left: 0;
     }
-    &--tm {
-      top: 0;
-      left: 50%;
-      border-radius: $commonBorderRadius;
-      width: 2.6rem;
-      height: 0.8rem;
-    }
     &--tr {
       top: 0;
       left: 100%;
     }
-    &--ml {
-      top: 50%;
-      left: 0;
-      border-radius: $commonBorderRadius;
-      width: 0.8rem;
-      height: 2.6rem;
-    }
-    &--mr {
-      top: 50%;
-      left: 100%;
-      border-radius: $commonBorderRadius;
-      width: 0.8rem;
-      height: 2.6rem;
-    }
     &--bl {
       top: 100%;
       left: 0;
-    }
-    &--bm {
-      top: 100%;
-      left: 50%;
-      border-radius: $commonBorderRadius;
-      width: 2.6rem;
-      height: 0.8rem;
     }
     &--br {
       top: 100%;
@@ -176,30 +287,20 @@
     }
   }
 
-  &__folder {
-    position: absolute;
-    top: -4.4rem;
-    left: 5.4rem;
-    width: 13rem;
-    z-index: 1;
-    transform: rotate(-8deg);
-
-    @include respond(phone) {
-      top: -5.6rem;
-      left: 4.6rem;
-      width: 9rem;
-    }
-  }
-
-  &__folder-img {
-    display: block;
-    width: 100%;
-    height: auto;
+  &__name &__handle {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 0;
   }
 
   @include respond(phone) {
-    &__heading {
-      font-size: 2.8rem;
+    &__card {
+      width: 16rem;
+    }
+    &__card-cta {
+      font-size: 1.1rem;
+      padding: 0.8rem 1.4rem;
+      right: -0.6rem;
     }
   }
 }
@@ -504,8 +605,13 @@
 
   &__list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem 5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem 3.5rem;
+    align-items: start;
+
+    @include respond(tab-land) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
     @include respond(tab-port) {
       grid-template-columns: 1fr;
@@ -513,6 +619,9 @@
     }
   }
 
+  // Auto-flowing "pinned paper" collage — rotation/stagger derived from
+  // nth-child position instead of per-card ids, so the grid scales to any
+  // number of skill groups without hand-placing grid-column/row per card.
   &__card {
     --tb-rotate: 0deg;
     position: relative;
@@ -538,37 +647,29 @@
       box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
     }
 
-    &--ux {
+    &:nth-child(3n+1) {
       --tb-rotate: -1.2deg;
-      grid-column: 1;
-      grid-row: 1;
     }
-    &--ui {
+    &:nth-child(3n+2) {
       --tb-rotate: 1deg;
-      grid-column: 2;
-      grid-row: 1;
-      margin-top: 7rem;
-    }
-    &--graphic {
-      --tb-rotate: -0.8deg;
-      grid-column: 2;
-      grid-row: 2;
-    }
-    &--tools {
-      --tb-rotate: 1.3deg;
-      grid-column: 1;
-      grid-row: 2;
       margin-top: 4rem;
+    }
+    &:nth-child(3n) {
+      --tb-rotate: -0.8deg;
     }
 
     @include respond(tab-land) {
-      --tb-rotate: 0deg;
-      margin-top: 0;
+      &:nth-child(2n) {
+        margin-top: 4rem;
+      }
+      &:nth-child(2n+1) {
+        margin-top: 0;
+      }
     }
 
     @include respond(tab-port) {
-      grid-column: auto;
-      grid-row: auto;
+      --tb-rotate: 0deg;
+      margin-top: 0 !important;
     }
   }
 
@@ -1289,15 +1390,6 @@
     line-height: 1.08;
   }
 
-  &__heading-accent {
-    display: block;
-    font-family: $heroFontScript;
-    font-weight: 600;
-    color: $heroClrScript;
-    font-size: clamp(2.6rem, 4vw, 4rem);
-    margin-top: 0.4rem;
-  }
-
   &__lede {
     margin-top: 2.4rem;
     font-size: 1.7rem;
@@ -1334,14 +1426,55 @@
     }
   }
 
+  &__secondary {
+    margin-top: 8rem;
+
+    @include respond(tab-port) {
+      margin-top: 5.5rem;
+    }
+  }
+
+  &__secondary-label {
+    display: inline-block;
+    font-family: $fontMono;
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $heroClrMuted;
+    margin-bottom: 0.8rem;
+  }
+
+  &__secondary-lede {
+    font-size: 1.4rem;
+    color: $heroClrMuted;
+    max-width: 42rem;
+    margin-bottom: 3rem;
+  }
+
+  &__list--secondary {
+    opacity: 0.92;
+
+    .selected-work__window-preview {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  // Card root is a <button> (not an <a>) since it opens the project-modal
+  // rather than navigating — reset button chrome back to the card look.
   &__window {
     display: block;
-    position: relative;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    color: inherit;
     background: #fff;
     border-radius: $windowBorderRadius;
     border: 1px solid $heroClrBorder;
     box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    cursor: pointer;
+    position: relative;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 
     &:hover,
@@ -1420,71 +1553,19 @@
     transition: transform 0.5s ease;
   }
 
-  // Hover/focus reveal — sits over the preview image, same card, all projects.
+  // Hover/focus reveal — a dim scrim over the preview image with a single
+  // centered CTA. The title/subtitle/description/facts that used to live
+  // here now live in the project-modal case study instead (see
+  // assets/js/project-modal.js), reachable via this same button.
   &__overlay {
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column;
-    padding: 2.4rem 2.6rem;
-    overflow-y: auto;
-    background: rgba(255, 251, 243, 0.97);
+    align-items: center;
+    justify-content: center;
+    background: rgba($graphite, 0.55);
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  &__number {
-    display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: $themeClrPrimary;
-    margin-bottom: 0.8rem;
-  }
-
-  &__title {
-    font-size: clamp(1.8rem, 2vw, 2.2rem);
-    font-weight: 900;
-    color: $heroClrText;
-    margin-bottom: 0.4rem;
-  }
-
-  &__subtitle {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: $themeClrPrimary;
-    margin-bottom: 1.2rem;
-  }
-
-  &__desc {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    color: $heroClrMuted;
-    margin-bottom: 1.6rem;
-  }
-
-  &__facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.4rem 2rem;
-    margin-bottom: 1.8rem;
-  }
-
-  &__fact {
-    dt {
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: $heroClrMuted;
-      margin-bottom: 0.3rem;
-    }
-    dd {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: $heroClrText;
-    }
+    transition: opacity 0.3s ease;
   }
 
   &__cta {
@@ -1493,22 +1574,33 @@
     gap: 0.6rem;
     font-size: 1.4rem;
     font-weight: 700;
-    color: $heroClrText;
-    padding-bottom: 0.3rem;
-    border-bottom: 2px solid rgba($heroClrText, 0.2);
-    margin-top: auto;
-    align-self: flex-start;
-    transition: color 0.25s ease, border-color 0.25s ease;
+    color: $white;
+    background: rgba($white, 0.12);
+    border: 1px solid rgba($white, 0.6);
+    border-radius: 999px;
+    padding: 1.1rem 2.4rem;
+    transform: translateY(8px);
+    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+      transform 0.3s ease;
   }
 
+  &__window:hover &__overlay,
+  &__window:focus-visible &__overlay {
+    opacity: 1;
+  }
   &__window:hover &__cta,
   &__window:focus-visible &__cta {
+    transform: translateY(0);
+  }
+  &__window:hover &__cta:hover,
+  &__window &__cta:focus-visible {
+    background: $white;
     color: $themeClrPrimary;
-    border-color: $themeClrPrimary;
+    border-color: $white;
   }
   &__window:hover &__cta-arrow,
   &__window:focus-visible &__cta-arrow {
-    transform: translate(3px, -3px);
+    transform: translate(2px, -2px);
   }
 
   &__cta-arrow {
@@ -1517,20 +1609,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    &__overlay {
+    &__overlay,
+    &__cta {
       transition: none;
-    }
-  }
-
-  @include respond(phone) {
-    &__title {
-      font-size: 1.8rem;
-    }
-    &__facts {
-      gap: 1.2rem 1.8rem;
-    }
-    &__overlay {
-      padding: 2rem;
+      transform: none;
     }
   }
 }
@@ -1718,10 +1800,26 @@
   }
 
   &__desc {
-    font-size: 1.6rem;
-    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    list-style: none;
+    max-width: 52rem;
+  }
+
+  &__desc-item {
+    font-size: 1.5rem;
+    line-height: 1.6;
     color: $heroClrMuted;
-    max-width: 48rem;
+    padding-left: 1.6rem;
+    position: relative;
+
+    &::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: $themeClrPrimary;
+    }
   }
 
   &__tags {
