@@ -141,7 +141,7 @@
     cursor: pointer;
     perspective: 120rem;
     transform: rotate(var(--tilt));
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.2s ease;
 
     &:hover,
     &:focus-visible {
@@ -152,6 +152,13 @@
       outline: 3px solid $white;
       outline-offset: 4px;
       border-radius: $paperBorderRadius;
+    }
+
+    // Slightly smaller than the grid cell on mobile/tablet, centered
+    // within it, so cards read a touch less oversized at these widths.
+    @include respond(tab-port) {
+      width: 88%;
+      margin: 0 auto;
     }
   }
 
@@ -176,7 +183,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.8rem;
-    padding: 1.8rem;
+    padding: 2.6rem;
     text-align: center;
     border-radius: $paperBorderRadius;
     backface-visibility: hidden;
@@ -256,9 +263,15 @@
     }
   }
 
+  @include respond(tab-port) {
+    &__card-face {
+      padding: 2rem;
+    }
+  }
+
   @include respond(phone) {
     &__card-face {
-      padding: 1.2rem;
+      padding: 1.8rem;
     }
     &__card-blurb {
       font-size: 1.2rem;

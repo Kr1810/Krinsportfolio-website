@@ -87,11 +87,18 @@
   }
 
   &__top {
+    position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 3rem 4rem;
+
+    @include respond(tab-port) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
   }
 
   &__heading-col {
@@ -115,6 +122,10 @@
     font-weight: 900;
     line-height: 0.98;
     letter-spacing: -0.01em;
+
+    @include respond(tab-port) {
+      align-items: center;
+    }
   }
 
   &__name {
@@ -138,6 +149,7 @@
     list-style: none;
 
     li {
+      --tag-rotate: 0deg;
       font-family: $fontMono;
       font-size: 1.2rem;
       letter-spacing: 1px;
@@ -147,10 +159,89 @@
       border-radius: 999px;
       padding: 0.7rem 1.4rem;
       white-space: nowrap;
+      transform: rotate(var(--tag-rotate));
+      transition: opacity 0.35s ease, color 0.25s ease, border-color 0.25s ease,
+        background 0.25s ease, transform 0.35s ease;
+    }
+
+    // Scattered "shifted around the heading" resting tilt — one fixed
+    // angle per pill, in DOM order.
+    li:nth-child(1) {
+      --tag-rotate: 15deg;
+    }
+    li:nth-child(2) {
+      --tag-rotate: -15deg;
+    }
+    li:nth-child(3) {
+      --tag-rotate: 10deg;
+    }
+    li:nth-child(4) {
+      --tag-rotate: -20deg;
+    }
+    li:nth-child(5) {
+      --tag-rotate: 20deg;
+    }
+    li:nth-child(6) {
+      --tag-rotate: 0deg;
+    }
+
+    // Progressive enhancement only: assets/js/hero.js adds this modifier
+    // once it confirms a real mouse is present. It also pins each tag to a
+    // specific letter in the heading (via inline left/top computed from the
+    // matching .home-hero__anchor span) and takes the whole list out of
+    // flow so tags can scatter across both heading lines instead of
+    // wrapping as a normal list. Without JS (or on touch/reduced-motion/
+    // tab-port), tags stay in the plain in-flow list above.
+    &--interactive {
+      position: absolute;
+      inset: 0;
+      max-width: none;
+      gap: 0;
+      pointer-events: none;
+
+      .home-hero__tag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        pointer-events: auto;
+        // Rotate around the pill's own center, not its pinned corner — a
+        // corner pivot swings a wide pill's far edge back toward the text
+        // at the larger rotation angles used here.
+        transform-origin: center;
+        transform: translate(var(--tag-x, 0), calc(var(--tag-y, 0) + 6px)) rotate(var(--tag-rotate));
+      }
+
+      @include respond(tab-port) {
+        position: static;
+        inset: auto;
+
+        .home-hero__tag {
+          position: static;
+          transform: rotate(var(--tag-rotate));
+        }
+      }
+    }
+
+    .home-hero__tag--revealed {
+      opacity: 1;
+      transform: translate(var(--tag-x, 0), var(--tag-y, 0)) rotate(var(--tag-rotate));
+    }
+
+    // Brief accent flash at the moment a tag is revealed — nudges up
+    // slightly from its pinned spot, then settles back via
+    // .home-hero__tag--revealed once the flash class is removed.
+    .home-hero__tag--lit {
+      color: $themeClrPrimary;
+      border-color: $themeClrPrimary;
+      background: rgba($themeClrPrimary, 0.08);
+      transform: translate(var(--tag-x, 0), calc(var(--tag-y, 0) - 2px)) scale(1.05)
+        rotate(var(--tag-rotate));
     }
 
     @include respond(tab-port) {
       max-width: none;
+      justify-content: center;
     }
   }
 
@@ -163,6 +254,9 @@
     margin-top: 7rem;
 
     @include respond(tab-port) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       margin-top: 5rem;
     }
   }
@@ -172,6 +266,10 @@
     line-height: 1.7;
     color: $heroClrMuted;
     max-width: 42rem;
+
+    @include respond(tab-port) {
+      margin: 0 auto;
+    }
   }
 
   &__card {
@@ -348,6 +446,13 @@
     font-size: clamp(2.8rem, 4.4vw, 4.6rem);
     line-height: 1.25;
     max-width: 46rem;
+
+    // Grid drops to a single column here (see &__grid above), so let the
+    // heading use the full column width instead of stopping at the
+    // two-column-era cap and leaving empty space beside it.
+    @include respond(tab-port) {
+      max-width: none;
+    }
   }
 
   &__heading-accent {
@@ -360,6 +465,10 @@
   &__copy {
     margin-top: 3rem;
     max-width: 50rem;
+
+    @include respond(tab-port) {
+      max-width: none;
+    }
 
     p {
       font-size: 1.7rem;

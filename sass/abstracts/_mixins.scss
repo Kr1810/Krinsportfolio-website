@@ -36,3 +36,20 @@ Inside media queries 1em is always 16px i.e 1em = 16px at every screen size only
     } //1800
   }
 }
+
+// Shared content-width formula — used by .main-container AND
+// .header__content so the header's logo/CTA always line up with the rest
+// of the page's left/right edges. Never duplicate these numbers directly;
+// change them here so both stay in sync.
+@mixin content-width {
+  max-width: 120rem;
+  margin: auto;
+  width: 92%;
+
+  @include respond(tab-port) {
+    width: 88%;
+  }
+  @include respond(phone) {
+    width: 86%;
+  }
+}

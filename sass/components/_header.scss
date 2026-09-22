@@ -14,18 +14,15 @@
   -webkit-backdrop-filter: blur(6px);
   box-sizing: border-box;
 
-  // Same max-width/width/margin formula as .main-container (see
-  // abstracts/_utilities.scss) so the logo and CTA line up exactly with
-  // the hero content's left/right edges instead of using their own
-  // independent padding.
+  // Uses the same content-width mixin as .main-container (see
+  // abstracts/_mixins.scss) so the logo and CTA always line up exactly
+  // with the hero content's left/right edges.
   &__content {
+    @include content-width;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2.4rem;
-    max-width: 120rem;
-    width: 92%;
-    margin: 0 auto;
     padding: 2.4rem 0;
 
     @include respond(tab-land) {
