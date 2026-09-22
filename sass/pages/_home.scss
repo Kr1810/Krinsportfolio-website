@@ -354,8 +354,8 @@
     }
   }
 
-  // Shared corner "selection handle" dots — reused on both the giant name
-  // and the photo frame, matching the design-tool motif used elsewhere.
+  // Corner "selection handle" dots on the photo frame, matching the
+  // design-tool motif used elsewhere.
   &__handle {
     position: absolute;
     display: block;
@@ -383,12 +383,6 @@
       top: 100%;
       left: 100%;
     }
-  }
-
-  &__name &__handle {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 0;
   }
 
   @include respond(phone) {
@@ -1507,120 +1501,31 @@
     max-width: 46rem;
   }
 
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4.5rem;
-
-    @include respond(tab-port) {
-      grid-template-columns: 1fr;
-      gap: 3.5rem;
-    }
-  }
-
-  &__item {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-
-    &--visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
-
-  &__secondary {
-    margin-top: 8rem;
-
-    @include respond(tab-port) {
-      margin-top: 5.5rem;
-    }
-  }
-
-  &__secondary-label {
-    display: inline-block;
-    font-family: $fontMono;
-    font-size: 1.3rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: $heroClrMuted;
-    margin-bottom: 0.8rem;
-  }
-
-  &__secondary-lede {
-    font-size: 1.4rem;
-    color: $heroClrMuted;
-    max-width: 42rem;
-    margin-bottom: 3rem;
-  }
-
-  &__list--secondary {
-    opacity: 0.92;
-
-    .selected-work__window-preview {
-      aspect-ratio: 16 / 10;
-    }
-  }
-
-  // Card root is a <button> (not an <a>) since it opens the project-modal
-  // rather than navigating — reset button chrome back to the card look.
-  &__window {
-    display: block;
-    width: 100%;
-    text-align: left;
-    font: inherit;
-    color: inherit;
-    background: #fff;
+  // Finder/Explorer-style file browser: a window-chrome bar on top, a
+  // category sidebar on the left, and a folder-icon grid (or list) on the
+  // right. Every folder button still opens the same project-modal case
+  // study via [data-project-id] — see assets/js/selected-work.js.
+  &__browser {
     border-radius: $windowBorderRadius;
     border: 1px solid $heroClrBorder;
-    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
+    background: #fff;
+    box-shadow: 0 1.6rem 3.6rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-
-    &:hover,
-    &:focus-visible {
-      transform: translateY(-4px);
-      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
-    }
-
-    &:focus-visible {
-      outline: 3px solid $themeClrPrimary;
-      outline-offset: 3px;
-    }
-
-    &:hover .selected-work__window-img,
-    &:focus-visible .selected-work__window-img {
-      transform: scale(1.04);
-    }
-
-    &:hover .selected-work__overlay,
-    &:focus-visible .selected-work__overlay {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
-  &__window-bar {
+  &__browser-bar {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.4rem;
     padding: 1.1rem 1.6rem;
     background: #fbf8f2;
     border-bottom: 1px solid $heroClrBorder;
   }
 
-  &__window-dots {
+  &__browser-dots {
     display: inline-flex;
     gap: 0.6rem;
+    flex-shrink: 0;
 
     i {
       display: block;
@@ -1641,88 +1546,299 @@
     }
   }
 
-  &__window-filename {
+  &__browser-title {
+    font-family: $fontMono;
     font-size: 1.3rem;
     color: $heroClrMuted;
     letter-spacing: 0.5px;
   }
 
-  &__window-preview {
-    display: block;
-    position: relative;
-    aspect-ratio: 3 / 2;
-    overflow: hidden;
+  &__browser-body {
+    display: flex;
+    align-items: stretch;
+    min-height: 44rem;
+
+    @include respond(tab-port) {
+      flex-direction: column;
+      min-height: 0;
+    }
   }
 
-  &__window-img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+  &__sidebar {
+    flex: 0 0 21rem;
+    padding: 2rem 1.2rem;
+    background: mix($alabaster-grey, $white, 35%);
+    border-right: 1px solid $heroClrBorder;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    @include respond(tab-port) {
+      flex: none;
+      border-right: none;
+      border-bottom: 1px solid $heroClrBorder;
+      padding: 1.4rem 1.6rem;
+
+      ul {
+        flex-direction: row;
+        gap: 0.8rem;
+        overflow-x: auto;
+      }
+    }
   }
 
-  // Hover/focus reveal — a dim scrim over the preview image with a single
-  // centered CTA. The title/subtitle/description/facts that used to live
-  // here now live in the project-modal case study instead (see
-  // assets/js/project-modal.js), reachable via this same button.
-  &__overlay {
-    position: absolute;
-    inset: 0;
+  &__cat {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: rgba($graphite, 0.55);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    font: inherit;
     font-size: 1.4rem;
-    font-weight: 700;
-    color: $white;
-    background: rgba($white, 0.12);
-    border: 1px solid rgba($white, 0.6);
-    border-radius: 999px;
-    padding: 1.1rem 2.4rem;
-    transform: translateY(8px);
-    transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
-      transform 0.3s ease;
-  }
+    color: $heroClrMuted;
+    background: transparent;
+    border: none;
+    border-radius: 0.9rem;
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
 
-  &__window:hover &__overlay,
-  &__window:focus-visible &__overlay {
-    opacity: 1;
-  }
-  &__window:hover &__cta,
-  &__window:focus-visible &__cta {
-    transform: translateY(0);
-  }
-  &__window:hover &__cta:hover,
-  &__window &__cta:focus-visible {
-    background: $white;
-    color: $themeClrPrimary;
-    border-color: $white;
-  }
-  &__window:hover &__cta-arrow,
-  &__window:focus-visible &__cta-arrow {
-    transform: translate(2px, -2px);
-  }
-
-  &__cta-arrow {
-    display: inline-block;
-    transition: transform 0.25s ease;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    &__overlay,
-    &__cta {
-      transition: none;
-      transform: none;
+    &:hover {
+      background: rgba($themeClrPrimary, 0.08);
     }
+
+    &:focus-visible {
+      outline: 2px solid $themeClrPrimary;
+      outline-offset: 2px;
+    }
+
+    &.is-active {
+      background: $themeClrPrimary;
+      color: $white;
+
+      .selected-work__cat-count {
+        background: rgba($white, 0.22);
+        color: $white;
+      }
+    }
+  }
+
+  &__cat-count {
+    font-family: $fontMono;
+    font-size: 1.1rem;
+    color: $heroClrMuted;
+    background: rgba($graphite, 0.08);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+    padding: 2.4rem 3.2rem 3.2rem;
+
+    @include respond(tab-port) {
+      padding: 2.4rem 1.6rem 3.2rem;
+    }
+  }
+
+  &__main-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.8rem;
+
+    @include respond(phone) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+  }
+
+  &__main-path {
+    display: block;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    color: $heroClrMuted;
+    margin-bottom: 0.4rem;
+  }
+
+  &__main-title {
+    font-weight: 800;
+    font-size: clamp(2.2rem, 3vw, 2.8rem);
+    color: $heroClrText;
+  }
+
+  &__view-toggle {
+    display: inline-flex;
+    gap: 0.4rem;
+    background: mix($alabaster-grey, $white, 35%);
+    border: 1px solid $heroClrBorder;
+    border-radius: 0.9rem;
+    padding: 0.3rem;
+    flex-shrink: 0;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.2rem;
+      height: 3.2rem;
+      border: none;
+      border-radius: 0.7rem;
+      background: transparent;
+      color: $heroClrMuted;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: currentColor;
+      }
+
+      &:hover {
+        color: $themeClrPrimary;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $themeClrPrimary;
+        outline-offset: 2px;
+      }
+
+      &.is-active {
+        background: $themeClrPrimary;
+        color: $white;
+      }
+    }
+  }
+
+  &__folders {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 2.8rem 1.6rem;
+
+    &[data-view='list'] {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+
+      .selected-work__folder {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1.4rem;
+        padding: 1.1rem 0.8rem;
+        border-radius: 0.7rem;
+      }
+
+      .selected-work__folder-icon {
+        width: 2.6rem;
+      }
+
+      .selected-work__folder-name {
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .selected-work__folder-item {
+        border-bottom: 1px solid $heroClrBorder;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  &__folder-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &.is-hidden {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  &__folder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-radius: 1.1rem;
+    padding: 1.2rem 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba($themeClrPrimary, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $themeClrPrimary;
+      outline-offset: 2px;
+    }
+
+    &:hover .selected-work__folder-name,
+    &:focus-visible .selected-work__folder-name {
+      background: $themeClrPrimary;
+      color: $white;
+    }
+  }
+
+  &__folder-icon {
+    display: block;
+    width: 5.6rem;
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__folder-back {
+    fill: mix($themeClrPrimary, black, 88%);
+  }
+
+  &__folder-front {
+    fill: $themeClrPrimary;
+  }
+
+  &__folder-name {
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: $heroClrText;
+    text-align: center;
+    border-radius: 0.4rem;
+    padding: 0.1rem 0.6rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 }
 

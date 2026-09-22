@@ -35,11 +35,10 @@
   const nameEl = document.querySelector('.home-hero__name')
   const roleEl = document.querySelector('.home-hero__role')
   const CLEARANCE = 18 // px gap kept beyond the rotated pill's own footprint
-  // Pills touch edge-to-edge along each row; a small negative overlap
-  // makes their rotated corners actually meet instead of leaving a hairline
-  // gap (adjacent pills tilt in different directions, so corners — not
-  // flat edges — are what end up meeting).
-  const TOUCH_OVERLAP = 10
+  // A small deliberate overlap (in addition to the exact geometric touch
+  // point computed below) so pills visibly meet rather than just kiss at a
+  // single point.
+  const TOUCH_BIAS = 4
 
   tagList.classList.add('home-hero__tags--interactive')
 
@@ -47,9 +46,13 @@
     return window.matchMedia('(min-width: 56.26em)').matches // above tab-port
   }
 
-  // A rotated pill's bounding box grows in both axes; used so each pill in
-  // a chained row starts right where the previous one's rotated footprint
-  // ends, and so a row's shared Y clears the tallest rotated pill in it.
+  function rotationOf(tag) {
+    return parseFloat(getComputedStyle(tag).getPropertyValue('--tag-rotate')) || 0
+  }
+
+  // A rotated pill's bounding box grows in both axes; used only to size the
+  // vertical clearance a row needs (how much taller the tallest rotated
+  // pill in it gets).
   function rotatedBounds(width, height, degrees) {
     const rad = (Math.abs(degrees) * Math.PI) / 180
     return {
@@ -58,45 +61,125 @@
     }
   }
 
-  function rotationOf(tag) {
-    return parseFloat(getComputedStyle(tag).getPropertyValue('--tag-rotate')) || 0
+  // These pills are full stadium shapes (border-radius: 999px) — a
+  // rectangle with semicircular caps — not sharp-cornered rectangles, so a
+  // simple bounding-box overlap doesn't reliably predict where two
+  // differently-rotated pills actually meet. Build the true outline as a
+  // polygon (centered on the pill, rotated by its own angle), so the exact
+  // touch point between any two pills can be computed regardless of how
+  // differently they're each tilted.
+  function stadiumOutline(width, height, degrees) {
+    const hw = width / 2
+    const hh = height / 2
+    const straight = Math.max(hw - hh, 0)
+    const segs = 24
+    const pts = []
+    for (let i = 0; i <= segs; i++) {
+      const a = -Math.PI / 2 + (Math.PI * i) / segs
+      pts.push([straight + hh * Math.cos(a), hh * Math.sin(a)])
+    }
+    pts.push([-straight, hh])
+    for (let i = 0; i <= segs; i++) {
+      const a = Math.PI / 2 + (Math.PI * i) / segs
+      pts.push([-straight + hh * Math.cos(a), hh * Math.sin(a)])
+    }
+    pts.push([straight, -hh])
+
+    const rad = (degrees * Math.PI) / 180
+    const cos = Math.cos(rad)
+    const sin = Math.sin(rad)
+    return pts.map(([x, y]) => [x * cos - y * sin, x * sin + y * cos])
+  }
+
+  // Furthest x on the outline at world y = targetY (found by linearly
+  // interpolating each edge segment that crosses that height). Returns
+  // null if the shape doesn't reach that height at all.
+  function extentAtY(outline, targetY, side) {
+    let best = null
+    for (let i = 0; i < outline.length; i++) {
+      const [x1, y1] = outline[i]
+      const [x2, y2] = outline[(i + 1) % outline.length]
+      if (y1 === y2) continue
+      if ((y1 - targetY) * (y2 - targetY) > 0) continue
+      const t = (targetY - y1) / (y2 - y1)
+      const x = x1 + t * (x2 - x1)
+      best = best === null ? x : side === 'right' ? Math.max(best, x) : Math.min(best, x)
+    }
+    return best
+  }
+
+  // The minimum center-to-center X distance so the left shape and the
+  // right shape don't overlap at ANY height — not just at their shared
+  // center line. Two differently-rotated pills can come closest near a
+  // corner rather than at the mid-height, so every height across both
+  // outlines' combined vertical span is checked and the worst case wins.
+  function requiredCenterGap(outlineLeft, outlineRight) {
+    const allY = outlineLeft.concat(outlineRight).map((p) => p[1])
+    const minY = Math.min.apply(null, allY)
+    const maxY = Math.max.apply(null, allY)
+    const samples = 48
+    let maxGap = -Infinity
+    for (let i = 0; i <= samples; i++) {
+      const y = minY + ((maxY - minY) * i) / samples
+      const r = extentAtY(outlineLeft, y, 'right')
+      const l = extentAtY(outlineRight, y, 'left')
+      if (r === null || l === null) continue
+      maxGap = Math.max(maxGap, r - l)
+    }
+    return maxGap
   }
 
   function layoutRow(indices, startX, edgeY, direction) {
-    let cursorX = startX
     let maxExtraHeight = 0
     indices.forEach((i) => {
       const bounds = rotatedBounds(tags[i].offsetWidth, tags[i].offsetHeight, rotationOf(tags[i]))
       maxExtraHeight = Math.max(maxExtraHeight, bounds.height - tags[i].offsetHeight)
     })
 
+    let centerX = null
+    let prevOutline = null
     indices.forEach((i) => {
       const tag = tags[i]
-      const bounds = rotatedBounds(tag.offsetWidth, tag.offsetHeight, rotationOf(tag))
-      const y = direction === 'up' ? edgeY - maxExtraHeight / 2 - tag.offsetHeight : edgeY + maxExtraHeight / 2
-      tag.style.setProperty('--tag-x', cursorX + 'px')
-      tag.style.setProperty('--tag-y', y + 'px')
-      cursorX += bounds.width - TOUCH_OVERLAP
+      const w = tag.offsetWidth
+      const h = tag.offsetHeight
+      const deg = rotationOf(tag)
+      const outline = stadiumOutline(w, h, deg)
+
+      if (centerX === null) {
+        // First pill in the row: its own left edge starts at `startX`, so
+        // its center sits half its rotated bounding width to the right.
+        const bounds = rotatedBounds(w, h, deg)
+        centerX = startX + bounds.width / 2
+      } else {
+        centerX += requiredCenterGap(prevOutline, outline) - TOUCH_BIAS
+      }
+
+      const topY =
+        direction === 'up'
+          ? edgeY - maxExtraHeight / 2 - h
+          : direction === 'level'
+            ? edgeY - h / 2
+            : edgeY + maxExtraHeight / 2
+      tag.style.setProperty('--tag-x', centerX - w / 2 + 'px')
+      tag.style.setProperty('--tag-y', topY + 'px')
+
+      prevOutline = outline
     })
   }
 
   function positionTags() {
     if (!isPinnedLayout() || !nameEl || !roleEl) return
     const containerRect = top.getBoundingClientRect()
-    const nameTop = nameEl.getBoundingClientRect().top - containerRect.top
+    const nameRect = nameEl.getBoundingClientRect()
+    const nameCenterY = (nameRect.top + nameRect.bottom) / 2 - containerRect.top
     const roleBottom = roleEl.getBoundingClientRect().bottom - containerRect.top
-    const firstAnchorX = anchors[0].getBoundingClientRect().left - containerRect.left
+    // Row 1 starts at the END of "Krina Suthar" (not "K") so the chain
+    // sits level with the name, in the open space to its right, instead
+    // of floating above it.
+    const rowOneStartX = nameRect.right - containerRect.left
     const fourthAnchorX = anchors[3].getBoundingClientRect().left - containerRect.left
 
-    // Top-group tags must never float up behind the fixed header — a hard
-    // floor takes priority over clearing the (small, secondary) kicker
-    // label, since the header is structural and the kicker isn't.
-    const headerEl = document.querySelector('.header')
-    const headerBottom = headerEl
-      ? headerEl.getBoundingClientRect().bottom - containerRect.top + 12
-      : -Infinity
-
-    layoutRow([0, 1, 2], firstAnchorX, Math.max(nameTop - CLEARANCE, headerBottom), 'up')
+    layoutRow([0, 1, 2], rowOneStartX, nameCenterY, 'level')
     layoutRow([3, 4, 5], fourthAnchorX, roleBottom + CLEARANCE, 'down')
   }
 

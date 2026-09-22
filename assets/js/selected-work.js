@@ -2,15 +2,17 @@
 // project case-study modal (assets/js/project-modal.js reads this same array).
 // Add/edit a project here — markup is generated, never duplicated by hand.
 //
-// group: 'selected' = the 8 case studies from the current resume, shown first.
-// group: 'earlier'  = the 4 original Figma-only projects, kept as a smaller
-//                      "Earlier work" tier below rather than deleted — see
-//                      legacyHref, which still points at the standalone
-//                      project-N.html page each one originally shipped with.
+// group:    'selected' = the 8 case studies from the current resume.
+//           'earlier'  = the 4 original Figma-only projects — see legacyHref,
+//                        which still points at the standalone project-N.html
+//                        page each one originally shipped with.
+// category: drives the Finder-style sidebar filter in the rendered section
+//           below ('web' | 'mobile' | 'earlier').
 const PROJECTS = [
   {
     id: 'sw-habitation-blog',
     group: 'selected',
+    category: 'web',
     number: '01',
     file: 'sw_habitation.blog',
     title: 'SW Habitation Blog Site',
@@ -40,6 +42,7 @@ const PROJECTS = [
   {
     id: 'somish-realty',
     group: 'selected',
+    category: 'web',
     number: '02',
     file: 'somish_realty.web',
     title: 'SOMISH Realty Website',
@@ -69,6 +72,7 @@ const PROJECTS = [
   {
     id: 'explore-local-events',
     group: 'selected',
+    category: 'mobile',
     number: '03',
     file: 'explore_events.app',
     title: 'Explore Local Events App',
@@ -98,6 +102,7 @@ const PROJECTS = [
   {
     id: 'cricket-scoreboard',
     group: 'selected',
+    category: 'mobile',
     number: '04',
     file: 'cricket_scoreboard.app',
     title: 'Cricket Scoreboard App',
@@ -127,6 +132,7 @@ const PROJECTS = [
   {
     id: 'weather-app',
     group: 'selected',
+    category: 'mobile',
     number: '05',
     file: 'weather.app',
     title: 'Weather App',
@@ -156,6 +162,7 @@ const PROJECTS = [
   {
     id: 'dental-practice',
     group: 'selected',
+    category: 'web',
     number: '06',
     file: 'dental_practice.web',
     title: 'Dental Practice Website',
@@ -185,6 +192,7 @@ const PROJECTS = [
   {
     id: 'yugal-matrimony',
     group: 'selected',
+    category: 'web',
     number: '07',
     file: 'yugal_matrimony.web',
     title: 'Yugal Matrimony Website',
@@ -214,6 +222,7 @@ const PROJECTS = [
   {
     id: 'news-blog',
     group: 'selected',
+    category: 'web',
     number: '08',
     file: 'news_and_blog.web',
     title: 'News & Blog Website',
@@ -243,6 +252,7 @@ const PROJECTS = [
   {
     id: 'restro',
     group: 'earlier',
+    category: 'earlier',
     number: '01',
     file: 'restro.fig',
     title: 'Restro',
@@ -274,6 +284,7 @@ const PROJECTS = [
   {
     id: 'signup-login-flow',
     group: 'earlier',
+    category: 'earlier',
     number: '02',
     file: 'login-flow.fig',
     title: 'Sign up & Login Flow',
@@ -304,6 +315,7 @@ const PROJECTS = [
   {
     id: 'ecommerce-wireframe',
     group: 'earlier',
+    category: 'earlier',
     number: '03',
     file: 'zara-wireframe.fig',
     title: 'E-Commerce Wireframe',
@@ -335,6 +347,7 @@ const PROJECTS = [
   {
     id: 'email-template',
     group: 'earlier',
+    category: 'earlier',
     number: '04',
     file: 'email-template.ai',
     title: 'E-mail Template',
@@ -363,63 +376,134 @@ const PROJECTS = [
   },
 ]
 
-function selectedWorkItemHTML(project) {
+// Projects are shown as a Finder/Explorer-style file browser: a category
+// sidebar on the left, a folder-icon grid (or list) on the right. Every
+// folder still opens the same project-modal case study via [data-project-id]
+// — only the visual container around the trigger button changed.
+const PROJECT_CATEGORIES = [
+  { id: 'all', label: 'All Projects' },
+  { id: 'web', label: 'Web' },
+  { id: 'mobile', label: 'Mobile' },
+  { id: 'earlier', label: 'Earlier Work' },
+]
+
+const FOLDER_ICON_SVG = `
+  <svg viewBox="0 0 48 40" aria-hidden="true">
+    <path class="selected-work__folder-back" d="M2 8c0-1.1.9-2 2-2h11l3 3h26c1.1 0 2 .9 2 2v3H2V8z" />
+    <rect class="selected-work__folder-front" x="2" y="11" width="44" height="27" rx="3" />
+  </svg>
+`
+
+const GRID_VIEW_SVG = `
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <rect x="1" y="1" width="6" height="6" rx="1.2"></rect>
+    <rect x="9" y="1" width="6" height="6" rx="1.2"></rect>
+    <rect x="1" y="9" width="6" height="6" rx="1.2"></rect>
+    <rect x="9" y="9" width="6" height="6" rx="1.2"></rect>
+  </svg>
+`
+
+const LIST_VIEW_SVG = `
+  <svg viewBox="0 0 16 16" aria-hidden="true">
+    <rect x="1" y="2" width="14" height="2.4" rx="1.2"></rect>
+    <rect x="1" y="6.8" width="14" height="2.4" rx="1.2"></rect>
+    <rect x="1" y="11.6" width="14" height="2.4" rx="1.2"></rect>
+  </svg>
+`
+
+function folderItemHTML(project) {
   return `
-    <article class="selected-work__item">
+    <li class="selected-work__folder-item" data-category="${project.category}">
       <button
         type="button"
-        class="selected-work__window"
+        class="selected-work__folder"
         data-project-id="${project.id}"
         aria-haspopup="dialog"
         aria-label="${project.title} — ${project.subtitle}. Open case study"
       >
-        <span class="selected-work__window-bar">
-          <span class="selected-work__window-dots" aria-hidden="true">
-            <i></i><i></i><i></i>
-          </span>
-          <span class="selected-work__window-filename">${project.file}</span>
-        </span>
-        <span class="selected-work__window-preview">
-          <img
-            class="selected-work__window-img"
-            src="${project.image}"
-            width="${project.imageWidth}"
-            height="${project.imageHeight}"
-            alt="${project.alt}"
-            loading="lazy"
-          />
-          <span class="selected-work__overlay">
-            <span class="selected-work__cta">
-              See project <span class="selected-work__cta-arrow" aria-hidden="true">↗</span>
-            </span>
-          </span>
-        </span>
+        <span class="selected-work__folder-icon">${FOLDER_ICON_SVG}</span>
+        <span class="selected-work__folder-name">${project.file}</span>
       </button>
-    </article>
+    </li>
+  `
+}
+
+function sidebarItemHTML(cat, count) {
+  return `
+    <li>
+      <button type="button" class="selected-work__cat${cat.id === 'all' ? ' is-active' : ''}" data-category="${cat.id}">
+        <span>${cat.label}</span>
+        <span class="selected-work__cat-count">${count}</span>
+      </button>
+    </li>
   `
 }
 
 const selectedWorkList = document.getElementById('selectedWorkList')
 
 if (selectedWorkList) {
-  const selected = PROJECTS.filter((p) => p.group === 'selected')
-  const earlier = PROJECTS.filter((p) => p.group === 'earlier')
+  const sidebarHTML = PROJECT_CATEGORIES.map((cat) =>
+    sidebarItemHTML(
+      cat,
+      cat.id === 'all' ? PROJECTS.length : PROJECTS.filter((p) => p.category === cat.id).length
+    )
+  ).join('')
 
   selectedWorkList.innerHTML = `
-    <div class="selected-work__list">
-      ${selected.map(selectedWorkItemHTML).join('')}
-    </div>
-    <div class="selected-work__secondary">
-      <span class="selected-work__secondary-label">EARLIER_WORK/</span>
-      <p class="selected-work__secondary-lede">
-        A few earlier Figma-only projects from before this round of case studies.
-      </p>
-      <div class="selected-work__list selected-work__list--secondary">
-        ${earlier.map(selectedWorkItemHTML).join('')}
+    <div class="selected-work__browser">
+      <div class="selected-work__browser-bar">
+        <span class="selected-work__browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="selected-work__browser-title">portfolio.projects</span>
+      </div>
+      <div class="selected-work__browser-body">
+        <nav class="selected-work__sidebar" aria-label="Project categories">
+          <ul>${sidebarHTML}</ul>
+        </nav>
+        <div class="selected-work__main">
+          <div class="selected-work__main-head">
+            <div>
+              <span class="selected-work__main-path">krina-suthar / projects</span>
+              <h3 class="selected-work__main-title" id="projectCategoryTitle">All Projects</h3>
+            </div>
+            <div class="selected-work__view-toggle" role="group" aria-label="Change view">
+              <button type="button" class="is-active" data-view="grid" aria-label="Grid view">${GRID_VIEW_SVG}</button>
+              <button type="button" data-view="list" aria-label="List view">${LIST_VIEW_SVG}</button>
+            </div>
+          </div>
+          <ul class="selected-work__folders" id="selectedWorkFolders" data-view="grid">
+            ${PROJECTS.map(folderItemHTML).join('')}
+          </ul>
+        </div>
       </div>
     </div>
   `
 
-  const items = selectedWorkList.querySelectorAll('.selected-work__item')
-  initScrollReveal(items, 'selected-work__item--visible')
+  const folderList = document.getElementById('selectedWorkFolders')
+  const categoryTitle = document.getElementById('projectCategoryTitle')
+  const categoryButtons = selectedWorkList.querySelectorAll('.selected-work__cat')
+  const folderItems = selectedWorkList.querySelectorAll('.selected-work__folder-item')
+  const viewButtons = selectedWorkList.querySelectorAll('.selected-work__view-toggle button')
+
+  categoryButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach((b) => b.classList.remove('is-active'))
+      btn.classList.add('is-active')
+      const categoryId = btn.dataset.category
+      categoryTitle.textContent = PROJECT_CATEGORIES.find((c) => c.id === categoryId).label
+      folderItems.forEach((item) => {
+        const matches = categoryId === 'all' || item.dataset.category === categoryId
+        item.classList.toggle('is-hidden', !matches)
+      })
+    })
+  })
+
+  viewButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      viewButtons.forEach((b) => b.classList.remove('is-active'))
+      btn.classList.add('is-active')
+      folderList.dataset.view = btn.dataset.view
+    })
+  })
+
+  initScrollReveal(folderItems, 'selected-work__folder-item--visible')
 }
