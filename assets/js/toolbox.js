@@ -66,18 +66,18 @@ const TOOLBOX = [
     title: 'AI Tools',
     file: 'ai_tools.txt',
     skills: [
-      { name: 'Claude', icon: null },
-      { name: 'ChatGPT', icon: './images/skills/GPT.webp' },
-      { name: 'GitHub Copilot', icon: null },
-      { name: 'Codex', icon: null },
-      { name: 'Cursor', icon: null },
-      { name: 'Antigravity', icon: null },
-      { name: 'Midjourney', icon: null },
-      { name: 'Figma AI', icon: './images/skills/figma.webp' },
-      { name: 'Figma Agent', icon: null },
-      { name: 'Framer AI', icon: null },
-      { name: 'Emergent AI', icon: null },
-      { name: 'v0', icon: null },
+      'Claude',
+      'ChatGPT',
+      'GitHub Copilot',
+      'Codex',
+      'Cursor',
+      'Antigravity',
+      'Midjourney',
+      'Figma AI',
+      'Figma Agent',
+      'Framer AI',
+      'Emergent AI',
+      'v0',
     ],
   },
   {
@@ -86,16 +86,16 @@ const TOOLBOX = [
     title: 'Design & Web Tools',
     file: 'design_tools.txt',
     skills: [
-      { name: 'Figma', icon: './images/figma_logo.webp' },
-      { name: 'Framer', icon: null },
-      { name: 'Webflow', icon: null },
-      { name: 'Adobe XD', icon: './images/AdobeXD_Logo.svg' },
-      { name: 'Illustrator', icon: './images/skills/Ai.webp' },
-      { name: 'After Effects', icon: null },
-      { name: 'Adobe Express', icon: null },
-      { name: 'Canva', icon: null },
-      { name: 'Miro', icon: null },
-      { name: 'Blender', icon: null },
+      'Figma',
+      'Framer',
+      'Webflow',
+      'Adobe XD',
+      'Illustrator',
+      'After Effects',
+      'Adobe Express',
+      'Canva',
+      'Miro',
+      'Blender',
     ],
   },
   {
@@ -104,14 +104,14 @@ const TOOLBOX = [
     title: 'Dev & Collaboration',
     file: 'dev_tools.txt',
     skills: [
-      { name: 'VS Code', icon: null },
-      { name: 'HTML5', icon: './images/skills/HTML.webp' },
-      { name: 'CSS3', icon: './images/skills/css.webp' },
-      { name: 'JavaScript', icon: './images/skills/JS.webp' },
-      { name: 'React', icon: null },
-      { name: 'Git', icon: './images/skills/Github.webp' },
-      { name: 'Jira', icon: null },
-      { name: 'Linear', icon: null },
+      'VS Code',
+      'HTML5',
+      'CSS3',
+      'JavaScript',
+      'React',
+      'Git',
+      'Jira',
+      'Linear',
     ],
   },
 ]
@@ -126,18 +126,8 @@ const LOG_GROUP_IDS = ['ux', 'ui', 'graphic']
 const WORKFLOW_GROUP_ID = 'ai-design'
 const METRIC_GROUP_IDS = ['ai-tools', 'design-tools', 'dev-tools']
 
-function skillName(skill) {
-  return typeof skill === 'string' ? skill : skill.name
-}
-
 function chipHTML(skill) {
-  if (typeof skill === 'string') {
-    return `<li class="toolbox__chip">${skill}</li>`
-  }
-  const icon = skill.icon
-    ? `<img src="${skill.icon}" alt="" class="toolbox__chip-icon" aria-hidden="true" />`
-    : ''
-  return `<li class="toolbox__chip toolbox__chip--tool">${icon}${skill.name}</li>`
+  return `<li class="toolbox__chip">${skill}</li>`
 }
 
 function logEntryHTML(group) {
@@ -175,7 +165,7 @@ function pipelinePanelHTML(group) {
       <span class="toolbox__pipeline-status"><i aria-hidden="true"></i>Active</span>
     </div>
     <ul class="toolbox__stage-list">
-      ${group.skills.map((s, i) => stageHTML(skillName(s), i, group.skills.length)).join('')}
+      ${group.skills.map((s, i) => stageHTML(s, i, group.skills.length)).join('')}
     </ul>
     <div class="toolbox__snippet" aria-hidden="true">
       <p class="toolbox__snippet-line toolbox__snippet-line--del">- &lt;div class="Frame_2847"&gt;</p>
