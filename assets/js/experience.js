@@ -52,38 +52,40 @@ function bulletHTML(bullet) {
 function experienceCardHTML(item, index) {
   return `
     <article class="experience__card experience__reveal" style="--card-i: ${index}">
-      <span class="experience__card-bar">
-        <span class="experience__card-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="experience__card-filename">${item.file}</span>
-      </span>
-      <div class="experience__card-body">
-        <span class="experience__period">${item.period}</span>
-        <h3 class="experience__role">${item.role} <span class="experience__type">· ${item.type}</span></h3>
-        <p class="experience__company">${item.company} · ${item.location}</p>
-        <ul class="experience__desc">
-          ${item.bullets.map(bulletHTML).join('')}
-        </ul>
-        <ul class="experience__tags">
-          ${item.focus.map(focusTagHTML).join('')}
-        </ul>
-      </div>
+      <h3 class="experience__role">${item.role} <span class="experience__type">· ${item.type}</span></h3>
+      <span class="experience__company">${item.company} · ${item.location}</span>
+      <ul class="experience__desc">
+        ${item.bullets.map(bulletHTML).join('')}
+      </ul>
+      <ul class="experience__tags">
+        ${item.focus.map(focusTagHTML).join('')}
+      </ul>
     </article>
   `
 }
 
-function indexRowHTML(item) {
-  return `<li class="experience__index-row"><span>${item.period}</span>${item.company} — ${item.role}</li>`
+// Vertical zigzag timeline: newest role (index 0) on the right, next one on
+// the left, and so on — each row is a 3-way slot [left | marker | right]
+// with the card in one slot and a truly empty div in the other, so the
+// empty slot can be hidden with a plain :empty selector on small screens.
+function timelineRowHTML(item, index) {
+  const onRight = index % 2 === 0
+  const card = experienceCardHTML(item, index)
+  return `
+    <div class="experience__timeline-row">
+      <div class="experience__timeline-slot experience__timeline-slot--left">${onRight ? '' : card}</div>
+      <div class="experience__timeline-marker">
+        <span class="experience__timeline-period">${item.period}</span>
+      </div>
+      <div class="experience__timeline-slot experience__timeline-slot--right">${onRight ? card : ''}</div>
+    </div>
+  `
 }
 
 const experienceList = document.getElementById('experienceList')
-const experienceIndex = document.getElementById('experienceIndex')
 
 if (experienceList) {
-  experienceList.innerHTML = EXPERIENCE.map(experienceCardHTML).join('')
-
-  if (experienceIndex) {
-    experienceIndex.innerHTML = EXPERIENCE.map(indexRowHTML).join('')
-  }
+  experienceList.innerHTML = EXPERIENCE.map(timelineRowHTML).join('')
 
   const revealEls = document.querySelectorAll('.experience .experience__reveal')
   initScrollReveal(revealEls, 'experience__reveal--visible')

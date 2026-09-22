@@ -1842,23 +1842,24 @@
   }
 }
 
+// Dark, alternating vertical timeline — same dark palette as .playground so
+// the two dark sections read as one system. A single accent line (teal,
+// standing in for the reference image's orange) runs down the center,
+// with each role's period as a marker on the line and the card alternating
+// left/right off it.
 .experience {
-  background: $heroClrBg;
+  position: relative;
+  background: $graphite;
+  color: $white;
   overflow: hidden;
 
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 7rem;
-    align-items: start;
-
-    @include respond(tab-land) {
-      gap: 4rem;
-    }
+  &__intro {
+    max-width: 62rem;
+    margin-bottom: 6rem;
 
     @include respond(tab-port) {
-      grid-template-columns: 1fr;
-      gap: 5rem;
+      max-width: none;
+      text-align: center;
     }
   }
 
@@ -1869,12 +1870,12 @@
     font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: $themeClrPrimary;
+    color: mix($stormy-teal, $white, 55%);
     margin-bottom: 1.6rem;
   }
 
   &__heading {
-    color: $heroClrText;
+    color: $white;
     font-weight: 900;
     font-size: clamp(2.8rem, 4.4vw, 4.6rem);
     line-height: 1.25;
@@ -1884,7 +1885,7 @@
     display: block;
     font-family: $heroFontScript;
     font-weight: 600;
-    color: $heroClrScript;
+    color: mix($stormy-teal, $white, 45%);
     font-size: 1.1em;
     margin-top: 0.3rem;
   }
@@ -1893,49 +1894,122 @@
     margin-top: 2rem;
     font-size: 1.7rem;
     line-height: 1.7;
-    color: $heroClrMuted;
+    color: mix($white, $graphite, 70%);
     max-width: 42rem;
+
+    @include respond(tab-port) {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
-  &__index {
-    margin-top: 3.2rem;
-    list-style: none;
-    padding: 0;
-    border-top: 1px solid $heroClrBorder;
-    max-width: 42rem;
-  }
-
-  &__index-row {
+  &__timeline {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.2rem;
-    padding: 1.2rem 0;
-    border-bottom: 1px solid $heroClrBorder;
-    font-size: 1.4rem;
-    color: $heroClrMuted;
+    flex-direction: column;
+  }
 
-    span {
-      flex-shrink: 0;
-      color: $themeClrPrimary;
-      font-weight: 700;
+  &__timeline-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 3rem;
+    align-items: stretch;
+
+    @include respond(tab-port) {
+      grid-template-columns: 7.5rem 1fr;
+      column-gap: 2rem;
+    }
+  }
+
+  &__timeline-slot {
+    display: flex;
+    align-items: center;
+    padding: 2.4rem 0;
+
+    &--left {
+      justify-content: flex-end;
+    }
+
+    &--right {
+      justify-content: flex-start;
+    }
+
+    // Whichever slot has no card in a given row (left slot on a
+    // right-aligned row, or vice versa) is a truly empty spacer div — hide
+    // it on tab-port so the single card can take the full remaining width.
+    @include respond(tab-port) {
+      &:empty {
+        display: none;
+      }
+      justify-content: stretch;
+    }
+  }
+
+  &__timeline-marker {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    // Lines up the period label with the card's own top padding (2.8rem)
+    // instead of centering it against the card's full height — cards run
+    // long with real bullet content, so a center-aligned label can drift
+    // far from the card it belongs to, especially on narrow viewports.
+    padding-top: 2.8rem;
+
+    // The marker (line + period label) always sits first on tab-port,
+    // regardless of which side its row's card lives on in the markup. The
+    // label also moves off the line entirely — left-aligned in its own
+    // column with the line at the column's right edge, rather than sitting
+    // centered on top of it as it does in the alternating desktop layout.
+    @include respond(tab-port) {
+      order: -1;
+      justify-content: flex-start;
+    }
+  }
+
+  &__timeline-marker::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 50%;
+    width: 2px;
+    background: rgba($stormy-teal, 0.45);
+    transform: translateX(-50%);
+
+    @include respond(tab-port) {
+      left: auto;
+      right: 0;
+      transform: none;
+    }
+  }
+
+  &__timeline-period {
+    position: relative;
+    z-index: 1;
+    background: $graphite;
+    padding: 0.7rem 1rem;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    color: mix($stormy-teal, $white, 60%);
+
+    @include respond(tab-port) {
+      background: transparent;
+      padding: 0 1.6rem 0 0;
+      white-space: normal;
       font-size: 1.3rem;
     }
   }
 
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-  }
-
   &__card {
     position: relative;
-    background: #fffbf3;
-    border: 1px solid $heroClrBorder;
-    border-left: 4px solid $themeClrPrimary;
-    border-radius: $windowBorderRadius;
-    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    width: 100%;
+    max-width: 46rem;
+    background: mix($white, $graphite, 12%);
+    border: 1px solid rgba($white, 0.08);
+    border-radius: $paperBorderRadius;
+    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.3);
+    padding: 2.8rem 3rem;
 
     opacity: 0;
     transform: translateY(26px);
@@ -1950,78 +2024,31 @@
     &:hover,
     &:focus-within {
       transform: translateY(-3px);
-      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
+      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.4);
     }
-  }
-
-  &__card-bar {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    padding: 1.1rem 1.6rem;
-    background: #fbf8f2;
-    border-bottom: 1px solid $heroClrBorder;
-  }
-
-  &__card-dots {
-    display: inline-flex;
-    gap: 0.6rem;
-
-    i {
-      display: block;
-      width: 0.9rem;
-      height: 0.9rem;
-      border-radius: 50%;
-      background: #dfe1e6;
-
-      &:nth-child(1) {
-        background: #ff5f57;
-      }
-      &:nth-child(2) {
-        background: #febc2e;
-      }
-      &:nth-child(3) {
-        background: #28c840;
-      }
-    }
-  }
-
-  &__card-filename {
-    font-size: 1.3rem;
-    color: $heroClrMuted;
-    letter-spacing: 0.5px;
-  }
-
-  &__card-body {
-    padding: 2.8rem 3rem;
-  }
-
-  &__period {
-    display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: $themeClrPrimary;
-    margin-bottom: 1rem;
   }
 
   &__role {
     font-size: 2.1rem;
     font-weight: 900;
-    color: $heroClrText;
-    margin-bottom: 0.4rem;
+    color: $white;
+    margin-bottom: 0.6rem;
   }
 
   &__type {
     font-weight: 600;
-    color: $heroClrMuted;
+    color: mix($white, $graphite, 65%);
   }
 
   &__company {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: $heroClrMuted;
-    margin-bottom: 1.6rem;
+    display: block;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: mix($white, $graphite, 65%);
+    margin-bottom: 1.8rem;
   }
 
   &__desc {
@@ -2029,13 +2056,12 @@
     flex-direction: column;
     gap: 1.1rem;
     list-style: none;
-    max-width: 52rem;
   }
 
   &__desc-item {
     font-size: 1.5rem;
     line-height: 1.6;
-    color: $heroClrMuted;
+    color: mix($white, $graphite, 78%);
     padding-left: 1.6rem;
     position: relative;
 
@@ -2043,7 +2069,7 @@
       content: '–';
       position: absolute;
       left: 0;
-      color: $themeClrPrimary;
+      color: mix($stormy-teal, $white, 55%);
     }
   }
 
@@ -2060,9 +2086,9 @@
     font-family: $fontBody;
     font-size: 1.3rem;
     font-weight: 500;
-    color: $themeClrPrimary;
-    background: rgba($themeClrPrimary, 0.08);
-    border: 1px solid rgba($themeClrPrimary, 0.18);
+    color: mix($stormy-teal, $white, 60%);
+    background: rgba($stormy-teal, 0.14);
+    border: 1px solid rgba($stormy-teal, 0.3);
     border-radius: $commonBorderRadius;
     padding: 0.5rem 1.2rem;
   }
@@ -2105,11 +2131,8 @@
   }
 
   @include respond(phone) {
-    &__card-body {
+    &__card {
       padding: 2.2rem 2.2rem 2.4rem;
-    }
-    &__index-row {
-      font-size: 1.3rem;
     }
   }
 }
