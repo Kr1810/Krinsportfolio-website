@@ -706,88 +706,41 @@
     max-width: 48rem;
   }
 
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5rem 3.5rem;
-    align-items: start;
-
-    @include respond(tab-land) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include respond(tab-port) {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-  }
-
-  // Auto-flowing "pinned paper" collage — rotation/stagger derived from
-  // nth-child position instead of per-card ids, so the grid scales to any
-  // number of skill groups without hand-placing grid-column/row per card.
-  &__card {
-    --tb-rotate: 0deg;
-    position: relative;
-    background: #fffbf3;
-    border: 1px solid $heroClrBorder;
+  // Dark "dev dashboard" window — window chrome + decorative tabs, then a
+  // 3-column body (commit-log / pipeline / metrics), styled after the
+  // shared reference. Every one of the 7 TOOLBOX groups still shows up in
+  // full below, just reformatted into whichever panel fits it.
+  &__dashboard {
+    background: mix($graphite, black, 55%);
+    border: 1px solid rgba($white, 0.08);
     border-radius: $windowBorderRadius;
-    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1.6rem 3.6rem rgba(0, 0, 0, 0.25);
     overflow: hidden;
+    color: $white;
 
     opacity: 0;
-    transform: translateY(26px) rotate(var(--tb-rotate));
-    transition: opacity 0.7s ease, transform 0.35s ease, box-shadow 0.35s ease;
-    transition-delay: calc(var(--card-i, 0) * 90ms);
+    transform: translateY(26px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
 
     &.toolbox__reveal--visible {
       opacity: 1;
-      transform: translateY(0) rotate(var(--tb-rotate));
-    }
-
-    &:hover,
-    &:focus-within {
-      transform: translateY(-4px) rotate(0deg);
-      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
-    }
-
-    &:nth-child(3n+1) {
-      --tb-rotate: -1.2deg;
-    }
-    &:nth-child(3n+2) {
-      --tb-rotate: 1deg;
-      margin-top: 4rem;
-    }
-    &:nth-child(3n) {
-      --tb-rotate: -0.8deg;
-    }
-
-    @include respond(tab-land) {
-      &:nth-child(2n) {
-        margin-top: 4rem;
-      }
-      &:nth-child(2n+1) {
-        margin-top: 0;
-      }
-    }
-
-    @include respond(tab-port) {
-      --tb-rotate: 0deg;
-      margin-top: 0 !important;
+      transform: translateY(0);
     }
   }
 
-  &__card-bar {
+  &__dash-bar {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1.4rem;
     padding: 1.1rem 1.6rem;
-    background: #fbf8f2;
-    border-bottom: 1px solid $heroClrBorder;
+    background: rgba($white, 0.03);
+    border-bottom: 1px solid rgba($white, 0.08);
   }
 
-  &__card-dots {
+  &__dash-dots {
     display: inline-flex;
     gap: 0.6rem;
+    flex-shrink: 0;
 
     i {
       display: block;
@@ -808,75 +761,345 @@
     }
   }
 
-  &__card-filename {
+  &__dash-title {
+    flex: 1;
+    text-align: center;
+    font-family: $fontMono;
     font-size: 1.3rem;
-    color: $heroClrMuted;
+    color: mix($white, black, 55%);
     letter-spacing: 0.5px;
+
+    @include respond(phone) {
+      text-align: left;
+    }
   }
 
-  &__card-body {
-    padding: 2.6rem 2.6rem 2.8rem;
+  &__dash-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    color: mix($stormy-teal, $white, 60%);
+    flex-shrink: 0;
+
+    i {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: mix($stormy-teal, $white, 60%);
+    }
+
+    @include respond(phone) {
+      display: none;
+    }
   }
 
-  &__card-number {
-    display: block;
+  &__dash-tabs {
+    display: flex;
+    gap: 2.4rem;
+    padding: 0 1.6rem;
+    border-bottom: 1px solid rgba($white, 0.08);
+    overflow-x: auto;
+  }
+
+  &__dash-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: $fontMono;
     font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: $themeClrPrimary;
+    color: mix($white, black, 50%);
+    padding: 1.3rem 0;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+
+    i {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    &--active {
+      color: $white;
+      border-bottom-color: mix($stormy-teal, $white, 60%);
+
+      i {
+        background: mix($stormy-teal, $white, 60%);
+        opacity: 1;
+      }
+    }
+  }
+
+  &__dash-body {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 1px;
+    background: rgba($white, 0.08);
+
+    @include respond(tab-land) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__dash-col {
+    background: mix($graphite, black, 55%);
+    padding: 2.4rem 2rem;
+    min-width: 0;
+  }
+
+  &__dash-col-title {
+    display: block;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: mix($white, black, 45%);
+    margin-bottom: 2rem;
+  }
+
+  // --- Left panel: capabilities log ---
+  &__log {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__log-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
     margin-bottom: 1rem;
   }
 
-  &__card-title {
-    font-size: 2.1rem;
-    font-weight: 900;
-    color: $heroClrText;
-    margin-bottom: 1.8rem;
+  &__log-badge {
+    flex-shrink: 0;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: mix($stormy-teal, $white, 70%);
+    background: rgba($stormy-teal, 0.16);
+    border: 1px solid rgba($stormy-teal, 0.3);
+    border-radius: $commonBorderRadius;
+    padding: 0.3rem 0.7rem;
   }
 
-  &__skill-list {
+  &__log-heading {
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 0.3rem;
   }
 
-  &__skill {
+  &__log-title {
+    font-weight: 700;
     font-size: 1.5rem;
-    line-height: 1.4;
-    color: $heroClrMuted;
-    padding-left: 1.6rem;
-    position: relative;
+    color: $white;
+  }
 
-    &::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: $themeClrPrimary;
-    }
+  &__log-meta {
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    color: mix($white, black, 45%);
+  }
+
+  &__chip-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  &__chip {
+    font-size: 1.25rem;
+    color: mix($white, black, 85%);
+    background: rgba($white, 0.05);
+    border: 1px solid rgba($white, 0.09);
+    border-radius: 999px;
+    padding: 0.4rem 1.1rem;
 
     &--tool {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 1rem;
-      padding-left: 0;
-      color: $heroClrText;
-      font-weight: 600;
-
-      &::before {
-        content: none;
-      }
-
-      &:hover .toolbox__skill-icon {
-        transform: scale(1.03);
-      }
+      gap: 0.6rem;
     }
   }
 
-  &__skill-icon {
-    width: 1.8rem;
-    height: 1.8rem;
+  &__chip-icon {
+    width: 1.4rem;
+    height: 1.4rem;
     object-fit: contain;
-    transition: transform 0.2s ease;
+  }
+
+  // --- Middle panel: workflow pipeline ---
+  &__pipeline-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.2rem;
+    background: rgba($white, 0.04);
+    border: 1px solid rgba($white, 0.08);
+    border-radius: $commonBorderRadius;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  &__pipeline-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: $white;
+  }
+
+  &__pipeline-sub {
+    display: block;
+    font-size: 1.3rem;
+    color: mix($white, black, 45%);
+    margin-top: 0.3rem;
+  }
+
+  &__pipeline-status {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    color: mix($stormy-teal, $white, 60%);
+
+    i {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: mix($stormy-teal, $white, 60%);
+    }
+  }
+
+  &__stage-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    margin-bottom: 2rem;
+  }
+
+  &__stage {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    font-size: 1.4rem;
+    color: mix($white, black, 30%);
+  }
+
+  &__stage-dot {
+    flex-shrink: 0;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: mix($stormy-teal, $white, 55%);
+  }
+
+  &__stage--current {
+    color: $white;
+    font-weight: 700;
+
+    .toolbox__stage-dot {
+      background: mix($stormy-teal, $white, 75%);
+      box-shadow: 0 0 0 4px rgba($stormy-teal, 0.18);
+    }
+  }
+
+  &__snippet {
+    background: rgba(black, 0.35);
+    border: 1px solid rgba($white, 0.08);
+    border-radius: $commonBorderRadius;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.6rem;
+    overflow-x: auto;
+  }
+
+  &__snippet-line {
+    font-family: $fontMono;
+    font-size: 1.25rem;
+    white-space: pre;
+    color: mix($white, black, 35%);
+
+    &--add {
+      color: mix($stormy-teal, $white, 65%);
+    }
+    &--del {
+      color: mix(#c9645c, $white, 70%);
+      text-decoration: line-through;
+    }
+  }
+
+  &__pipeline-meta {
+    display: block;
+    font-family: $fontMono;
+    font-size: 1.2rem;
+    color: mix($white, black, 45%);
+  }
+
+  // --- Right panel: toolkit metrics ---
+  &__metric-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  &__metric-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    color: mix($white, black, 25%);
+    margin-bottom: 0.8rem;
+  }
+
+  &__metric-value {
+    font-family: $fontMono;
+    font-weight: 700;
+    color: $white;
+  }
+
+  &__metric-bar {
+    height: 5px;
+    border-radius: 999px;
+    background: rgba($white, 0.08);
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+
+    span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        mix($stormy-teal, $white, 55%),
+        $themeClrPrimary
+      );
+    }
+  }
+
+  &__dash-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.4rem 2rem;
+    border-top: 1px solid rgba($white, 0.08);
+    font-family: $fontMono;
+    font-size: 1.15rem;
+    color: mix($white, black, 45%);
+  }
+
+  @include respond(phone) {
+    &__dash-col {
+      padding: 2rem 1.6rem;
+    }
   }
 
   // scroll-reveal (mirrors the pattern used in About/Projects)
@@ -907,16 +1130,9 @@
       transform: none;
       transition: none;
     }
-    &__card {
-      --tb-rotate: 0deg;
+    &__dashboard {
       opacity: 1;
       transition: none;
-    }
-  }
-
-  @include respond(phone) {
-    &__card-body {
-      padding: 2.2rem;
     }
   }
 }
