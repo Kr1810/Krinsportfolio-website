@@ -212,13 +212,19 @@
         transform: translate(var(--tag-x, 0), calc(var(--tag-y, 0) + 6px)) rotate(var(--tag-rotate));
       }
 
+      // Also covers a hybrid-pointer device (e.g. a mouse/trackpad attached
+      // at tab-port width): the tags may have been left mid-reveal at
+      // opacity 0 by the mousemove-driven interactive path above, so force
+      // them fully visible rather than relying on a mousemove that a touch
+      // user will never trigger.
       @include respond(tab-port) {
         position: static;
         inset: auto;
 
         .home-hero__tag {
           position: static;
-          transform: rotate(var(--tag-rotate));
+          opacity: 1;
+          transform: none;
         }
       }
     }
@@ -239,9 +245,23 @@
         rotate(var(--tag-rotate));
     }
 
+    // Below tab-land, tags drop the scattered/rotated "shifted around the
+    // heading" look entirely and stack as a plain, centered vertical list —
+    // the diagonal wrap reads as chaotic at narrow widths.
     @include respond(tab-port) {
+      flex-direction: column;
+      align-items: center;
       max-width: none;
-      justify-content: center;
+      gap: 1rem;
+
+      // Also wins (by source order, same specificity) over the interactive
+      // path's --revealed/--lit rules above, in case a hybrid mouse+touch
+      // device left a tag mid-reveal with its own transform.
+      li,
+      .home-hero__tag--revealed,
+      .home-hero__tag--lit {
+        transform: none;
+      }
     }
   }
 

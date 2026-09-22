@@ -549,7 +549,8 @@ textarea {
   }
   .home-hero__tags--interactive .home-hero__tag {
     position: static;
-    transform: rotate(var(--tag-rotate));
+    opacity: 1;
+    transform: none;
   }
 }
 .home-hero__tags .home-hero__tag--revealed {
@@ -564,8 +565,15 @@ textarea {
 }
 @media only screen and (max-width: 56.25em) {
   .home-hero__tags {
+    flex-direction: column;
+    align-items: center;
     max-width: none;
-    justify-content: center;
+    gap: 1rem;
+  }
+  .home-hero__tags li,
+  .home-hero__tags .home-hero__tag--revealed,
+  .home-hero__tags .home-hero__tag--lit {
+    transform: none;
   }
 }
 .home-hero__bottom {
