@@ -1,59 +1,75 @@
-// "OBSESSIONS/" — a personal photography section. Data-driven on purpose:
-// there are only 3 photos today, but adding more later is just adding an
-// entry here and dropping the matching .webp file into
-// images/portfolio-assets/krina-photos/ — no layout or markup changes needed,
-// the CSS multi-column layout in sass/pages/_obsessions.scss reflows on its own.
+// "OBSESSIONS/" — a personal photography section, shown as a right-to-left
+// marquee. Source photos live in images/obsession/ (raw, huge phone-camera
+// exports — not web-safe as-is); the files referenced below are optimized
+// copies in images/portfolio-assets/obsession/ (resized to a fixed width,
+// original aspect ratio preserved, converted to .webp) generated from them.
+// width/height here are each file's real intrinsic size so the browser can
+// reserve layout space before it loads, same as every other image on this
+// site.
 const OBSESSIONS = [
-  {
-    id: 'obsession-01',
-    src: './images/portfolio-assets/krina-photos/obsession-01.webp',
-    width: 1400,
-    height: 2120,
-    alt: 'A portrait of Krina Suthar',
-    caption: 'Camera timer, three takes, one keeper.',
-  },
-  {
-    id: 'obsession-02',
-    src: './images/portfolio-assets/krina-photos/obsession-02.webp',
-    width: 1400,
-    height: 2124,
-    alt: 'A portrait of Krina Suthar',
-    caption: 'Taking myself a little too seriously, on purpose.',
-  },
-  {
-    id: 'obsession-03',
-    src: './images/portfolio-assets/krina-photos/obsession-03.webp',
-    width: 1400,
-    height: 2124,
-    alt: 'A portrait of Krina Suthar',
-    caption: 'The face behind the file names.',
-  },
-  // Add more entries here as new photos come in — include width/height (the
-  // image's real intrinsic size) so the browser can reserve layout space
-  // before the file loads, same as every other image on this site.
-]
+  { id: '01', width: 700, height: 1553 },
+  { id: '02', width: 700, height: 1410 },
+  { id: '03', width: 700, height: 809 },
+  { id: '04', width: 700, height: 933 },
+  { id: '05', width: 700, height: 1243 },
+  { id: '06', width: 700, height: 933 },
+  { id: '07', width: 700, height: 1244 },
+  { id: '08', width: 700, height: 525 },
+  { id: '09', width: 700, height: 933 },
+  { id: '10', width: 700, height: 933 },
+  { id: '11', width: 700, height: 1245 },
+  { id: '12', width: 700, height: 1245 },
+  { id: '13', width: 700, height: 700 },
+  { id: '14', width: 700, height: 933 },
+  { id: '15', width: 700, height: 700 },
+  { id: '16', width: 700, height: 1216 },
+  { id: '17', width: 700, height: 1245 },
+  { id: '18', width: 700, height: 1556 },
+  { id: '19', width: 700, height: 1244 },
+  { id: '20', width: 700, height: 933 },
+  { id: '21', width: 700, height: 1244 },
+  { id: '22', width: 700, height: 1245 },
+  { id: '23', width: 700, height: 1245 },
+  { id: '24', width: 700, height: 1427 },
+  { id: '25', width: 700, height: 1244 },
+  { id: '26', width: 700, height: 933 },
+  { id: '27', width: 700, height: 958 },
+  { id: '28', width: 700, height: 933 },
+  { id: '29', width: 700, height: 1253 },
+].map((photo, index) => ({
+  ...photo,
+  src: `./images/portfolio-assets/obsession/${photo.id}.webp`,
+  alt: `Personal photo ${index + 1} of 29 from Krina's obsessions`,
+}))
 
-function obsessionCardHTML(photo, index) {
+function obsessionImgHTML(photo) {
   return `
-    <figure class="obsessions__item obsessions__reveal" style="--card-i: ${index}">
-      <img
-        src="${photo.src}"
-        width="${photo.width}"
-        height="${photo.height}"
-        alt="${photo.alt}"
-        class="obsessions__img"
-        loading="lazy"
-      />
-      <figcaption class="obsessions__caption">${photo.caption}</figcaption>
-    </figure>
+    <img
+      src="${photo.src}"
+      width="${photo.width}"
+      height="${photo.height}"
+      alt="${photo.alt}"
+      class="obsessions__img"
+      loading="lazy"
+    />
   `
 }
 
 const obsessionsList = document.getElementById('obsessionsList')
 
 if (obsessionsList) {
-  obsessionsList.innerHTML = OBSESSIONS.map(obsessionCardHTML).join('')
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const track = OBSESSIONS.map(obsessionImgHTML).join('')
+  // Duplicate the strip once so the marquee can loop seamlessly: animating
+  // the track exactly -50% moves it by one full set's width, at which
+  // point the (identical) second copy sits exactly where the first began.
+  const trackCount = prefersReducedMotion ? 1 : 2
 
-  const revealEls = obsessionsList.querySelectorAll('.obsessions__reveal')
-  initScrollReveal(revealEls, 'obsessions__reveal--visible')
+  obsessionsList.innerHTML = `
+    <div class="obsessions__marquee">
+      <div class="obsessions__track">
+        ${track.repeat(trackCount)}
+      </div>
+    </div>
+  `
 }

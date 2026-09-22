@@ -123,3 +123,8 @@ dist
 .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+# Raw, unoptimized source photos (huge phone-camera exports, hundreds of MB).
+# The web-ready copies actually used by the site live in
+# images/portfolio-assets/obsession/ instead.
+images/obsession/

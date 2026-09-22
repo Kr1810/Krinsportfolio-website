@@ -50,83 +50,72 @@
     max-width: 50rem;
   }
 
-  &__list {
-    column-count: 3;
-    column-gap: 3.6rem;
-
-    @include respond(tab-land) {
-      column-count: 2;
-    }
-    @include respond(phone) {
-      column-count: 1;
-    }
+  // Full-bleed right-to-left marquee. The track is rendered twice back to
+  // back (see assets/js/obsessions.js) and animated by exactly -50% of its
+  // own width, so the loop point is invisible — the moment the first copy
+  // has scrolled fully offscreen, the second is sitting exactly where the
+  // first started.
+  &__marquee {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      $white 6%,
+      $white 94%,
+      transparent
+    );
+    mask-image: linear-gradient(90deg, transparent, $white 6%, $white 94%, transparent);
   }
 
-  &__item {
-    --rotate: 0deg;
-    display: block;
-    break-inside: avoid;
-    margin: 0 0 3.6rem;
-    padding: 1.2rem 1.2rem 1.6rem;
-    background: #fffbf3;
-    border: 1px solid $heroClrBorder;
-    border-radius: $paperBorderRadius;
-    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
-    transform: rotate(var(--rotate));
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.7s ease;
+  &__track {
+    display: flex;
+    align-items: flex-start;
+    width: max-content;
+    gap: 2.4rem;
+    animation: obsessions-marquee 55s linear infinite;
 
-    opacity: 0;
-
-    &:hover,
-    &:focus-within {
-      transform: rotate(0deg) translateY(-4px);
-      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
+    .obsessions__marquee:hover & {
+      animation-play-state: paused;
     }
 
-    &:nth-child(3n+1) {
-      --rotate: -1.4deg;
-    }
-    &:nth-child(3n+2) {
-      --rotate: 1.2deg;
-    }
-    &:nth-child(3n) {
-      --rotate: -0.8deg;
-    }
-
-    // JS adds "obsessions__reveal--visible" (the shared __reveal-marker
-    // pattern used by about.js/toolbox.js), not "obsessions__item--visible".
-    &.obsessions__reveal--visible {
-      opacity: 1;
-      transition-delay: calc(var(--card-i, 0) * 90ms);
+    @include respond(tab-port) {
+      gap: 1.6rem;
+      animation-duration: 38s;
     }
   }
 
   &__img {
     display: block;
-    width: 100%;
-    height: auto;
-    border-radius: calc(#{$paperBorderRadius} - 0.6rem);
-    margin-bottom: 1.2rem;
-  }
+    flex-shrink: 0;
+    width: auto;
+    height: 34rem;
+    border-radius: $windowBorderRadius;
+    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.12);
 
-  &__caption {
-    font-family: $heroFontScript;
-    font-size: 1.7rem;
-    color: $heroClrText;
-    text-align: center;
-    line-height: 1.4;
+    @include respond(tab-land) {
+      height: 26rem;
+    }
+    @include respond(tab-port) {
+      height: 19rem;
+    }
+    @include respond(phone) {
+      height: 14rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    &__item {
-      opacity: 1;
-      transform: none;
-      transition: none;
-
-      &:hover,
-      &:focus-within {
-        transform: none;
-      }
+    &__track {
+      animation: none;
     }
+  }
+}
+
+@keyframes obsessions-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }

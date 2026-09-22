@@ -85,8 +85,45 @@ function timelineRowHTML(item, index) {
 const experienceList = document.getElementById('experienceList')
 
 if (experienceList) {
-  experienceList.innerHTML = EXPERIENCE.map(timelineRowHTML).join('')
+  experienceList.innerHTML = `
+    <span class="experience__timeline-track" aria-hidden="true"></span>
+    <span class="experience__timeline-progress" id="experienceProgress" aria-hidden="true"></span>
+    ${EXPERIENCE.map(timelineRowHTML).join('')}
+  `
 
   const revealEls = document.querySelectorAll('.experience .experience__reveal')
   initScrollReveal(revealEls, 'experience__reveal--visible')
+
+  // Scroll-linked line fill: the gray track colors in with the theme blue
+  // as the timeline scrolls past the vertical middle of the viewport, so
+  // the line's "progress" visually tracks how far through the roles the
+  // reader has scrolled.
+  const track = document.querySelector('.experience__timeline-track')
+  const progress = document.getElementById('experienceProgress')
+
+  if (track && progress) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      progress.style.height = '100%'
+    } else {
+      let ticking = false
+
+      function updateProgress() {
+        const rect = track.getBoundingClientRect()
+        const anchor = window.innerHeight * 0.5
+        const filled = Math.max(0, Math.min(anchor - rect.top, rect.height))
+        progress.style.height = filled + 'px'
+        ticking = false
+      }
+
+      function onScroll() {
+        if (ticking) return
+        ticking = true
+        window.requestAnimationFrame(updateProgress)
+      }
+
+      updateProgress()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
+    }
+  }
 }

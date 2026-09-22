@@ -2058,15 +2058,14 @@
   }
 }
 
-// Dark, alternating vertical timeline — same dark palette as .playground so
-// the two dark sections read as one system. A single accent line (teal,
-// standing in for the reference image's orange) runs down the center,
-// with each role's period as a marker on the line and the card alternating
+// Alternating vertical timeline, on the same light background/palette as
+// the rest of the page's sections. A single accent line (theme blue,
+// standing in for the reference image's orange) runs down the center, with
+// each role's period as a marker on the line and the card alternating
 // left/right off it.
 .experience {
   position: relative;
-  background: $graphite;
-  color: $white;
+  background: $heroClrBg;
   overflow: hidden;
 
   &__intro {
@@ -2086,12 +2085,12 @@
     font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: mix($stormy-teal, $white, 55%);
+    color: $themeClrPrimary;
     margin-bottom: 1.6rem;
   }
 
   &__heading {
-    color: $white;
+    color: $heroClrText;
     font-weight: 900;
     font-size: clamp(2.8rem, 4.4vw, 4.6rem);
     line-height: 1.25;
@@ -2101,7 +2100,7 @@
     display: block;
     font-family: $heroFontScript;
     font-weight: 600;
-    color: mix($stormy-teal, $white, 45%);
+    color: $heroClrScript;
     font-size: 1.1em;
     margin-top: 0.3rem;
   }
@@ -2110,7 +2109,7 @@
     margin-top: 2rem;
     font-size: 1.7rem;
     line-height: 1.7;
-    color: mix($white, $graphite, 70%);
+    color: $heroClrMuted;
     max-width: 42rem;
 
     @include respond(tab-port) {
@@ -2120,8 +2119,40 @@
   }
 
   &__timeline {
+    position: relative;
     display: flex;
     flex-direction: column;
+  }
+
+  // One continuous line for the whole timeline instead of a line per row —
+  // a muted gray track underneath, and a theme-colored fill on top whose
+  // height is driven by scroll position (see assets/js/experience.js), so
+  // the line "colors in" from gray to the theme blue as each role scrolls
+  // past.
+  &__timeline-track,
+  &__timeline-progress {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 0;
+
+    @include respond(tab-port) {
+      left: 7.5rem;
+      transform: none;
+    }
+  }
+
+  &__timeline-track {
+    height: 100%;
+    background: rgba($heroClrMuted, 0.35);
+  }
+
+  &__timeline-progress {
+    height: 0%;
+    background: $themeClrPrimary;
   }
 
   &__timeline-row {
@@ -2182,32 +2213,17 @@
     }
   }
 
-  &__timeline-marker::before {
-    content: '';
-    position: absolute;
-    inset: 0 auto 0 50%;
-    width: 2px;
-    background: rgba($stormy-teal, 0.45);
-    transform: translateX(-50%);
-
-    @include respond(tab-port) {
-      left: auto;
-      right: 0;
-      transform: none;
-    }
-  }
-
   &__timeline-period {
     position: relative;
     z-index: 1;
-    background: $graphite;
+    background: $heroClrBg;
     padding: 0.7rem 1rem;
     font-family: $fontMono;
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.5px;
     white-space: nowrap;
-    color: mix($stormy-teal, $white, 60%);
+    color: $themeClrPrimary;
 
     @include respond(tab-port) {
       background: transparent;
@@ -2221,10 +2237,10 @@
     position: relative;
     width: 100%;
     max-width: 46rem;
-    background: mix($white, $graphite, 12%);
-    border: 1px solid rgba($white, 0.08);
+    background: #fffbf3;
+    border: 1px solid $heroClrBorder;
     border-radius: $paperBorderRadius;
-    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
     padding: 2.8rem 3rem;
 
     opacity: 0;
@@ -2240,20 +2256,20 @@
     &:hover,
     &:focus-within {
       transform: translateY(-3px);
-      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.4);
+      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
     }
   }
 
   &__role {
     font-size: 2.1rem;
     font-weight: 900;
-    color: $white;
+    color: $heroClrText;
     margin-bottom: 0.6rem;
   }
 
   &__type {
     font-weight: 600;
-    color: mix($white, $graphite, 65%);
+    color: $heroClrMuted;
   }
 
   &__company {
@@ -2263,7 +2279,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: mix($white, $graphite, 65%);
+    color: $heroClrMuted;
     margin-bottom: 1.8rem;
   }
 
@@ -2277,7 +2293,7 @@
   &__desc-item {
     font-size: 1.5rem;
     line-height: 1.6;
-    color: mix($white, $graphite, 78%);
+    color: $heroClrMuted;
     padding-left: 1.6rem;
     position: relative;
 
@@ -2285,7 +2301,7 @@
       content: '–';
       position: absolute;
       left: 0;
-      color: mix($stormy-teal, $white, 55%);
+      color: $themeClrPrimary;
     }
   }
 
@@ -2302,9 +2318,9 @@
     font-family: $fontBody;
     font-size: 1.3rem;
     font-weight: 500;
-    color: mix($stormy-teal, $white, 60%);
-    background: rgba($stormy-teal, 0.14);
-    border: 1px solid rgba($stormy-teal, 0.3);
+    color: $themeClrPrimary;
+    background: rgba($themeClrPrimary, 0.08);
+    border: 1px solid rgba($themeClrPrimary, 0.18);
     border-radius: $commonBorderRadius;
     padding: 0.5rem 1.2rem;
   }
