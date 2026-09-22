@@ -1,112 +1,114 @@
+// Dark "signature" footer, styled after a shared reference: an animated
+// eye illustration + short tagline on the left, contact icon buttons on
+// the right, a giant name, then a plain copyright/back-to-top bar. No
+// quick-links nav — every other section already links itself in the header.
 .main-footer {
-  background: $heroClrBg;
-  border-top: 1px solid $heroClrBorder;
+  background: mix($graphite, black, 60%);
+  color: $white;
+  overflow: hidden;
 
   &__top {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    gap: 5rem;
-    padding: 7rem 0 4rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding: 8rem 0 5rem;
 
     @include respond(tab-port) {
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      padding: 6rem 0 3.5rem;
+      padding: 6rem 0 4rem;
     }
+  }
+
+  &__top-left {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    flex-wrap: wrap;
+  }
+
+  &__eyes {
+    flex-shrink: 0;
+    width: 9rem;
+
     @include respond(phone) {
-      grid-template-columns: 1fr;
-      gap: 3.6rem;
-      padding: 6rem 0 3.5rem;
+      width: 7rem;
     }
   }
 
-  &__eyebrow {
+  &__eyes-svg {
     display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: $themeClrPrimary;
-    margin-bottom: 1.4rem;
+    width: 100%;
+    height: auto;
   }
 
-  &__name {
-    font-size: 2rem;
-    font-weight: 900;
-    color: $heroClrText;
-    margin-bottom: 0.3rem;
+  &__eye {
+    fill: $white;
   }
 
-  &__role {
-    font-size: 1.4rem;
-    color: $heroClrMuted;
-    margin-bottom: 1.8rem;
+  &__pupil {
+    transition: transform 0.2s ease-out;
   }
 
-  &__status {
+  &__iris {
+    fill: mix($graphite, black, 60%);
+  }
+
+  &__highlight {
+    fill: $white;
+  }
+
+  &__tagline {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: mix($white, black, 70%);
+  }
+
+  &__icons {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  &__icon-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: $heroClrText;
-  }
-
-  &__status-dot {
-    width: 0.7rem;
-    height: 0.7rem;
-    border-radius: 50%;
-    background: $themeClrPrimary;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
     flex-shrink: 0;
-  }
+    border-radius: 50%;
+    background: rgba($white, 0.08);
+    color: $white;
+    transition: background 0.25s ease, transform 0.25s ease;
 
-  &__col-label {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: $heroClrMuted;
-    margin-bottom: 1.8rem;
-  }
-
-  &__nav,
-  &__connect {
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
+    svg {
+      width: 1.8rem;
+      height: 1.8rem;
     }
 
-    a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 0;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: $heroClrText;
-      transition: color 0.25s ease;
+    &:hover,
+    &:focus-visible {
+      background: $themeClrPrimary;
+      transform: translateY(-2px);
+    }
+    &:focus-visible {
+      outline: 2px solid $white;
+      outline-offset: 2px;
+    }
+  }
 
-      &:hover,
-      &:focus-visible {
-        color: $themeClrPrimary;
-      }
-      &:focus-visible {
-        outline: 3px solid $themeClrPrimary;
-        outline-offset: 3px;
-      }
+  &__display {
+    font-family: $fontPrimary;
+    font-weight: 900;
+    font-size: clamp(4.4rem, 11vw, 13rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: $white;
+    margin-bottom: 5rem;
 
-      span {
-        display: inline-block;
-        transition: transform 0.25s ease;
-      }
-      &:hover span,
-      &:focus-visible span {
-        transform: translate(2px, -2px);
-      }
+    @include respond(tab-port) {
+      margin-bottom: 3.5rem;
     }
   }
 
@@ -117,15 +119,12 @@
     justify-content: space-between;
     gap: 1.2rem;
     padding: 2.4rem 0;
-    border-top: 1px solid $heroClrBorder;
+    border-top: 1px solid rgba($white, 0.14);
   }
 
   &__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 2rem;
     font-size: 1.3rem;
-    color: $heroClrMuted;
+    color: mix($white, black, 55%);
   }
 
   &__top-link {
@@ -134,7 +133,7 @@
     gap: 0.5rem;
     font-size: 1.3rem;
     font-weight: 700;
-    color: $heroClrText;
+    color: $white;
     transition: color 0.25s ease;
 
     &:hover,
@@ -171,6 +170,9 @@
     &__reveal {
       opacity: 1;
       transform: none;
+      transition: none;
+    }
+    &__pupil {
       transition: none;
     }
   }

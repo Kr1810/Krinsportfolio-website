@@ -401,20 +401,11 @@
   background: $heroClrBg;
   overflow: hidden;
 
+  // Single column now that the Quick Info card has moved to the welcome
+  // card modal — &__main fills the full section width instead of sharing
+  // it with a second grid column.
   &__grid {
-    display: grid;
-    grid-template-columns: 1.7fr 1fr;
-    gap: 8rem;
-    align-items: start;
-
-    @include respond(tab-land) {
-      gap: 5rem;
-    }
-
-    @include respond(tab-port) {
-      grid-template-columns: 1fr;
-      gap: 6rem;
-    }
+    display: block;
   }
 
   &__label {
@@ -439,14 +430,6 @@
     font-weight: 900;
     font-size: clamp(2.8rem, 4.4vw, 4.6rem);
     line-height: 1.25;
-    max-width: 46rem;
-
-    // Grid drops to a single column here (see &__grid above), so let the
-    // heading use the full column width instead of stopping at the
-    // two-column-era cap and leaving empty space beside it.
-    @include respond(tab-port) {
-      max-width: none;
-    }
   }
 
   &__heading-accent {
@@ -458,11 +441,6 @@
 
   &__copy {
     margin-top: 3rem;
-    max-width: 50rem;
-
-    @include respond(tab-port) {
-      max-width: none;
-    }
 
     p {
       font-size: 1.7rem;
@@ -493,7 +471,7 @@
     color: $heroClrBg;
     font-weight: 700;
     font-size: 1.5rem;
-    border-radius: $commonBorderRadius * 2;
+    border-radius: 999px;
     box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.12);
     transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 
@@ -543,69 +521,6 @@
     transition: transform 0.25s ease;
   }
 
-  &__quick-info {
-    --qi-rotate: 1deg;
-    position: relative;
-    background: #fffbf3;
-    border: 1px solid $heroClrBorder;
-    border-radius: $paperBorderRadius;
-    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.1);
-    padding: 3.6rem 3.2rem;
-    transform: translateY(26px) rotate(var(--qi-rotate));
-    transition: opacity 0.7s ease, transform 0.35s ease, box-shadow 0.35s ease;
-
-    &.about-file__reveal--visible {
-      transform: translateY(0) rotate(var(--qi-rotate));
-    }
-
-    &:hover,
-    &:focus-within {
-      --qi-rotate: 0deg;
-      transform: translateY(-3px) rotate(var(--qi-rotate));
-      box-shadow: 0 1.8rem 3.2rem rgba(0, 0, 0, 0.15);
-    }
-
-    @include respond(tab-port) {
-      --qi-rotate: 0deg;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      --qi-rotate: 0deg;
-    }
-  }
-
-  &__quick-info-label {
-    display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: $themeClrPrimary;
-    margin-bottom: 2.4rem;
-  }
-
-  &__quick-info-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  &__quick-info-item {
-    dt {
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: $heroClrMuted;
-      margin-bottom: 0.5rem;
-    }
-    dd {
-      font-size: 1.5rem;
-      font-weight: 600;
-      line-height: 1.5;
-      color: $heroClrText;
-    }
-  }
-
   // scroll-reveal (mirrors the Projects section's IntersectionObserver pattern)
   &__reveal {
     opacity: 0;
@@ -629,9 +544,6 @@
     &--d4 {
       transition-delay: 230ms;
     }
-    &--d5 {
-      transition-delay: 300ms;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -640,17 +552,11 @@
       transform: none;
       transition: none;
     }
-    &__quick-info {
-      opacity: 1;
-    }
   }
 
   @include respond(phone) {
     &__heading {
       font-size: 2.6rem;
-    }
-    &__quick-info {
-      padding: 2.8rem 2.4rem;
     }
     &__cta-row {
       gap: 1.8rem;
@@ -2544,7 +2450,7 @@
     color: $heroClrBg;
     font-weight: 700;
     font-size: 1.5rem;
-    border-radius: $commonBorderRadius * 2;
+    border-radius: 999px;
     box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.12);
     transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 

@@ -4,25 +4,21 @@
 // hover, and click/keyboard flip + a small on-brand confetti burst.
 // Every interaction is skipped or made instant under prefers-reduced-motion.
 const AI_STACK = [
-  { id: 'cursor', name: 'Cursor', tag: 'Design → Code', blurb: "Turns my Figma frames into real code, so devs stop side-eyeing my ‘quick mockup’.", photo: null },
-  { id: 'figma-ai', name: 'Figma AI', tag: 'Ideation', blurb: 'First-draft variations while I still have my coffee in hand.', photo: './images/portfolio-assets/figma.webp' },
-  { id: 'claude', name: 'Claude', tag: 'Thinking Partner', blurb: 'The rubber duck that actually talks back — and writes decent copy too.', photo: null },
-  { id: 'chatgpt', name: 'ChatGPT', tag: 'Untangling Briefs', blurb: 'My go-to for untangling a brief before I even open Figma.', photo: null },
-  { id: 'v0', name: 'v0', tag: 'Prompt → UI', blurb: 'Prompt in, working UI out. Feels like cheating. It is not.', photo: null },
-  { id: 'midjourney', name: 'Midjourney', tag: 'Moodboards', blurb: 'Moodboards in minutes, not a three-hour Pinterest spiral.', photo: null },
-  { id: 'framer-ai', name: 'Framer AI', tag: 'Sites, Fast', blurb: 'Ships a real, live site before the meeting even ends.', photo: null },
-  { id: 'canva', name: 'Canva', tag: 'Quick Assets', blurb: 'For when a social post needs to exist in the next ten minutes.', photo: './images/portfolio-assets/canva.webp' },
-  { id: 'blender', name: 'Blender', tag: '3D Sketching', blurb: 'Where flat screens get a little depth — literally.', photo: './images/portfolio-assets/blender.webp' },
-  { id: 'after-effects', name: 'After Effects', tag: 'Motion Polish', blurb: 'The last 10% that makes a static screen feel alive.', photo: './images/portfolio-assets/after-effects.webp' },
+  { id: 'cursor', name: 'Cursor', tag: 'Design → Code', blurb: "Turns my Figma frames into real code, so devs stop side-eyeing my ‘quick mockup’." },
+  { id: 'figma-ai', name: 'Figma AI', tag: 'Ideation', blurb: 'First-draft variations while I still have my coffee in hand.' },
+  { id: 'claude', name: 'Claude', tag: 'Thinking Partner', blurb: 'The rubber duck that actually talks back — and writes decent copy too.' },
+  { id: 'chatgpt', name: 'ChatGPT', tag: 'Untangling Briefs', blurb: 'My go-to for untangling a brief before I even open Figma.' },
+  { id: 'v0', name: 'v0', tag: 'Prompt → UI', blurb: 'Prompt in, working UI out. Feels like cheating. It is not.' },
+  { id: 'midjourney', name: 'Midjourney', tag: 'Moodboards', blurb: 'Moodboards in minutes, not a three-hour Pinterest spiral.' },
+  { id: 'framer-ai', name: 'Framer AI', tag: 'Sites, Fast', blurb: 'Ships a real, live site before the meeting even ends.' },
+  { id: 'canva', name: 'Canva', tag: 'Quick Assets', blurb: 'For when a social post needs to exist in the next ten minutes.' },
+  { id: 'blender', name: 'Blender', tag: '3D Sketching', blurb: 'Where flat screens get a little depth — literally.' },
+  { id: 'after-effects', name: 'After Effects', tag: 'Motion Polish', blurb: 'The last 10% that makes a static screen feel alive.' },
 ]
 
 const CONFETTI_COLORS = ['#284b63', '#3c6e71', '#d9d9d9', '#ffffff']
 
 function playgroundCardHTML(tool, index) {
-  const media = tool.photo
-    ? `<img src="${tool.photo}" alt="" class="playground__card-photo" loading="lazy" aria-hidden="true" />`
-    : `<span class="playground__card-glyph" aria-hidden="true">${tool.name.charAt(0)}</span>`
-
   return `
     <li class="playground__item">
       <button
@@ -34,7 +30,6 @@ function playgroundCardHTML(tool, index) {
       >
         <span class="playground__card-inner">
           <span class="playground__card-face playground__card-face--front">
-            ${media}
             <span class="playground__card-name">${tool.name}</span>
             <span class="playground__card-tag">${tool.tag}</span>
           </span>

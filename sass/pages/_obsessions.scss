@@ -1,121 +1,165 @@
-// "OBSESSIONS/" — personal photography. CSS multi-column so the layout
-// reflows automatically as more photos are added to the data array, no
-// Masonry dependency needed. Reuses the "pinned paper" motif (rotate at
-// rest, straighten on hover) already used elsewhere on the site.
+// "OBSESSIONS/" — a mood-board style grid collage (styled after a shared
+// reference): a square grid-line lattice with photos and headline
+// fragments dropped into it at varying spans, computed/packed in
+// assets/js/obsessions.js. Empty cells just show the lattice through.
 .obsessions {
-  background: $heroClrBg;
+  --obsessions-cell: 10rem;
+  // Fewer columns (see assets/js/obsessions.js) need a bigger cell to
+  // still fill a phone/tablet-width container — tuned per breakpoint
+  // below rather than shrinking in step with the wide desktop grid.
+  --obsessions-cell-narrow: 10rem;
+
+  background: #fffbf3;
   overflow: hidden;
 
-  &__intro {
-    max-width: 60rem;
-    margin-bottom: 6rem;
+  @include respond(tab-land) {
+    --obsessions-cell: 8rem;
+  }
+  @include respond(tab-port) {
+    --obsessions-cell-narrow: 12.5rem;
+  }
+  @include respond(phone) {
+    --obsessions-cell-narrow: 8.4rem;
+  }
 
-    @include respond(tab-port) {
-      margin-bottom: 4.5rem;
+  &__grid {
+    position: relative;
+    display: grid;
+    gap: 0;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+    background-image: linear-gradient(to right, rgba($graphite, 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba($graphite, 0.14) 1px, transparent 1px);
+    background-size: var(--obsessions-cell) var(--obsessions-cell);
+
+    &--narrow {
+      display: none;
+      background-size: var(--obsessions-cell-narrow) var(--obsessions-cell-narrow);
     }
   }
 
-  &__eyebrow {
-    display: inline-block;
-    font-family: $fontMono;
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: $themeClrPrimary;
-    margin-bottom: 1.6rem;
+  // The wide 9-column mosaic is desktop/tab-land only; mobile and tablet
+  // portrait get the separate, narrower/taller packing instead (see
+  // assets/js/obsessions.js) so the section reads as a genuine vertical
+  // stack rather than a shrunk-down copy of the wide grid.
+  @include respond(tab-port) {
+    &__grid--desktop {
+      display: none;
+    }
+    &__grid--narrow {
+      display: grid;
+    }
   }
 
-  &__heading {
-    color: $heroClrText;
-    font-weight: 900;
-    font-size: clamp(2.8rem, 4.4vw, 4.6rem);
-    line-height: 1.2;
-  }
-
-  &__heading-accent {
+  &__tile {
     display: block;
-    font-family: $heroFontScript;
-    font-weight: 600;
-    color: $heroClrScript;
-    font-size: 1.1em;
-    margin-top: 0.3rem;
-  }
-
-  &__lede {
-    margin-top: 2rem;
-    font-size: 1.7rem;
-    line-height: 1.7;
-    color: $heroClrMuted;
-    max-width: 50rem;
-  }
-
-  // Full-bleed right-to-left marquee. The track is rendered twice back to
-  // back (see assets/js/obsessions.js) and animated by exactly -50% of its
-  // own width, so the loop point is invisible — the moment the first copy
-  // has scrolled fully offscreen, the second is sitting exactly where the
-  // first started.
-  &__marquee {
     width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  &__tile--image {
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent,
-      $white 6%,
-      $white 94%,
-      transparent
-    );
-    mask-image: linear-gradient(90deg, transparent, $white 6%, $white 94%, transparent);
-  }
 
-  &__track {
-    display: flex;
-    align-items: flex-start;
-    width: max-content;
-    gap: 2.4rem;
-    animation: obsessions-marquee 55s linear infinite;
-
-    .obsessions__marquee:hover & {
-      animation-play-state: paused;
-    }
-
-    @include respond(tab-port) {
-      gap: 1.6rem;
-      animation-duration: 38s;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
-  &__img {
-    display: block;
-    flex-shrink: 0;
-    width: auto;
-    height: 34rem;
-    border-radius: $windowBorderRadius;
-    box-shadow: 0 1rem 2.4rem rgba(0, 0, 0, 0.12);
+  // Images pop in one at a time while the section scrolls into view (see
+  // initScrollReveal in assets/js/obsessions.js); text/spacer tiles render
+  // immediately.
+  &__reveal {
+    opacity: 0;
+    transform: scale(0.94) translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: calc(var(--card-i, 0) * 45ms);
 
-    @include respond(tab-land) {
-      height: 26rem;
-    }
-    @include respond(tab-port) {
-      height: 19rem;
-    }
-    @include respond(phone) {
-      height: 14rem;
+    &--visible {
+      opacity: 1;
+      transform: none;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    &__track {
-      animation: none;
+    &__reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
   }
-}
 
-@keyframes obsessions-marquee {
-  from {
-    transform: translateX(0);
+  &__tile--text {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    color: $heroClrText;
   }
-  to {
-    transform: translateX(-50%);
+
+  &__tile--heading {
+    align-items: flex-start;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(1.8rem, 2.2vw, 2.6rem);
+    line-height: 1.15;
+  }
+
+  &__tile--accent {
+    font-family: $heroFontScript;
+    font-weight: 600;
+    color: $heroClrScript;
+    font-size: clamp(1.8rem, 2.4vw, 2.8rem);
+    line-height: 1.2;
+  }
+
+  &__tile--lede {
+    align-items: flex-start;
+    font-family: $fontBody;
+    font-size: 1.4rem;
+    line-height: 1.55;
+    color: $heroClrMuted;
+  }
+
+  &__tile--spacer {
+    background: transparent;
+  }
+
+  &__grid-label {
+    position: absolute;
+    left: 1.2rem;
+    bottom: 1.2rem;
+    font-family: $fontMono;
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $themeClrPrimary;
+    background: #fffbf3;
+    padding: 0.2rem 0.6rem;
+  }
+
+  @include respond(tab-port) {
+    &__tile--heading {
+      font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    }
+    &__tile--accent {
+      font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+    }
+    &__tile--lede {
+      font-size: 1.3rem;
+    }
+  }
+
+  @include respond(phone) {
+    &__tile--lede {
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
   }
 }

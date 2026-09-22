@@ -1,0 +1,144 @@
+// Welcome card — the About section's "QUICK_INFO/" facts (plus email),
+// resurfaced as a dismissible modal shown on every load/refresh so a visitor
+// gets the at-a-glance summary before scrolling. Same paper-card look as
+// .about-file__quick-info and the same open/close chrome as .project-modal.
+.welcome-card {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba($graphite, 0.6);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &--open &__backdrop {
+    opacity: 1;
+  }
+
+  &__panel {
+    position: relative;
+    z-index: 1;
+    width: min(44rem, 100%);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: #fffbf3;
+    border: 1px solid $heroClrBorder;
+    border-radius: $paperBorderRadius;
+    box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.35);
+    padding: 3.6rem 3.2rem;
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--open &__panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  &__close {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: $heroClrMuted;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba($themeClrPrimary, 0.1);
+      color: $themeClrPrimary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $themeClrPrimary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: $themeClrPrimary;
+    margin-bottom: 2.4rem;
+    padding-right: 2.8rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__item {
+    dt {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $heroClrMuted;
+      margin-bottom: 0.5rem;
+    }
+
+    dd {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.5;
+      color: $heroClrText;
+
+      a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+
+        &:hover,
+        &:focus-visible {
+          color: $themeClrPrimary;
+        }
+      }
+    }
+  }
+
+  @include respond(phone) {
+    padding: 2rem 1.6rem;
+
+    &__panel {
+      padding: 2.8rem 2.4rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__backdrop,
+    &__panel {
+      transition: none;
+    }
+  }
+}

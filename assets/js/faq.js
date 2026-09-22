@@ -1,52 +1,39 @@
 // "FAQ/" — the core questions someone should have answered before deciding
-// to work together. Two entries below are marked draftReview: true because
-// they're business/availability calls only Krina can make with certainty —
-// review and edit those two before this goes live, then drop the
-// "[Draft — please confirm]" prefix and the draftReview field.
+// to work together.
 const FAQS = [
   {
-    id: 'freelance',
+    id: 'what-you-do',
     file: 'faq_01.txt',
-    draftReview: true,
-    question: 'Are you open to freelance or contract work alongside your full-time role?',
+    question: 'What do you do?',
     answer:
-      "[Draft — please confirm] I'm full-time at Techlusion, but I'm open to select freelance or contract projects outside of that. Reach out and we can figure out if the timing and scope work.",
-  },
-  {
-    id: 'day-to-day',
-    file: 'faq_02.txt',
-    question: 'What does working with you actually look like, day to day?',
-    answer:
-      "Mostly Figma and async check-ins — I share progress early and often instead of disappearing for a week and reappearing with a surprise. My Computer Engineering background also means I'm comfortable talking directly with developers about feasibility, not just handing off a file.",
+      'UI/UX and graphic design for web and mobile. I take a project from research through to a live, working site.',
   },
   {
     id: 'ai-workflow',
+    file: 'faq_02.txt',
+    question: 'How do you use AI in your work?',
+    answer:
+      'I use it to move faster, from early ideas to design-to-code prototypes. Research, testing, and the final design calls stay with me.',
+  },
+  {
+    id: 'projects',
     file: 'faq_03.txt',
-    question: 'You use AI tools a lot — does that mean less actual design thinking?',
+    question: 'What kind of projects have you worked on?',
     answer:
-      "The opposite, honestly. Tools like Figma AI or Cursor speed up variations and prototyping, which frees up more time for the parts that actually need a human: user research, usability testing, and judging what's actually good.",
+      'Mostly redesigns: blogs, real estate, events, matrimony, weather, and a cricket scoreboard app, across web and mobile.',
   },
   {
-    id: 'design-to-code',
+    id: 'tools',
     file: 'faq_04.txt',
-    question: 'Can you take a project from a Figma concept to working code?',
+    question: 'What tools do you use?',
     answer:
-      'Yes — I regularly prototype design-to-code with AI tools like Cursor and v0 to generate and refine HTML, CSS and React from a Figma concept, mainly to sanity-check feasibility with developers before full build.',
+      "Figma for design, Webflow for building live sites, plus Adobe tools for visuals and video. I'm also comfortable enough in HTML, CSS, and React to talk feasibility with developers.",
   },
   {
-    id: 'remote',
+    id: 'open-to-work',
     file: 'faq_05.txt',
-    draftReview: true,
-    question: 'Are you remote-friendly, or do you need to work on-site?',
-    answer:
-      "[Draft — please confirm] I currently work on-site in Ahmedabad, but I'm flexible on remote collaboration for outside projects — let's talk specifics.",
-  },
-  {
-    id: 'get-in-touch',
-    file: 'faq_06.txt',
-    question: "What's the best way to start a conversation with you?",
-    answer:
-      "Email is easiest — see the Contact section below, or connect on LinkedIn. A short note on what you're working on is a great place to start.",
+    question: 'Are you open to work?',
+    answer: 'Yes. Open to full-time roles, freelance projects.',
   },
 ]
 
