@@ -263,18 +263,6 @@ html.has-modal-open {
     font-size: 1.4rem !important;
   }
 
-  &__legacy-link {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: $heroClrMuted;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-
-    &:hover {
-      color: $themeClrPrimary;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     &__backdrop,
     &__panel {

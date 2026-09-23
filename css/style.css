@@ -724,9 +724,15 @@ textarea {
 .about-file__grid {
   display: block;
 }
+.about-file__main {
+  max-width: 76rem;
+  margin: 0 auto;
+  text-align: center;
+}
 .about-file__label {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.9rem;
   font-family: "Cascadia Code Light", monospace;
   font-size: 1.5rem;
@@ -759,6 +765,7 @@ textarea {
   line-height: 1.75;
   color: rgb(44.5490196078%, 44.5490196078%, 44.5490196078%);
   margin-bottom: 1.6rem;
+  text-wrap: pretty;
 }
 .about-file__copy p:last-child {
   margin-bottom: 0;
@@ -767,6 +774,7 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 2.4rem;
   margin-top: 3.6rem;
 }
@@ -1473,46 +1481,6 @@ textarea {
     grid-column: 1/-1;
   }
 }
-.studio-board__toolbar {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-top: 2.4rem;
-}
-@media only screen and (max-width: 37.5em) {
-  .studio-board__toolbar {
-    gap: 1rem;
-    margin-top: 1.8rem;
-  }
-}
-.studio-board__tool {
-  width: 4.4rem;
-  height: 4.4rem;
-  border-radius: 50%;
-  background: #fff;
-  color: rgb(44.5490196078%, 44.5490196078%, 44.5490196078%);
-  border: 1px solid #d9d9d9;
-  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.06);
-  display: grid;
-  place-items: center;
-  transition: transform 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-.studio-board__tool:hover, .studio-board__tool:focus-visible {
-  transform: translateY(-2px);
-  color: #284b63;
-  border-color: rgba(40, 75, 99, 0.35);
-  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.1);
-}
-.studio-board__tool:focus-visible {
-  outline: 3px solid #284b63;
-  outline-offset: 3px;
-}
-@media only screen and (max-width: 37.5em) {
-  .studio-board__tool {
-    width: 4rem;
-    height: 4rem;
-  }
-}
 .studio-board__float {
   position: absolute;
   top: -1.2rem;
@@ -1618,21 +1586,7 @@ textarea {
 }
 @media only screen and (max-width: 56.25em) {
   .studio-board__float {
-    position: absolute;
-    top: -1rem;
-    right: -0.6rem;
-    width: min(29rem, 72%);
-    height: 24rem;
-    margin: 0;
-  }
-}
-@media only screen and (max-width: 37.5em) {
-  .studio-board__float {
-    top: -0.8rem;
-    right: -0.4rem;
-    width: min(24rem, 72%);
-    height: 21rem;
-    margin: 0;
+    display: none;
   }
 }
 .studio-board__float-card {
@@ -1664,19 +1618,6 @@ textarea {
 }
 .studio-board__float-card--copy {
   --float-rotation: 5deg;
-}
-@media only screen and (max-width: 37.5em) {
-  .studio-board__float-card {
-    width: 60%;
-    height: 16rem;
-  }
-  .studio-board__float-card--media {
-    top: -0.4rem;
-  }
-  .studio-board__float-card--copy {
-    top: -0.4rem;
-    padding: 1.6rem;
-  }
 }
 .studio-board__float-meta {
   font-size: 1rem;
@@ -4034,16 +3975,6 @@ html.has-modal-open {
 .project-modal__cta {
   padding: 1.2rem 3.2rem !important;
   font-size: 1.4rem !important;
-}
-.project-modal__legacy-link {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: rgb(44.5490196078%, 44.5490196078%, 44.5490196078%);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.project-modal__legacy-link:hover {
-  color: #284b63;
 }
 @media (prefers-reduced-motion: reduce) {
   .project-modal__backdrop, .project-modal__panel {

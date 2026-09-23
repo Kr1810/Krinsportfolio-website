@@ -22,10 +22,7 @@
 
   function modalBodyHTML(project) {
     const liveLinkHTML = project.liveLink
-      ? `<a href="${project.liveLink}" class="btn btn--med btn--theme project-modal__cta" target="_blank" rel="noopener noreferrer">See live design <span aria-hidden="true">↗</span></a>`
-      : ''
-    const legacyLinkHTML = project.legacyHref
-      ? `<a href="${project.legacyHref}" class="project-modal__legacy-link" target="_blank" rel="noopener noreferrer">View original case-study page <span aria-hidden="true">↗</span></a>`
+      ? `<a href="${project.liveLink}" class="btn btn--med btn--theme project-modal__cta" target="_blank" rel="noopener noreferrer">View in Figma <span aria-hidden="true">↗</span></a>`
       : ''
 
     return `
@@ -84,7 +81,6 @@
 
       <div class="project-modal__cta-row">
         ${liveLinkHTML}
-        ${legacyLinkHTML}
       </div>
     `
   }

@@ -3,9 +3,7 @@
 // Add/edit a project here — markup is generated, never duplicated by hand.
 //
 // group:    'selected' = the 8 case studies from the current resume.
-//           'earlier'  = the 4 original Figma-only projects — see legacyHref,
-//                        which still points at the standalone project-N.html
-//                        page each one originally shipped with.
+//           'earlier'  = the 4 original Figma-only projects.
 // category: drives the Finder-style sidebar filter in the rendered section
 //           below ('web' | 'mobile' | 'earlier').
 const PROJECTS = [
@@ -37,7 +35,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A calmer, more readable blog experience that puts the writing first, with a page flow developers can move through without thinking about it.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=3-6406',
   },
   {
     id: 'somish-realty',
@@ -67,7 +66,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A cleaner browsing experience that makes it easier to search, compare and shortlist properties from any page.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=3-9676',
   },
   {
     id: 'explore-local-events',
@@ -97,7 +97,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A mobile experience where finding and booking a local event takes a few clear steps, not a scavenger hunt.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=2-3037',
   },
   {
     id: 'cricket-scoreboard',
@@ -127,7 +128,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A card-based layout that keeps live scores glanceable while still giving fans deeper stats and commentary on demand.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=3-21778',
   },
   {
     id: 'weather-app',
@@ -157,7 +159,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A minimal, dark-themed forecast screen that leads with what matters and leaves the rest a scroll away.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=1-2',
   },
   {
     id: 'dental-practice',
@@ -187,7 +190,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A landing page that builds confidence early and makes booking an appointment the obvious next step.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=2-2223',
   },
   {
     id: 'yugal-matrimony',
@@ -217,7 +221,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A homepage that feels elegant and trustworthy from the first scroll — a stronger first impression for a sensitive decision.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=2-4369',
   },
   {
     id: 'news-blog',
@@ -247,7 +252,8 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome:
       'A responsive blog experience that reads like a considered publication, not just a list of posts.',
-    liveLink: null,
+    liveLink:
+      'https://www.figma.com/design/ou838hNn0hwOL39fzmUaYa/Krina-Suthar-Portfolio?node-id=2-4629',
   },
   {
     id: 'restro',
@@ -278,8 +284,7 @@ const PROJECTS = [
     outcome:
       'A visually appealing, user-centric restaurant menu that stays functional and easy to navigate.',
     liveLink:
-      'https://www.figma.com/design/GS3ViNpjQInZOA8hu6GpeE/restaurant-menu?node-id=0-1&t=UPuAKhDb4ECOrsiM-1',
-    legacyHref: './project-1.html',
+      'https://www.figma.com/design/GS3ViNpjQInZOA8hu6GpeE/restaurant-menu?node-id=0-1&t=Xwntpyk2DPCg6T2P-1',
   },
   {
     id: 'signup-login-flow',
@@ -309,8 +314,7 @@ const PROJECTS = [
     toolsUsed: ['Figma'],
     outcome: 'A short, secure onboarding flow that gets users signed up without confusion.',
     liveLink:
-      'https://www.figma.com/design/vTldksWrR34RLlrqHGtiAM/mobile-app-signup?node-id=0-1&t=8d1Kqv8Ir3e0di8X-1',
-    legacyHref: './project-2.html',
+      'https://www.figma.com/design/vTldksWrR34RLlrqHGtiAM/mobile-app-signup?node-id=0-1&t=WvtRsZjwGDtnSinh-1',
   },
   {
     id: 'ecommerce-wireframe',
@@ -341,8 +345,7 @@ const PROJECTS = [
     outcome:
       'A wireframe redesign introducing dark mode and AI-based recommendations, aimed at more intuitive shopping.',
     liveLink:
-      'https://www.figma.com/design/xwP81fom96GIkk4qJJMRWl/e-commerce-wireframe?node-id=0-1&t=ijRzUukwvv2W4eJj-1',
-    legacyHref: './project-3.html',
+      'https://www.figma.com/design/xwP81fom96GIkk4qJJMRWl/e-commerce-wireframe?node-id=0-1&t=4pGXzFa7mlpkRuO7-1',
   },
   {
     id: 'email-template',
@@ -371,8 +374,7 @@ const PROJECTS = [
     toolsUsed: ['Illustrator'],
     outcome: 'A responsive, professional email template ready for marketing campaigns on any device.',
     liveLink:
-      'https://www.figma.com/design/JjyTRv12O1ENP8XrUnIMO6/email-template?node-id=0-1&t=BK02KvnICI0EXZ78-1',
-    legacyHref: './project-4.html',
+      'https://www.figma.com/design/JjyTRv12O1ENP8XrUnIMO6/email-template?node-id=0-1&t=Wmxu7mBrLV7Zrf5z-1',
   },
 ]
 
