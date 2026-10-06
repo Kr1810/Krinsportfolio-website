@@ -44,6 +44,21 @@
     </script>
 
     <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+
+    <script>
+      // TV loader anti-flash guard — the loader plays on every load of this
+      // page (direct visit, refresh, or continued navigation), so keep the
+      // document invisible until it mounts and covers the screen. Self-heals
+      // after 4s in case the loader script fails to load.
+      document.documentElement.classList.add('tv-pending')
+      setTimeout(function () {
+        document.documentElement.classList.remove('tv-pending')
+      }, 4000)
+    </script>
   </head>
   <body id="top">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -629,5 +644,8 @@
     <script src="./assets/js/playground.js"></script>
     <script src="./assets/js/footer.js"></script>
     <script src="./assets/js/welcome-card.js"></script>
+    <script src="./assets/js/tv-loader-shader.js"></script>
+    <script src="./assets/js/tv-loader-renderer.js"></script>
+    <script src="./assets/js/tv-loader.js"></script>
   </body>
 </html>
