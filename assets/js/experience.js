@@ -4,7 +4,7 @@ const EXPERIENCE = [
   {
     id: 'techlusion',
     file: 'work_history_02.txt',
-    period: 'Dec 2025 — Aug 2026',
+    period: 'Dec 2025 — Present',
     role: 'UI/UX & Graphic Designer',
     type: 'Full-time',
     company: 'Techlusion',
@@ -29,7 +29,7 @@ const EXPERIENCE = [
     file: 'work_history_01.txt',
     period: 'Jan 2025 — Jul 2025',
     role: 'UI/UX Designer',
-    type: 'Internship',
+    type: 'Full-time',
     company: 'Codage Habitation Pvt. Ltd.',
     location: 'Ahmedabad · On-site',
     bullets: [
